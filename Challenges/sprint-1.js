@@ -32,10 +32,13 @@ class ProductManager {
 	}
 
 	addProduct({ title, description, price, thumbnail, stock }) {
-		let repeated = this.products.some((product) => product.title === title);
+		let index = this.products.findIndex((product) => product.title === title);
+		console.log("index ", index);
 
-		if (repeated) {
-			return console.log("This product is already on the list");
+		if (index !== -1) {
+			return console.log(
+				`This product "${title}" is already on the list at index ${index}`
+			);
 		}
 		let id;
 		if (this.products.length === 0) {
@@ -61,6 +64,20 @@ class ProductManager {
 		console.log(this.products);
 	}
 
+	deleteProductById(product_id) {
+		const index = this.products.findIndex((product) => product.id === product_id);
+
+		if (index === -1) {
+			return console.log(`This product_id "${product_id}" is inexistent`);
+		}
+
+		const products = this.products.filter((product) => product.id !== product_id);
+		this.products = products;
+		console.log(`This product_id "${product_id}" was successfully removed`)
+
+		return products;
+	}
+
 	getProductById(product_id) {
 		const product = this.products.find((product) => product.id === product_id);
 
@@ -68,9 +85,11 @@ class ProductManager {
 			console.log(product);
 			return product;
 		} else {
-			return console.log("Not found");
+			throw new Error(`Product id:${product_id} was not found`);
 		}
 	}
+
+	de;
 }
 
 let product = new ProductManager();
@@ -119,6 +138,13 @@ product.getProducts();
 // GET PRODUCT BY ID
 console.log("GET PRODUCT BY ID");
 product.getProductById(2);
+/////////////////////////////
+// DELETE PRODUCT BY ID
+console.log("DELETE PRODUCT BY ID");
+product.deleteProductById(3);
+product.getProducts()
+console.log("DELETE PRODUCT BY INEXISTENT ID");
+product.deleteProductById(31);
 /////////////////////////////
 // GET PRODUCT BY ID ERROR
 console.log("GET PRODUCT BY INEXISTENT ID");
