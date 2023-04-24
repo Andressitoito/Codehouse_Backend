@@ -87,9 +87,7 @@ class ProductManager {
 		} else {
 			throw new Error(`Product id:${product_id} was not found`);
 		}
-	}
-
-	de;
+	};
 }
 
 let product = new ProductManager();
