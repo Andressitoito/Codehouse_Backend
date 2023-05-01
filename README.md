@@ -1,27 +1,32 @@
 # E-Commerce Product Class Repository
 
-## Introduction
+This repository contains a server build with Node.js and Express, set up to run on port 8080. The server has four endpoints:
 
-This repository contains the code for a product class in an e-commerce database. The class is designed to manage products in the database and has five main methods for managing product data.
+- `/api/products/:pid`
+- `/api/products`
+- `/api/carts/:cid`
+- `/api/carts`
 
-## Methods
+Each endpoint is paired with a respective class: `productManager` for products and `cartManager` for carts.
 
-### `addProduct(product)`
-The `addProduct()` method is used to add a new product to the database. It takes a product object as an argument and adds it to the database.
+## `productManager` Class
 
-### `getProducts()`
-The `getProducts()` method is used to retrieve all the products that have been created and stored in the database. It returns an array of all the products in the database.
+The `productManager` class has the following features:
 
-### `getProductById(id)`
-The `getProductById()` method is used to retrieve a specific product from the database. It takes an id as an argument and returns the product that matches that id.
+1. `getProducts()`: retrieves all products
+2. `addProduct(product)`: adds a new product
+3. `getProductById(id)`: retrieves a product by ID
+4. `updateProductById(id, product)`: updates a product by ID
+5. `deleteProduct()`: deletes a product
 
-### `updateProduct(id, product)`
-The `updateProduct()` method is used to update a specific product in the database. It takes an id and a product object as arguments and updates the product that matches that id.
+## `cartManager` Class
 
-### `deleteProduct(id)`
-The `deleteProduct()` method is used to delete a specific product from the database. It takes an id as an argument and deletes the product that matches that id.
+The `cartManager` class has the following features:
 
-## Usage
-To use this class, simply import it into your project and create a new instance of the product class. Then, you can call any of the five methods to manage product data. The `addProduct()` method will add a new product to the database, the `getProducts()` method will retrieve all products in the database, the `getProductById()` method will retrieve a specific product from the database, the `updateProduct()` method will update a specific product in the database, and the `deleteProduct()` method will delete a specific product from the database.
+1. `addCart(cart)`: adds a new cart
+2. `getCarts()`: retrieves all carts
+3. `getCartById(id)`: retrieves a cart by ID
 
-Now all data is saved in a file that will be created if not exist using fs file system module, in a file called "products.json" in a folder called "data". And all calls and data are updated and managed using try-catch blocks also using fs.promises and their methods.
+---
+
+To use this repository, clone it to your local machine and run `npm install` to install the necessary dependencies. Then, start the server with `npm start`.

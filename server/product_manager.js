@@ -6,7 +6,7 @@
 
 - La clase debe recibir como parámetro la ruta donde se creará el archivo y el constructor debe incluir esta ruta en la variable this.path. Cada producto que gestione debe contar con las propiedades ya vistas en la tarea anterior.
 */
-const fs = require("fs");
+import fs from "fs";
 
 class ProductManager {
 	constructor(path) {
@@ -80,7 +80,7 @@ class ProductManager {
 			return new_product.id;
 		} catch (err) {
 			console.log("addProduct: error");
-			return err;
+			throw err;
 		}
 	}
 
@@ -92,11 +92,10 @@ class ProductManager {
 				console.log("Not found");
 				throw new Error();
 			}
-			quantity = quantity ?? 5;
-			return console.log(this.products.slice(0, quantity));
+			return quantity ? this.products.slice(0, quantity) : this.products;
 		} catch (error) {
 			console.log("getProducts: error");
-			return;
+   throw new Error('getProducts: error')
 		}
 	}
 
@@ -108,14 +107,12 @@ class ProductManager {
 			const product = this.products.find((product) => product.id === id);
 
 			if (product) {
-				console.log(product);
 				return product;
 			} else {
-				throw new Error("product not found");
+				throw new Error();
 			}
 		} catch (error) {
-			console.log(`getProductById: ${error}`);
-			return error;
+			throw new Error("getProductById: error")
 		}
 	}
 
@@ -183,92 +180,92 @@ let product_manager = new ProductManager("./data/products.json");
 /////////////////////////////
 // ADD PRODUCTS
 // console.log("PRODUCTS ADDED TO products.json FILE");
-product_manager.addProduct({
-	title: "Echeveria Succulent",
-	description:
-		"Beautiful pink and green rosette-shaped succulent. Easy to care for and perfect for any indoor or outdoor space.",
-	price: 15,
-	thumbnail: "https://example.com/echeveria.jpg",
-	stock: 8,
-});
+// product_manager.addProduct({
+// 	title: "Echeveria Succulent",
+// 	description:
+// 		"Beautiful pink and green rosette-shaped succulent. Easy to care for and perfect for any indoor or outdoor space.",
+// 	price: 15,
+// 	thumbnail: "https://example.com/echeveria.jpg",
+// 	stock: 8,
+// });
 
-product_manager.addProduct({
-	title: "Snake Plant",
-	description:
-		"Stylish and low-maintenance, the snake plant is perfect for any home. Its long, upright leaves add a modern touch to any room.",
-	price: 20,
-	thumbnail: "https://example.com/snake_plant.jpg",
-	stock: 10,
-});
+// product_manager.addProduct({
+// 	title: "Snake Plant",
+// 	description:
+// 		"Stylish and low-maintenance, the snake plant is perfect for any home. Its long, upright leaves add a modern touch to any room.",
+// 	price: 20,
+// 	thumbnail: "https://example.com/snake_plant.jpg",
+// 	stock: 10,
+// });
 
-product_manager.addProduct({
-	title: "ZZ Plant",
-	description:
-		"The ZZ plant is a low-light champion, making it perfect for offices and homes alike. Its glossy leaves add a touch of sophistication to any space.",
-	price: 18,
-	thumbnail: "https://example.com/zz_plant.jpg",
-	stock: 5,
-});
+// product_manager.addProduct({
+// 	title: "ZZ Plant",
+// 	description:
+// 		"The ZZ plant is a low-light champion, making it perfect for offices and homes alike. Its glossy leaves add a touch of sophistication to any space.",
+// 	price: 18,
+// 	thumbnail: "https://example.com/zz_plant.jpg",
+// 	stock: 5,
+// });
 
-product_manager.addProduct({
-	title: "Mint Herb Plant",
-	description:
-		"Fresh and fragrant, this herb is perfect for adding to drinks, desserts, or as a garnish. Easy to grow and perfect for any kitchen.",
-	price: 12,
-	thumbnail: "https://example.com/mint_plant.jpg",
-});
+// product_manager.addProduct({
+// 	title: "Mint Herb Plant",
+// 	description:
+// 		"Fresh and fragrant, this herb is perfect for adding to drinks, desserts, or as a garnish. Easy to grow and perfect for any kitchen.",
+// 	price: 12,
+// 	thumbnail: "https://example.com/mint_plant.jpg",
+// });
 
-product_manager.addProduct({
-	title: "Fiddle Leaf Fig",
-	description:
-		"A popular indoor tree with large, violin-shaped leaves. Its dramatic silhouette adds a touch of elegance to any room.",
-	price: 45,
-	thumbnail: "https://example.com/fiddle_leaf_fig.jpg",
-	stock: 2,
-});
+// product_manager.addProduct({
+// 	title: "Fiddle Leaf Fig",
+// 	description:
+// 		"A popular indoor tree with large, violin-shaped leaves. Its dramatic silhouette adds a touch of elegance to any room.",
+// 	price: 45,
+// 	thumbnail: "https://example.com/fiddle_leaf_fig.jpg",
+// 	stock: 2,
+// });
 
-product_manager.addProduct({
-	title: "Aloe Vera Plant",
-	description:
-		"This succulent is not only easy to care for, but its gel can also soothe burns and other skin irritations. A must-have for any home.",
-	price: 17,
-	thumbnail: "https://example.com/aloe_vera.jpg",
-	stock: 6,
-});
+// product_manager.addProduct({
+// 	title: "Aloe Vera Plant",
+// 	description:
+// 		"This succulent is not only easy to care for, but its gel can also soothe burns and other skin irritations. A must-have for any home.",
+// 	price: 17,
+// 	thumbnail: "https://example.com/aloe_vera.jpg",
+// 	stock: 6,
+// });
 
-product_manager.addProduct({
-	title: "Lavender Plant",
-	description:
-		"Known for its calming aroma, lavender is a versatile herb that can be used in cooking or for aromatherapy. Easy to care for and beautiful to look at.",
-	price: 14,
-	thumbnail: "https://example.com/lavender_plant.jpg",
-});
+// product_manager.addProduct({
+// 	title: "Lavender Plant",
+// 	description:
+// 		"Known for its calming aroma, lavender is a versatile herb that can be used in cooking or for aromatherapy. Easy to care for and beautiful to look at.",
+// 	price: 14,
+// 	thumbnail: "https://example.com/lavender_plant.jpg",
+// });
 
-product_manager.addProduct({
-	title: "Spider Plant",
-	description:
-		"One of the easiest plants to care for, the spider plant is perfect for beginners. Its long, spindly leaves make it a great addition to any room.",
-	price: 10,
-	thumbnail: "https://example.com/spider_plant.jpg",
-	stock: 7,
-});
+// product_manager.addProduct({
+// 	title: "Spider Plant",
+// 	description:
+// 		"One of the easiest plants to care for, the spider plant is perfect for beginners. Its long, spindly leaves make it a great addition to any room.",
+// 	price: 10,
+// 	thumbnail: "https://example.com/spider_plant.jpg",
+// 	stock: 7,
+// });
 
-product_manager.addProduct({
-	title: "String of Pearls",
-	description:
-		"This unique succulent has long, thin stems with tiny green 'pearls' that trail down. Perfect for hanging baskets or as a statement piece.",
-	price: 22,
-	thumbnail: "https://example.com/string_of_pearls.jpg",
-	stock: 4,
-});
+// product_manager.addProduct({
+// 	title: "String of Pearls",
+// 	description:
+// 		"This unique succulent has long, thin stems with tiny green 'pearls' that trail down. Perfect for hanging baskets or as a statement piece.",
+// 	price: 22,
+// 	thumbnail: "https://example.com/string_of_pearls.jpg",
+// 	stock: 4,
+// });
 
-product_manager.addProduct({
-	title: "Basil Herb Plant",
-	description:
-		"A staple herb in many kitchens, basil is easy to grow and adds a fresh, aromatic flavor to any dish.",
-	price: 9,
-	thumbnail: "https://example.com/basil_plant.jpg",
-});
+// product_manager.addProduct({
+// 	title: "Basil Herb Plant",
+// 	description:
+// 		"A staple herb in many kitchens, basil is easy to grow and adds a fresh, aromatic flavor to any dish.",
+// 	price: 9,
+// 	thumbnail: "https://example.com/basil_plant.jpg",
+// });
 
 /////////////////////////////
 // GET PRODUCT BY ID
@@ -298,5 +295,4 @@ product_manager.addProduct({
 // Insert quantity, default 5
 // product_manager.getProducts();
 
-
-export default product_manager
+export default product_manager;
