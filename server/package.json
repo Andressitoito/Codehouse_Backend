@@ -13,6 +13,7 @@
   "author": "Andres Ledesma",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "m": "^1.8.4"
   }
 }

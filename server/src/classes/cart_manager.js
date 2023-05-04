@@ -14,14 +14,14 @@ class cartManager {
    try {
     fs.writeFileSync(path, "[]");
    } catch (error) {
-    throw new Error("There was a problem creating cart manager file");
+    throw ("There was a problem creating cart manager file");
    }
   } else {
    try {
     let data = fs.readFileSync(this.path, "utf-8");
     this.carts = JSON.parse(data);
    } catch (error) {
-    throw new Error("There was a problem reading cart manager file");
+    throw ("There was a problem reading cart manager file");
    }
   }
  }
@@ -59,7 +59,7 @@ class cartManager {
    return cart.id;
   } catch (error) {
    console.log("Error creating new cart");
-   throw "addCart: error";
+   throw ("addCart: error");
   }
  }
 
@@ -68,7 +68,7 @@ class cartManager {
   // En caso de error devolver un mensaje que diga: “getCarts: error”
   try {
    if (this.carts.length === 0) {
-    throw "Not found";
+    throw ("Not found");
    }
 
    if (quantity) {
@@ -77,7 +77,7 @@ class cartManager {
     return this.carts;
    }
   } catch (error) {
-   throw new Error(`getCarts: ${error}`);
+   throw (`getCarts: ${error}`);
   }
  }
 

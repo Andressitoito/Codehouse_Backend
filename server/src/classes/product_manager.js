@@ -80,7 +80,7 @@ class ProductManager {
 			return new_product.id;
 		} catch (err) {
 			console.log("addProduct: error");
-			throw err;
+			throw ("addProduct: error");
 		}
 	}
 
@@ -94,8 +94,7 @@ class ProductManager {
 			}
 			return quantity ? this.products.slice(0, quantity) : this.products;
 		} catch (error) {
-			console.log("getProducts: error");
-   throw new Error('getProducts: error')
+			throw ('getProducts: error')
 		}
 	}
 
@@ -112,7 +111,7 @@ class ProductManager {
 				throw new Error();
 			}
 		} catch (error) {
-			throw new Error("getProductById: error")
+			throw ("getProductById: error")
 		}
 	}
 
@@ -141,7 +140,7 @@ class ProductManager {
 			return;
 		} catch (error) {
 			console.log("updateProduct: error");
-			return;
+			throw ("updateProduct: error")
 		}
 	}
 
@@ -155,7 +154,7 @@ class ProductManager {
 
 			if (!product) {
 				console.log("Not found");
-				throw new Error();
+				throw ("Not found");
 			}
 
 			this.products = this.products.filter((product) => product.id !== id);
@@ -168,7 +167,7 @@ class ProductManager {
 			return;
 		} catch (error) {
 			console.log("deleteProduct: error");
-			return;
+			throw ("deleteProduct: error")
 		}
 	}
 }
