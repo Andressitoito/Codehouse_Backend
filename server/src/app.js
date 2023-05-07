@@ -3,7 +3,7 @@
 /////////////////////////////
 import express from "express";
 import __dirname from "./utils/utils.js";
-import router from './routes/index.js'
+import router from "./routes/index.js";
 import errorHandler from "./middlewares/error_handler.js";
 import not_found_handler from "./middlewares/not_found_handler.js";
 
@@ -32,8 +32,8 @@ app.use("/", router);
 /////////////////////////////
 // ERROR HANDLING
 /////////////////////////////
-app.use(errorHandler)
-app.use(not_found_handler)
+app.use(errorHandler);
+app.use(not_found_handler);
 
 /////////////////////////////
 // SERVER UP
