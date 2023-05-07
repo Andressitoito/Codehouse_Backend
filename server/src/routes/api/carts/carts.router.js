@@ -2,7 +2,7 @@
 // IMPORTS
 /////////////////////////////
 import { Router } from "express";
-import cart_manager from "../classes/cart_manager.js";
+import cart_manager from "../../../classes/cart_manager.js";
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get(api_carts, async (req, res, next) => {
 		let carts = await cart_manager.getCarts();
 
 		console.log(carts);
-		res.send({
+		res.json({
 			status: 200,
 			success: true,
 			carts,
@@ -37,7 +37,7 @@ router.get(api_cart_by_id, async (req, res, next) => {
 
 		let cart = await cart_manager.getCartById(cid);
 
-		res.send({
+		res.json({
 			status: 200,
 			success: true,
 			cart,

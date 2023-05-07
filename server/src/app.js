@@ -2,9 +2,10 @@
 // IMPORTS
 /////////////////////////////
 import express from "express";
-import productsRouter from "./routes/products.router.js";
-import cartsRouter from "./routes/carts.router.js";
 import __dirname from "./utils/utils.js";
+import router from './routes/index.js'
+import errorHandler from "./middlewares/error_handler.js";
+import not_found_handler from "./middlewares/not_found_handler.js";
 
 /////////////////////////////
 // VARIABLES
@@ -21,25 +22,18 @@ app.use(express.json());
 /////////////////////////////
 // PUBLIC
 /////////////////////////////
-app.use(express.static(`${__dirname}/public`));
+app.use(express.static(`../public`));
 
 /////////////////////////////
 // ROUTER
 /////////////////////////////
-app.use("/api/products", productsRouter);
-app.use("/api/carts", cartsRouter);
+app.use("/", router);
 
 /////////////////////////////
 // ERROR HANDLING
 /////////////////////////////
-app.use((err, req, res, next) => {
- console.error(err)
- res.status(500).send({
-  status: 500,
-  success: false,
-  error: err.toString()
- })
-})
+app.use(errorHandler)
+app.use(not_found_handler)
 
 /////////////////////////////
 // SERVER UP
