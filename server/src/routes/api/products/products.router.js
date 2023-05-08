@@ -2,7 +2,7 @@
 // IMPORTS
 /////////////////////////////
 import { Router } from "express";
-import product_manager from "../../../classes/product_manager.js";
+import product_manager from "../../../Manager/Product_manager.js";
 
 const router = Router();
 
@@ -62,23 +62,19 @@ router.post("/", async (req, res, next) => {
 			}
 		}
 
-		// if (title && description && price && thumbnail) {
-			const product = await product_manager.addProduct({
-				title,
-				description,
-				price,
-				thumbnail,
-				stock,
-			});
+		const product = await product_manager.addProduct({
+			title,
+			description,
+			price,
+			thumbnail,
+			stock,
+		});
 
-			res.json({
-				status: 201,
-				success: true,
-				product,
-			});
-		// } else {
-		// 	throw "Check data sent";
-		// }
+		res.json({
+			status: 201,
+			success: true,
+			product,
+		});
 	} catch (error) {
 		next(error);
 	}
@@ -94,14 +90,19 @@ router.put("/:pid", async (req, res, next) => {
 
 		const products = await product_manager.getProducts();
 
-		let isRepeated = products.find((product) => product.title === req.body.title);
+		let productFinded = products.find((product) => product.id === idToUpdate);
 
-		if (isRepeated.id !== idToUpdate) {
-			const error = new Error(
-				`This title: '${req.body.title}' already exists at id: ${isRepeated.id}`
+		if (req.body.title) {
+			const isRepeated = products.find(
+				(product) => product.title === req.body.title
 			);
-			error.status = 422;
-			throw error;
+			if (isRepeated.id !== idToUpdate) {
+				const error = new Error(
+					`This title: '${req.body.title}' already exists at id: ${productFinded.id}`
+				);
+				error.status = 422;
+				throw error;
+			}
 		}
 
 		const product = await product_manager.updateProduct(idToUpdate, dataToUpdate);
