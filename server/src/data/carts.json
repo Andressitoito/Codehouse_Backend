@@ -64,5 +64,14 @@
  {
   "id": 7,
   "products": []
+ },
+ {
+  "id": 8,
+  "products": [
+   {
+    "pid": 6,
+    "quantity": 0
+   }
+  ]
  }
 ]

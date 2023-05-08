@@ -78,13 +78,5 @@
     "price": 9,
     "thumbnail": "https://example.com/basil_plant.jpg",
     "stock": 10
-  },
-  {
-    "id": 11,
-    "title": "Purple Petunia",
-    "description": "Deep purple petunia flowers that are perfect for hanging baskets and garden beds. Blooms from early summer to frost.",
-    "price": 10,
-    "thumbnail": "https://example.com/petunia.jpg",
-    "stock": 10
   }
 ]

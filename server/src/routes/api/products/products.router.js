@@ -55,7 +55,14 @@ router.post("/", async (req, res, next) => {
 		price = price ?? null;
 		thumbnail = thumbnail ?? null;
 
-		if (title && description && price && thumbnail) {
+		const validProps = ["title", "description", "price", "thumbnail", "stock"];
+		for (const prop in req.body) {
+			if (!validProps.includes(prop)) {
+				throw `wrong data sent '${prop}`;
+			}
+		}
+
+		// if (title && description && price && thumbnail) {
 			const product = await product_manager.addProduct({
 				title,
 				description,
@@ -69,9 +76,9 @@ router.post("/", async (req, res, next) => {
 				success: true,
 				product,
 			});
-		} else {
-			throw "Check data sent";
-		}
+		// } else {
+		// 	throw "Check data sent";
+		// }
 	} catch (error) {
 		next(error);
 	}
@@ -118,7 +125,7 @@ router.delete("/:pid", async (req, res, next) => {
 		const message = await product_manager.deleteProduct(idToDelete);
 
 		res.json({
-			status: 201,
+			status: 200,
 			success: true,
 			message,
 		});

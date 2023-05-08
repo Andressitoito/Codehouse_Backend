@@ -18,6 +18,7 @@ router.get("/", async (req, res, next) => {
 		res.json({
 			status: 200,
 			success: true,
+			message: `There are ${carts.length} carts`,
 			carts,
 		});
 	} catch (error) {
@@ -102,7 +103,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 			status: 200,
 			success: true,
 			cart,
-			stock: `There are ${product.stock} left`,
+			stock: `There are ${product.stock} units left`,
 		});
 	} catch (error) {
 		next(error);
@@ -150,7 +151,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
 			});
 		} else {
 			const error = new Error(
-				`There are ${product_cart.quantity} items, cannot delete ${product_quantity} items`
+				`There are ${product_cart.quantity} items in cart, cannot delete ${product_quantity} items`
 			);
 			error.status = 422;
 			throw error;
@@ -160,7 +161,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
 			status: 200,
 			success: true,
 			cart,
-			stock: `There are ${product.stock} left`,
+			stock: `There are ${product.stock} units in stock`,
 		});
 	} catch (error) {
 		next(error);
