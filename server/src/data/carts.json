@@ -14,6 +14,14 @@
    {
     "pid": 3,
     "quantity": 2
+   },
+   {
+    "pid": 5,
+    "quantity": 1
+   },
+   {
+    "pid": 1,
+    "quantity": 2
    }
   ]
  },
@@ -41,6 +49,28 @@
    {
     "pid": 4,
     "quantity": 2
+   }
+  ]
+ },
+ {
+  "id": 6,
+  "products": [
+   {
+    "pid": 6,
+    "quantity": 0
+   }
+  ]
+ },
+ {
+  "id": 7,
+  "products": []
+ },
+ {
+  "id": 8,
+  "products": [
+   {
+    "pid": 6,
+    "quantity": 0
    }
   ]
  }

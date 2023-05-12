@@ -22,14 +22,14 @@ class ProductManager {
 			try {
 				fs.writeFileSync(path, "[]");
 			} catch (err) {
-				console.log("There was a problem creating a file");
+				throw "There was a problem creating a file";
 			}
 		} else {
 			try {
 				const data = fs.readFileSync(path, "utf-8");
 				this.products = JSON.parse(data);
 			} catch (err) {
-				console.log("There was a problem reading the file");
+				throw "There was a problem reading the file";
 			}
 		}
 	}
@@ -41,35 +41,33 @@ class ProductManager {
 		// > stock es opcional ya que si el usuario no lo envía debe ser cero
 		// > En caso de éxito devolver el id del producto
 		// > En caso de error devolver un mensaje que diga: “addProduct: error”
-		let repeatedIndex = this.products.findIndex(
-			(product) => product.title === title
-		);
-
-		if (repeatedIndex !== -1) {
-			return console.log(
-				`This product ${title} already exists at index ${repeatedIndex}`
-			);
-		}
-
-		let id;
-
-		if (this.products.length === 0) {
-			id = 1;
-		} else {
-			let lastProduct = this.products[this.products.length - 1];
-			id = lastProduct.id + 1;
-		}
-
-		const new_product = {
-			id,
-			title,
-			description,
-			price,
-			thumbnail,
-			stock: stock ?? 10,
-		};
-
 		try {
+			let repeatedIndex = this.products.findIndex(
+				(product) => product.title === title
+			);
+
+			if (repeatedIndex !== -1) {
+				throw `This product '${title}' already exists at index ${repeatedIndex}`;
+			}
+
+			let id;
+
+			if (this.products.length === 0) {
+				id = 1;
+			} else {
+				let lastProduct = this.products[this.products.length - 1];
+				id = lastProduct.id + 1;
+			}
+
+			const new_product = {
+				id,
+				title,
+				description,
+				price,
+				thumbnail,
+				stock: stock ?? 10,
+			};
+
 			this.products.push(new_product);
 
 			await fs.promises.writeFile(
@@ -77,10 +75,9 @@ class ProductManager {
 				JSON.stringify(this.products, null, 2)
 			);
 
-			return new_product.id;
-		} catch (err) {
-			console.log("addProduct: error");
-			throw err;
+			return new_product;
+		} catch (error) {
+			throw `addProduct: ${error}`;
 		}
 	}
 
@@ -89,13 +86,11 @@ class ProductManager {
 		// En caso de error devolver un mensaje que diga: “getProducts: error”
 		try {
 			if (this.products.length === 0) {
-				console.log("Not found");
-				throw new Error();
+				throw "Not found";
 			}
 			return quantity ? this.products.slice(0, quantity) : this.products;
 		} catch (error) {
-			console.log("getProducts: error");
-   throw new Error('getProducts: error')
+			throw "getProducts: error";
 		}
 	}
 
@@ -109,10 +104,10 @@ class ProductManager {
 			if (product) {
 				return product;
 			} else {
-				throw new Error();
+				throw "Product not found";
 			}
 		} catch (error) {
-			throw new Error("getProductById: error")
+			throw `getProductById: ${error}`;
 		}
 	}
 
@@ -125,11 +120,14 @@ class ProductManager {
 			let product = await this.getProductById(id);
 
 			if (Object.keys(data).length === 0) {
-				console.log("No data to update");
-				return;
+				throw "No data to update";
 			}
 
+			const validProps = ["title", "description", "price", "thumbnail", "stock"];
 			for (const prop in data) {
+				if (!validProps.includes(prop)) {
+					throw `wrong data sent '${prop}`;
+				}
 				product[prop] = data[prop];
 			}
 
@@ -137,11 +135,9 @@ class ProductManager {
 				this.path,
 				JSON.stringify(this.products, null, 2)
 			);
-			console.log("updateProduct: done");
-			return;
+			return product;
 		} catch (error) {
-			console.log("updateProduct: error");
-			return;
+			throw `updateProduct: ${error}`;
 		}
 	}
 
@@ -153,22 +149,15 @@ class ProductManager {
 		try {
 			let product = await this.getProductById(id);
 
-			if (!product) {
-				console.log("Not found");
-				throw new Error();
-			}
-
 			this.products = this.products.filter((product) => product.id !== id);
 
 			await fs.promises.writeFile(
 				this.path,
 				JSON.stringify(this.products, null, 2)
 			);
-			console.log("deleteProduct: done");
-			return;
+			return `deleteProduct: product id:${product.id} deleted`;
 		} catch (error) {
-			console.log("deleteProduct: error");
-			return;
+			throw `deleteProduct: ${error}`;
 		}
 	}
 }
@@ -176,6 +165,8 @@ class ProductManager {
 /////////////////////////////
 // DEFINE ProductManager INSTANCE
 let product_manager = new ProductManager("./data/products.json");
+
+export default product_manager;
 
 /////////////////////////////
 // ADD PRODUCTS
@@ -294,5 +285,3 @@ let product_manager = new ProductManager("./data/products.json");
 // console.log("GET PRODUCTS");
 // Insert quantity, default 5
 // product_manager.getProducts();
-
-export default product_manager;
