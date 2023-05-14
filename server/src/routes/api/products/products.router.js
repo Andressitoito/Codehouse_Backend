@@ -3,6 +3,8 @@
 /////////////////////////////
 import { Router } from "express";
 import product_manager from "../../../Manager/Product_manager.js";
+import productValidator from "../../../middlewares/product_validator.js";
+import areUnits from "../../../middlewares/areUnits.js";
 
 const router = Router();
 
@@ -46,7 +48,7 @@ router.get("/:pid", async (req, res, next) => {
 /////////////////////////////
 // POST /api/products
 /////////////////////////////
-router.post("/", async (req, res, next) => {
+router.post("/", productValidator, async (req, res, next) => {
 	try {
 		let { title, description, price, thumbnail, stock } = req.body;
 
@@ -136,3 +138,43 @@ router.delete("/:pid", async (req, res, next) => {
 });
 
 export default router;
+
+
+// /////////////////////////////
+// // PUT /api/products/:pid
+// /////////////////////////////
+// router.put("/:pid",
+// 	areUnits,
+// 	async (req, res, next) => {
+// 		try {
+// 			const dataToUpdate = req.body;
+// 			const idToUpdate = Number(req.params.pid);
+
+// 			const products = await product_manager.getProducts();
+
+// 			let productFinded = products.find((product) => product.id === idToUpdate);
+
+// 			if (req.body.title) {
+// 				const isRepeated = products.find(
+// 					(product) => product.title === req.body.title
+// 				);
+// 				if (isRepeated.id !== idToUpdate) {
+// 					const error = new Error(
+// 						`This title: '${req.body.title}' already exists at id: ${productFinded.id}`
+// 					);
+// 					error.status = 422;
+// 					throw error;
+// 				}
+// 			}
+
+// 			const product = await product_manager.updateProduct(idToUpdate, dataToUpdate);
+
+// 			res.json({
+// 				status: 201,
+// 				success: true,
+// 				product,
+// 			});
+// 		} catch (error) {
+// 			next(error);
+// 		}
+// 	});
