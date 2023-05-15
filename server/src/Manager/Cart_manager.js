@@ -104,7 +104,7 @@ class cartManager {
 			}
 
 			if (product) {
-				product.quantity = product.quantity + quantity;
+				product.quantity = quantity;
 			} else {
 				const product_data = {
 					pid,

@@ -11,9 +11,44 @@
 						<div class="card-body">
 							<h5 class="card-title">{{this.title}}</h5>
 							<p class="card-text">{{this.description}}</p>
-							<p class="card-title">Price: {{this.price}}</p>
-							<p class="card-title">Quantity: {{this.quantity}}</p>
-							<h5 class="card-title">Total: ${{multiply this.price this.quantity}}</h5>
+							<p
+								class="card-title price-tag {{this.price}} {{pid}}"
+								id="price-value-{{pid}}"
+							>Price:
+								{{this.price}}</p>
+							<p class="card-title">Quantity:
+								<input
+									type="number"
+									class="form-control d-inline-block w-50 input-tag input-value-{{this.cid}}
+										{{this.cid}}
+										{{pid}}"
+									maxlength="4"
+									placeholder={{this.quantity}}
+									value={{this.quantity}}
+									min="0"
+									aria-label="item quantity"
+									aria-describedby="addon-wrapping"
+									id="edit-cart-quantity-{{this.pid}}"
+									data-id="{{this.pid}}"
+								/>
+							</p>
+							<h5
+								class="card-title card-tag card-multiply-{{pid}}"
+								id="card-multiply-{{pid}}"
+							>Total: ${{multiply this.price this.quantity}}</h5>
+							<div class="d-flex justify-content-between pt-3">
+
+								<button
+									type="button"
+									class="btn btn-danger cart-{{this.pid}} delete-product"
+								>Delete</button>
+
+								<button
+									type="button"
+									class="btn btn-info edit-quantity {{this.pid}} {{this.cid}}"
+								>Edit Quantity</button>
+
+							</div>
 						</div>
 					</div>
 				</div>

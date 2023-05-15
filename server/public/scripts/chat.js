@@ -2,12 +2,10 @@ let socket = io()
 
 let username
 
-let name_ = 'Michael Jackson'
-
 Swal.fire({
  title: "Write your name",
  input: "text",
- inputValue: name_,
+//  inputValue: name_,
  inputValidator: value => !value && 'Please write your name',
  allowOutsideClick: false,
  denyButtonText: "Cancel",

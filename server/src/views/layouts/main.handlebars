@@ -5,7 +5,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <title>{{title}}</title>
- {{> favicon }}
+ {{>favicon }}
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
   integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous" />
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -95,15 +95,8 @@
       <a class="nav-link" href="/products/add-product">Add New Product</a>
       <a class="nav-link" href="/products/cards">Products</a>
       <a class="nav-link" href="/chat/">Chat!</a>
-      <a class="nav-link position-relative" href="/carts/cart">
-
-       Cart
-       <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-primary">
-        {{products_quantity}}
-        <span class="visually-hidden">unread messages</span>
-       </span>
-
-      </a>
+      <a class="nav-link position-relative" href="/carts/cart/1">Cart<span
+        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-primary">{{products_quantity}}</span></a>
      </div>
     </div>
    </div>
@@ -112,9 +105,6 @@
  {{{body}}}
 
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-
  <script src="/socket.io/socket.io.js"></script>
 
  {{#if script_chat}}
@@ -125,7 +115,9 @@
  <script src="/public/scripts/{{script_product}}"></script>
  {{/if}}
 
-
+ {{#if script_cart}}
+ <script src="/public/scripts/{{script_cart}}"></script>
+ {{/if}}
 
 </body>
 

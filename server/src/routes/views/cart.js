@@ -7,16 +7,19 @@ import product_manager from "../../Manager/Product_manager.js";
 const router = Router();
 
 /////////////////////////////
-// MAIN HOME
+// GET CART BY ID
 /////////////////////////////
-router.get("/cart", async (req, res, next) => {
+router.get("/cart/:cid", async (req, res, next) => {
 	try {
-		const cart = await cart_manager.getCartById(1);
+		const cart_id = Number(req.params.cid);
+		const cart = await cart_manager.getCartById(cart_id);
 
 		const products_data_promises = cart.products.map(async (product) => {
 			const product_promise = await product_manager.getProductById(product.pid);
 
 			return {
+				cid: cart_id,
+				pid: product.pid,
 				title: product_promise.title,
 				description: product_promise.description,
 				thumbnail: product_promise.thumbnail,
@@ -27,11 +30,10 @@ router.get("/cart", async (req, res, next) => {
 
 		const products_data = await Promise.all(products_data_promises);
 
-		console.log(products_data);
-
 		return res.render("carts/cart", {
 			title: "Product Cart",
-   products_data
+			products_data,
+			script_cart: "edit-cart.js",
 		});
 	} catch (error) {
 		next(error);
@@ -39,4 +41,3 @@ router.get("/cart", async (req, res, next) => {
 });
 
 export default router;
-
