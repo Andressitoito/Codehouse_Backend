@@ -25,6 +25,7 @@ router.get("/cart/:cid", async (req, res, next) => {
 				thumbnail: product_promise.thumbnail,
 				price: product_promise.price,
 				quantity: product.quantity,
+				stock: product_promise.stock,
 			};
 		});
 

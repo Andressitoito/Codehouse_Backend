@@ -5,9 +5,9 @@ productForm.addEventListener("submit", async (e) => {
 	const productData = {
 		title: document.querySelector("#product-title").value,
 		description: document.querySelector("#product-description").value,
-		price: document.querySelector("#product-price").value,
+		price: Number(document.querySelector("#product-price").value),
 		thumbnail: document.querySelector("#product-thumbnail").value,
-		stock: document.querySelector("#product-stock").value,
+		stock: Number(document.querySelector("#product-stock").value),
 	};
 	const response = await fetch("/api/products/", {
 		method: "POST",

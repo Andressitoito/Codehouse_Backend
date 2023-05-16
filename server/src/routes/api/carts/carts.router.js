@@ -85,7 +85,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 			throw error;
 		}
 
-		let totalUnits = product.stock + product_in_cart.quantity;
+		let totalUnits = Number(product.stock) + Number(product_in_cart.quantity);
 		if (product_quantity <= totalUnits) {
 			// UPDATE STOCK IN CART FILE
 			const product_data = {
@@ -129,6 +129,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
 		let product = await product_manager.getProductById(product_id);
 		let cart = await cart_manager.getCartById(cid);
 
+
 		if (product_quantity <= 0) {
 			const error = new Error(`Invalid product_quantity: ${product_quantity}`);
 			error.status = 422;
@@ -155,7 +156,7 @@ router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
 
 			// UPDATE STOCK IN PRODUCT FILE
 			product = await product_manager.updateProduct(product_id, {
-				stock: product.stock + product_quantity,
+				stock: Number(product.stock) + Number(product_quantity),
 			});
 		} else {
 			const error = new Error(

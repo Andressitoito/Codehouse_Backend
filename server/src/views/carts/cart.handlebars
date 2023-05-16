@@ -26,6 +26,7 @@
 									placeholder={{this.quantity}}
 									value={{this.quantity}}
 									min="0"
+									max={{sum this.quantity this.stock}}
 									aria-label="item quantity"
 									aria-describedby="addon-wrapping"
 									id="edit-cart-quantity-{{this.pid}}"
@@ -41,6 +42,8 @@
 								<button
 									type="button"
 									class="btn btn-danger cart-{{this.pid}} delete-product"
+									data-pid="{{this.pid}}"
+									data-cid="{{this.cid}}"
 								>Delete</button>
 
 								<button

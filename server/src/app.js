@@ -46,6 +46,9 @@ server.use('/', send_navbar_data)
 handlebars.registerHelper('multiply', (a, b) => {
  return a * b
 })
+handlebars.registerHelper('sum', (a, b) => {
+ return a + b
+})
 
 /////////////////////////////
 // ROUTER

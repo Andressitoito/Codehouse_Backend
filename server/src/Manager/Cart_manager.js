@@ -103,6 +103,7 @@ class cartManager {
 				}
 			}
 
+
 			if (product) {
 				product.quantity = quantity;
 			} else {
@@ -144,6 +145,18 @@ class cartManager {
 				if (!validProps.includes(prop)) {
 					throw `wrong data sent '${prop}`;
 				}
+			}
+
+			if (quantity === product.quantity) {
+				const filtered_products = cart.products.filter(
+					(product) => product.pid !== pid
+				);
+
+				cart.products = filtered_products;
+
+				fs.promises.writeFile(this.path, JSON.stringify(this.carts, null, 1));
+
+				return cart;
 			}
 
 			if (product) {
