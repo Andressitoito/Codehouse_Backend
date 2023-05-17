@@ -1,46 +1,73 @@
+<section class="pt-5">
+	<div class="row justify-content-center px-3">
 
-	<section class="pt-5">
-		<div class="row justify-content-center px-3">
+		<div class="mt-2 p-2 pb-4 col-lg-6 col-md-6 col-sm-9">
+			<div class="text-center add-product-form p-2 px-4 rounded-3">
+				<h4>Add New Product!</h4>
+				<h6>Please fill out this form to continue</h6>
 
-			<div class="mt-2 p-2 pb-4 col-lg-6 col-md-6 col-sm-9">
-				<div class="text-center add-product-form p-2 px-4 rounded-3">
-					<h4>Add New Product!</h4>
-					<h6>Please fill out this form to continue</h6>
-
-					<form id="product-form" class=" text-start">
-						<div class="mb-3">
-							<label for="product-title" class="form-label">Title</label>
-							<input type="text" class="form-control" id="product-title" name="title"
-								placeholder="Product title" required />
-						</div>
-						<div class="mb-3">
-							<label for="product-description" class="form-label">Description</label>
-							<textarea class="form-control" id="product-description" name="description" rows="3"
-								required></textarea>
-						</div>
-						<div class="mb-3">
-							<label for="product-price" class="form-label">Price</label>
-							<input type="number" class="form-control w-25" maxlength="4" id="product-price" name="price"
-								required />
-						</div>
-						<div class="mb-3">
-							<label for="product-thumbnail" class="form-label">Image Path</label>
-							<input type="text" class="form-control" id="product-thumbnail" name="thumbnail"
-								placeholder="Insert a valid photo url" required />
-						</div>
-						<div class="mb-3">
-							<label for="product-stock" class="form-label">Stock</label>
-							<input type="number" class="form-control w-25" maxlength="4" id="product-stock" name="stock"
-								required />
-						</div>
-						<div class="d-flex justify-content-between pt-3">
-							<a href="/Home" class="btn btn-secondary">Cancel</a>
-							<input type="submit" class="btn btn-success" value="Add Product!" />
-						</div>
-					</form>
-				</div>
+				<form id="product-form" class="text-start">
+					<div class="mb-3">
+						<label for="product-title" class="form-label">Title</label>
+						<input
+							type="text"
+							class="form-control"
+							id="product-title"
+							name="title"
+							placeholder="Product title"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label for="product-description" class="form-label">Description</label>
+						<textarea
+							class="form-control"
+							id="product-description"
+							name="description"
+							rows="3"
+							required
+						></textarea>
+					</div>
+					<div class="mb-3">
+						<label for="product-price" class="form-label">Price</label>
+						<input
+							type="number"
+							class="form-control w-25"
+							maxlength="4"
+							min="0"
+							id="product-price"
+							name="price"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label for="product-thumbnail" class="form-label">Image Path</label>
+						<input
+							type="text"
+							class="form-control"
+							id="product-thumbnail"
+							name="thumbnail"
+							placeholder="Insert a valid photo url"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label for="product-stock" class="form-label">Stock</label>
+						<input
+							type="number"
+							class="form-control w-25"
+							maxlength="4"
+							id="product-stock"
+							name="stock"
+							required
+						/>
+					</div>
+					<div class="d-flex justify-content-between pt-3">
+						<a href="/Home" class="btn btn-secondary">Cancel</a>
+						<input type="submit" class="btn btn-success" value="Add Product!" />
+					</div>
+				</form>
 			</div>
 		</div>
-	</section>
-
-
+	</div>
+</section>

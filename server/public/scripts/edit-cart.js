@@ -10,11 +10,11 @@ edit_buttons.forEach((button) => {
 		const quantity_value = document.querySelector(
 			`#edit-cart-quantity-${product_id}`
 		).value;
-		const id = document.querySelector(`#edit-cart-quantity-${product_id}`)
+		const cart_id = document.querySelector(`#edit-cart-quantity-${product_id}`)
 			.classList[5];
 
 		const response = await fetch(
-			`/api/carts/${id}/product/${product_id}/${quantity_value}`,
+			`/api/carts/${cart_id}/product/${product_id}/${quantity_value}`,
 			{
 				method: "PUT",
 			}
@@ -22,15 +22,13 @@ edit_buttons.forEach((button) => {
 		const data = await response.json();
 
 		if (response.ok) {
-			console.log(data); // Show success modal
-
 			Swal.fire({
 				position: "top-end",
 				icon: "success",
 				title: "Saved!",
 				html: `<p>${data.stock}</p>`,
 				showConfirmButton: false,
-				timer: 2500,
+				timer: 1500,
 				timerProgressBar: true,
 				willClose: () => {
 					window.location.reload();

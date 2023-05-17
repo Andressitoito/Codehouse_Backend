@@ -1,90 +1,90 @@
 [
   {
-    "id": 11,
-    "title": "Purple Petunia",
-    "description": "Deep purple petunia flowers that are perfect for hanging baskets and garden beds. Blooms from early summer to frost.",
+    "id": 1,
+    "title": "Echeveria Succulent",
+    "description": "Beautiful pink and green rosette-shaped succulent. Easy to care for and perfect for any indoor or outdoor space.",
     "price": 15,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 10
-  },
-  {
-    "id": 10,
-    "title": "Basil Herb Plant",
-    "description": "A staple herb in many kitchens, basil is easy to grow and adds a fresh, aromatic flavor to any dish.",
-    "price": 9,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 10
-  },
-  {
-    "id": 9,
-    "title": "String of Pearls",
-    "description": "This unique succulent has long, thin stems with tiny green 'pearls' that trail down. Perfect for hanging baskets or as a statement piece.",
-    "price": 22,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 4
-  },
-  {
-    "id": 8,
-    "title": "Spider Plant",
-    "description": "One of the easiest plants to care for, the spider plant is perfect for beginners. Its long, spindly leaves make it a great addition to any room.",
-    "price": 10,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 7
-  },
-  {
-    "id": 7,
-    "title": "Lavender Plant",
-    "description": "Known for its calming aroma, lavender is a versatile herb that can be used in cooking or for aromatherapy. Easy to care for and beautiful to look at.",
-    "price": 14,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 10
-  },
-  {
-    "id": 6,
-    "title": "Aloe Vera Plant",
-    "description": "This succulent is not only easy to care for, but its gel can also soothe burns and other skin irritations. A must-have for any home.",
-    "price": 17,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 13
-  },
-  {
-    "id": 5,
-    "title": "Fiddle Leaf Fig",
-    "description": "A popular indoor tree with large, violin-shaped leaves. Its dramatic silhouette adds a touch of elegance to any room.",
-    "price": 45,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 11
-  },
-  {
-    "id": 4,
-    "title": "Mint Herb Plant",
-    "description": "Fresh and fragrant, this herb is perfect for adding to drinks, desserts, or as a garnish. Easy to grow and perfect for any kitchen.",
-    "price": 12,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 10
-  },
-  {
-    "id": 3,
-    "title": "ZZ Plant",
-    "description": "The ZZ plant is a low-light champion, making it perfect for offices and homes alike. Its glossy leaves add a touch of sophistication to any space.",
-    "price": 18,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 4
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 26
   },
   {
     "id": 2,
     "title": "Snake Plant",
     "description": "Stylish and low-maintenance, the snake plant is perfect for any home. Its long, upright leaves add a modern touch to any room.",
     "price": 25,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 15
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 13
   },
   {
-    "id": 1,
-    "title": "Echeveria Succulent",
-    "description": "Beautiful pink and green rosette-shaped succulent. Easy to care for and perfect for any indoor or outdoor space.",
-    "price": 15,
-    "thumbnail": "https://picsum.photos/200/100",
-    "stock": 25
+    "id": 3,
+    "title": "ZZ Plant",
+    "description": "The ZZ plant is a low-light champion, making it perfect for offices and homes alike. Its glossy leaves add a touch of sophistication to any space.",
+    "price": 18,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 3
+  },
+  {
+    "id": 4,
+    "title": "Mint Herb Plant",
+    "description": "Fresh and fragrant, this herb is perfect for adding to drinks, desserts, or as a garnish. Easy to grow and perfect for any kitchen.",
+    "price": 12,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 7
+  },
+  {
+    "id": 5,
+    "title": "Fiddle Leaf Fig",
+    "description": "A popular indoor tree with large, violin-shaped leaves. Its dramatic silhouette adds a touch of elegance to any room.",
+    "price": 45,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 14
+  },
+  {
+    "id": 6,
+    "title": "Aloe Vera Plant",
+    "description": "This succulent is not only easy to care for, but its gel can also soothe burns and other skin irritations. A must-have for any home.",
+    "price": 17,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 13
+  },
+  {
+    "id": 7,
+    "title": "Lavender Plant",
+    "description": "Known for its calming aroma, lavender is a versatile herb that can be used in cooking or for aromatherapy. Easy to care for and beautiful to look at.",
+    "price": 14,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 10
+  },
+  {
+    "id": 8,
+    "title": "Spider Plant",
+    "description": "One of the easiest plants to care for, the spider plant is perfect for beginners. Its long, spindly leaves make it a great addition to any room.",
+    "price": 10,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 7
+  },
+  {
+    "id": 9,
+    "title": "String of Pearls",
+    "description": "This unique succulent has long, thin stems with tiny green 'pearls' that trail down. Perfect for hanging baskets or as a statement piece.",
+    "price": 22,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 11
+  },
+  {
+    "id": 10,
+    "title": "Basil Herb Plant",
+    "description": "A staple herb in many kitchens, basil is easy to grow and adds a fresh, aromatic flavor to any dish.",
+    "price": 9,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 10
+  },
+  {
+    "id": 11,
+    "title": "Purple Petunia",
+    "description": "Deep purple petunia flowers that are perfect for hanging baskets and garden beds. Blooms from early summer to frost.",
+    "price": 12,
+    "thumbnail": "https://picsum.photos/400/200",
+    "stock": 9
   }
 ]

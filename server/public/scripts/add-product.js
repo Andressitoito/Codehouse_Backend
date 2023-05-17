@@ -3,10 +3,10 @@ const productForm = document.querySelector("#product-form");
 productForm.addEventListener("submit", async (e) => {
 	e.preventDefault();
 	const productData = {
-		title: document.querySelector("#product-title").value,
-		description: document.querySelector("#product-description").value,
+		title: document.querySelector("#product-title").value.trim(),
+		description: document.querySelector("#product-description").value.trim(),
 		price: Number(document.querySelector("#product-price").value),
-		thumbnail: document.querySelector("#product-thumbnail").value,
+		thumbnail: document.querySelector("#product-thumbnail").value.trim(),
 		stock: Number(document.querySelector("#product-stock").value),
 	};
 	const response = await fetch("/api/products/", {

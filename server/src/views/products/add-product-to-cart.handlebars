@@ -1,0 +1,54 @@
+<section class="pt-5">
+	<div
+		class="container mt-2 pt-2 d-flex justify-content-center align-items-center"
+	>
+		<div class="pb-5 w-75">
+			<div class="card">
+				<img src={{product.thumbnail}} class="card-img-top" alt={{product.title}} />
+				<div class="card-body">
+					<h5 class="card-title">{{product.title}}</h5>
+					<p class="card-text">{{product.description}}</p>
+					<p
+						class="card-title price-tag"
+						data-price={{product.price}}
+						data-id="{{product.id}}"
+						id="price-value"
+					>Price:
+						{{product.price}}</p>
+					<p class="card-title">Quantity:
+						<input
+							type="number"
+							class="form-control d-inline-block w-25 input-tag input-value-{{product.cid}}
+								{{product.cid}}
+								{{product.id}}"
+							maxlength="4"
+							value="0"
+							min="0"
+							max={{product.stock}}
+							aria-label="item quantity"
+							aria-describedby="addon-wrapping"
+							id="edit-cart-{{product.id}}"
+							data-id="{{product.id}}"
+						/>
+					</p>
+					<h5
+						class="card-title card-tag card-multiply-{{product.id}}"
+						id="card-multiply-{{product.id}}"
+					>Total: ${{multiply product.price 1}}</h5>
+					<div class="d-flex justify-content-between pt-3">
+
+						<a href="/products/cards" class="btn btn-secondary">Cancel</a>
+
+						<button
+							type="button"
+							class="btn btn-info edit-quantity"
+							id="add-to-cart-{{product.id}}"
+						>Add to cart</button>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

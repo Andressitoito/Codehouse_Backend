@@ -24,7 +24,7 @@
   }
 
   .hero {
-   background-image: url('https://picsum.photos/600/100');
+   background-image: url('https://picsum.photos/900/300');
    background-size: cover;
    background-position: center;
   }
@@ -76,6 +76,22 @@
   .add-product-form {
    background-color: rgb(54, 53, 53);
   }
+
+  .limited-paragraph {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   max-height: 3.6em;
+  }
+
+  .limited-title {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
+   -webkit-box-orient: vertical;
+   max-height: 3.6em;
+  }
  </style>
  </style>
 </head>
@@ -113,6 +129,10 @@
 
  {{#if script_product}}
  <script src="/public/scripts/{{script_product}}"></script>
+ {{/if}}
+
+ {{#if script_product_detail}}
+ <script src="/public/scripts/{{script_product_detail}}"></script>
  {{/if}}
 
  {{#if script_cart}}

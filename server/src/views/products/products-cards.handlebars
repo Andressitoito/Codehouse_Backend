@@ -5,16 +5,16 @@
 
 			{{#each products}}
 
-				<div class="col-md-4 col-sm-6 mb-3 mb-sm-3">
-					<div class="card">
-						<img src="https://picsum.photos/200/150" class="card-img-top" alt="..." />
-						<div class="card-body">
-							<h5 class="card-title">{{this.title}}</h5>
-							<p class="card-text">{{this.description}}</p>
-							<a href="#" class="btn btn-primary">Add to Cart</a>
-						</div>
+			<div class="col-md-4 col-sm-6 mb-3 mb-sm-3">
+				<div class="card">
+					<img src={{this.thumbnail}} class="card-img-top" alt={{this.title}} />
+					<div class="card-body">
+						<h5 class="card-title limited-title">{{this.title}}</h5>
+						<p class="card-text limited-paragraph">{{this.description}}</p>
+						<a href="/products/{{this.id}}" class="btn btn-primary">See more details</a>
 					</div>
 				</div>
+			</div>
 
 			{{/each}}
 

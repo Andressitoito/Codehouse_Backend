@@ -103,7 +103,6 @@ class cartManager {
 				}
 			}
 
-
 			if (product) {
 				product.quantity = quantity;
 			} else {
