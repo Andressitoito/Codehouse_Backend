@@ -4,7 +4,19 @@
   "products": [
    {
     "pid": 1,
-    "quantity": 5
+    "quantity": 3
+   },
+   {
+    "pid": 3,
+    "quantity": 3
+   },
+   {
+    "pid": 2,
+    "quantity": 2
+   },
+   {
+    "pid": 4,
+    "quantity": 3
    }
   ]
  },
@@ -70,7 +82,7 @@
   "products": [
    {
     "pid": 6,
-    "quantity": 0
+    "quantity": 2
    }
   ]
  }

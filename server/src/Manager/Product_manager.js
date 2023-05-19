@@ -55,8 +55,15 @@ class ProductManager {
 			if (this.products.length === 0) {
 				id = 1;
 			} else {
-				let lastProduct = this.products[this.products.length - 1];
-				id = lastProduct.id + 1;
+				let last_id = 0;
+
+				this.products.forEach((product) => {
+					if (product.id > last_id) {
+						last_id = product.id;
+					}
+				});
+
+				id = last_id + 1;
 			}
 
 			const new_product = {
@@ -118,6 +125,7 @@ class ProductManager {
 		// > En caso de error devolver un mensaje que diga: “updateProduct: error”
 		try {
 			let product = await this.getProductById(id);
+			console.log(product)
 
 			if (Object.keys(data).length === 0) {
 				throw "No data to update";
@@ -127,6 +135,9 @@ class ProductManager {
 			for (const prop in data) {
 				if (!validProps.includes(prop)) {
 					throw `wrong data sent '${prop}`;
+				}
+				if (prop === "cid") {
+					continue;
 				}
 				product[prop] = data[prop];
 			}

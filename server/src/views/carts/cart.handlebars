@@ -1,0 +1,63 @@
+<section class="pt-5">
+	<div class="container mt-2 pt-2">
+
+		<div class="row">
+
+			{{#each products_data}}
+
+				<div class="col-md-4 col-sm-6 mb-3 mb-sm-3">
+					<div class="card">
+						<img src={{this.thumbnail}} class="card-img-top" alt={{this.title}} />
+						<div class="card-body">
+							<h5 class="card-title limited-title">{{this.title}}</h5>
+							<p class="card-text limited-paragraph">{{this.description}}</p>
+							<p
+								class="card-title price-tag {{this.price}} {{pid}}"
+								id="price-value-{{pid}}"
+							>Price:
+								{{this.price}}</p>
+							<p class="card-title">Quantity:
+								<input
+									type="number"
+									class="form-control d-inline-block w-50 input-tag input-value-{{this.cid}}
+										{{this.cid}}
+										{{pid}}"
+									maxlength="4"
+									placeholder={{this.quantity}}
+									value={{this.quantity}}
+									min="0"
+									max={{sum this.quantity this.stock}}
+									aria-label="item quantity"
+									aria-describedby="addon-wrapping"
+									id="edit-cart-quantity-{{this.pid}}"
+									data-id="{{this.pid}}"
+								/>
+							</p>
+							<h5
+								class="card-title card-tag card-multiply-{{pid}}"
+								id="card-multiply-{{pid}}"
+							>Total: ${{multiply this.price this.quantity}}</h5>
+							<div class="d-flex justify-content-between pt-3">
+
+								<button
+									type="button"
+									class="btn btn-danger cart-{{this.pid}} delete-product"
+									data-pid="{{this.pid}}"
+									data-cid="{{this.cid}}"
+								>Delete</button>
+
+								<button
+									type="button"
+									class="btn btn-info edit-quantity {{this.pid}} {{this.cid}}"
+								>Edit Quantity</button>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+			{{/each}}
+
+		</div>
+	</div>
+</section>

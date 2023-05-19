@@ -1,6 +1,40 @@
 # E-Commerce Product Class Repository
 
-This repository contains a server build with Node.js and Express, set up to run on port 8080. The server has endpoints for products and carts:
+This repository contains a server build with Node.js and Express, set up to run on port 8080. 
+
+## Products
+
+### Products home page showing navbar
+
+- From the home, users can easily navigate to see all products, see cart and more.-
+
+![Products from home page](./server/public/images/readme/video_examples/home_page.gif)
+
+### Adding a Product with Success Transaction Alert
+
+- This video demonstrates the process of adding a product to the cart, along with a success transaction alert.
+
+![Adding a Product with Success Transaction Alert](./server/public/images/readme/video_examples/add_product.gif)
+
+### Exploring Product Cards and Adding to Cart
+
+- In this video, users can browse through different product cards, click on "More Details" to view additional information, and add the selected product to the cart.
+
+![Exploring Product Cards and Adding to Cart](./server/public/images/readme/video_examples/products_cards.gif)
+
+### Updating Cart by Editing Product Quantity
+
+- This video showcases the functionality of updating the cart by editing the quantity of a specific product.
+
+![Updating Cart by Editing Product Quantity](./server/public/images/readme/video_examples/cart_update.gif)
+
+### Error Handling and Chat Support
+
+- This video highlights error handling in the application and provides a link to the chat feature, where users can seek assistance.
+
+![Error Handling and Chat Support](./server/public/images/readme/video_examples/error_redirect_to_chat.gif)
+
+## The server has endpoints for products and carts:
 
 ## Products
 
