@@ -2,7 +2,21 @@
 
 This repository contains a server build with Node.js and Express, set up to run on port 8080. 
 
+## New Feature Persistence in MongoDB
+
 ## Products
+
+### Products home page with MongoDB 
+
+- From the home page where we can select tabs, products from MongoDB or local.
+
+![Products from home page](./server/public/images/readme/video_examples/mongo_home.gif)
+
+### Adding a Product in MongoDB
+
+- Demostration of the process of adding a new product in MongoDB, same UI as local but in MongoDB
+
+![Adding a Product with Success Transaction Alert](./server/public/images/readme/video_examples/Add_mongo.gif)
 
 ### Products home page showing navbar
 

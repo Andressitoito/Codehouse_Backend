@@ -34,7 +34,7 @@ router.get("/cart/:cid", async (req, res, next) => {
 		return res.render("carts/cart", {
 			title: "Product Cart",
 			products_data,
-			script_cart: "edit-cart.js",
+			script: "edit-cart.js",
 		});
 	} catch (error) {
 		next(error);

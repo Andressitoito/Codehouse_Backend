@@ -109,8 +109,12 @@
      <div class="navbar-nav flex-column flex-md-row justify-content-around">
       <a class="nav-link active" aria-current="page" href="/">Home</a>
       <a class="nav-link" href="/products/add-product">Add New Product</a>
+      <a class="nav-link" href="/products_mongo/add-product">Add Mongo Product</a>
       <a class="nav-link" href="/products/cards">Products</a>
+      <a class="nav-link" href="/products_mongo/cards">Mongo Products</a>
       <a class="nav-link" href="/chat/">Chat!</a>
+      <a class="nav-link position-relative" href="/carts_mongo"> Mongo Cart<span
+        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-primary"></span></a>
       <a class="nav-link position-relative" href="/carts/cart/1">Cart<span
         class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-primary">{{products_quantity}}</span></a>
      </div>
@@ -123,21 +127,11 @@
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="/socket.io/socket.io.js"></script>
 
- {{#if script_chat}}
- <script src="/public/scripts/{{script_chat}}"></script>
+ {{#if script}}
+ <script src="/public/scripts/{{script}}"></script>
  {{/if}}
 
- {{#if script_product}}
- <script src="/public/scripts/{{script_product}}"></script>
- {{/if}}
 
- {{#if script_product_detail}}
- <script src="/public/scripts/{{script_product_detail}}"></script>
- {{/if}}
-
- {{#if script_cart}}
- <script src="/public/scripts/{{script_cart}}"></script>
- {{/if}}
 
 </body>
 

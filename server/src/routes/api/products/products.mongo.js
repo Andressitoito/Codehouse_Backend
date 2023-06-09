@@ -1,9 +1,10 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import { Router } from "express";
+import { Router} from "express";
 import product_manager from "../../../Manager/Product_manager.js";
 import productValidator from "../../../middlewares/product_validator.js";
+import Product from "../../../models/Products.js";
 
 const router = Router();
 
@@ -12,10 +13,9 @@ const router = Router();
 /////////////////////////////
 router.get("/", async (req, res, next) => {
 	try {
-		let query = parseInt(req.query.limit);
-
-		let products = await product_manager.getProducts(query);
 		
+		let products = await Product.find()
+
 		res.json({
 			status: 200,
 			success: true,
@@ -32,8 +32,8 @@ router.get("/", async (req, res, next) => {
 /////////////////////////////
 router.get("/:pid", async (req, res, next) => {
 	try {
-		let id = parseInt(req.params.pid);
-		let product = await product_manager.getProductById(id);
+		const id = req.params.pid;
+		const product = await Product.findById(id);
 
 		res.json({
 			status: 200,
@@ -64,7 +64,7 @@ router.post("/", productValidator, async (req, res, next) => {
 			}
 		}
 
-		const product = await product_manager.addProduct({
+		const product = await Product.create({
 			title,
 			description,
 			price,
@@ -88,26 +88,26 @@ router.post("/", productValidator, async (req, res, next) => {
 router.put("/:pid", async (req, res, next) => {
 	try {
 		const dataToUpdate = req.body;
-		const idToUpdate = Number(req.params.pid);
+		const idToUpdate = req.params.pid;
 
-		const products = await product_manager.getProducts();
+		const product = await Product.findByIdAndUpdate(idToUpdate, dataToUpdate, { new: true });
 
-		let productFinded = products.find((product) => product.id === idToUpdate);
+		// let productFinded = products.find((product) => product.id === idToUpdate);
 
-		if (req.body.title) {
-			const isRepeated = products.find(
-				(product) => product.title === req.body.title
-			);
-			if (isRepeated.id !== idToUpdate) {
-				const error = new Error(
-					`This title: '${req.body.title}' already exists at id: ${productFinded.id}`
-				);
-				error.status = 422;
-				throw error;
-			}
-		}
+		// if (req.body.title) {
+		// 	const isRepeated = products.find(
+		// 		(product) => product.title === req.body.title
+		// 	);
+		// 	if (isRepeated.id !== idToUpdate) {
+		// 		const error = new Error(
+		// 			`This title: '${req.body.title}' already exists at id: ${productFinded.id}`
+		// 		);
+		// 		error.status = 422;
+		// 		throw error;
+		// 	}
+		// }
 
-		const product = await product_manager.updateProduct(idToUpdate, dataToUpdate);
+		// const product = await product_manager.updateProduct(idToUpdate, dataToUpdate);
 
 		res.json({
 			status: 201,
@@ -124,8 +124,9 @@ router.put("/:pid", async (req, res, next) => {
 /////////////////////////////
 router.delete("/:pid", async (req, res, next) => {
 	try {
-		const idToDelete = Number(req.params.pid);
-		const message = await product_manager.deleteProduct(idToDelete);
+		const idToDelete = req.params.pid;
+
+		const message = await Product.findByIdAndDelete(idToDelete)
 
 		res.json({
 			status: 200,

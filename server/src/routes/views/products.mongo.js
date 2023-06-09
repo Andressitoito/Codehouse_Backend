@@ -2,8 +2,8 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import product_manager from "../../Manager/Product_manager.js";
 import __dirname from "../../utils/utils.js";
+import Product from "../../models/Products.js";
 const router = Router();
 
 /////////////////////////////
@@ -11,11 +11,11 @@ const router = Router();
 /////////////////////////////
 router.get("/cards", async (req, res, next) => {
 	try {
-		let products = await product_manager.getProducts();
+		const products = await Product.find();
 
-		return res.render("products/products-cards", {
-			products: products,
+		return res.render("products/mongo/products-cards", {
 			title: "Products Cards",
+			products,
 		});
 	} catch (error) {
 		next(error);
@@ -27,9 +27,10 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		return res.render("products/add-product", {
+		console.log('add mongo product')
+		return res.render("products/mongo/add-product", {
 			title: "Add product to cart",
-			script: "add-product.js",
+			script: "add_mongo_product.js",
 		});
 	} catch (error) {
 		next(error);
@@ -41,12 +42,13 @@ router.get("/add-product", async (req, res, next) => {
 /////////////////////////////
 router.get("/:pid", async (req, res, next) => {
 	try {
-		const product_id = Number(req.params.pid);
-		const product = await product_manager.getProductById(product_id);
+		// const product = await product_manager.getProductById(product_id);
 
-		return res.render("products/add-product-to-cart", {
-			script: "product-detail.js",
-			product,
+		const product = await Product.find({ _id: req.params.pid })
+
+		return res.render("products/mongo/add-product-to-cart", {
+			script: "product-detail_mongo.js",
+			product: product[0]
 		});
 	} catch (error) {
 		next(error);
@@ -54,3 +56,4 @@ router.get("/:pid", async (req, res, next) => {
 });
 
 export default router;
+
