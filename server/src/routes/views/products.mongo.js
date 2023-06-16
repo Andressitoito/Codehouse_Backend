@@ -11,11 +11,25 @@ const router = Router();
 /////////////////////////////
 router.get("/cards", async (req, res, next) => {
 	try {
-		const products = await Product.find();
+		const page = req.query.page ?? 1;
+		const limit = req.query.limit ?? 6;
+		const query = {};
+
+		if (req.query.title) {
+			query.title = new RegExp(req.query.title, "i");
+		}
+
+		const products = await Product.paginate(query, { limit, page });
+		// console.log(products);
+		const { docs, ...data } = products;
+
+		console.log(data);
 
 		return res.render("products/mongo/products-cards", {
 			title: "Products Cards",
-			products,
+			script: "product-cards_mongo.js",
+			products: docs,
+			data,
 		});
 	} catch (error) {
 		next(error);
@@ -27,7 +41,7 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		console.log('add mongo product')
+		console.log("add mongo product");
 		return res.render("products/mongo/add-product", {
 			title: "Add product to cart",
 			script: "add_mongo_product.js",
@@ -44,11 +58,11 @@ router.get("/:pid", async (req, res, next) => {
 	try {
 		// const product = await product_manager.getProductById(product_id);
 
-		const product = await Product.find({ _id: req.params.pid })
+		const product = await Product.find({ _id: req.params.pid });
 
 		return res.render("products/mongo/add-product-to-cart", {
 			script: "product-detail_mongo.js",
-			product: product[0]
+			product: product[0],
 		});
 	} catch (error) {
 		next(error);
@@ -56,4 +70,3 @@ router.get("/:pid", async (req, res, next) => {
 });
 
 export default router;
-

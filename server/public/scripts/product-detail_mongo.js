@@ -9,6 +9,8 @@ document
 			`#edit-cart-${product_id}`
 		).value;
 
+		const cart_id = '648276ab74476c69be6576b3'
+
 		console.log({
 			product_id: product_id,
 			quantity: quantity_value,
@@ -30,7 +32,7 @@ document
 				timer: 1500,
 				timerProgressBar: true,
 				willClose: () => {
-					window.location.href = "/products/cards";
+					window.location.href = "/carts_mongo";
 				},
 			});
 		} else {
@@ -49,7 +51,6 @@ document
 		const price_value = document
 			.querySelector(`#price-value`)
 			.getAttribute("data-price");
-		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${
-			document.querySelector(`#edit-cart-${product_id}`).value * price_value
-		}`;
+		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${document.querySelector(`#edit-cart-${product_id}`).value * price_value
+			}`;
 	});

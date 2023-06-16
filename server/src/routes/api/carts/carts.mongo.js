@@ -6,6 +6,7 @@ import cart_manager from "../../../Manager/Cart_manager.js";
 import product_manager from "../../../Manager/Product_manager.js";
 import Cart from "../../../models/Cart.js";
 import Product from "../../../models/Products.js";
+import mongoose from "mongoose";
 
 const router = Router();
 
@@ -14,14 +15,46 @@ const router = Router();
 /////////////////////////////
 router.get("/", async (req, res, next) => {
 	try {
-		let carts = await Cart.find();
-
+		const carts = await Cart.aggregate([
+			{ $match: { _id: new mongoose.Types.ObjectId("648276ab74476c69be6576b3") } },
+			{ $unwind: "$products" },
+			{
+					$lookup: {
+							from: "products",
+							localField: "products.product_id",
+							foreignField: "_id",
+							as: "product"
+					}
+			},
+			{ $unwind: "$product" },
+			{
+					$set: {
+							total: { $multiply: ["$products.quantity", "$product.price"] }
+					}
+			},
+			{
+					$group: {
+							_id: "$_id",
+							sum: { $sum: "$total" },
+							products: { $push: "$product" }
+					}
+			},
+			{
+					$project: {
+							_id: 0,
+							cart_id: "$_id",
+							sum: 1,
+							products: "$products"
+					}
+			}
+	]);
 		console.log(carts);
-		res.json({
+
+		res.status(200).json({
 			status: 200,
 			success: true,
-			message: `There are ${carts.length} carts`,
-			carts,
+			products: carts[0].products,
+			total: carts[0].sum
 		});
 	} catch (error) {
 		next(error);
@@ -82,58 +115,45 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 		let cart = await Cart.findById(cid);
 
 		let product = await Product.findById(product_id);
-		if (!product) {
-			cart.products.push({ product_id: product._id, quantity: 1 });
-		} else {
 
+		let product_cart = cart.products.find(
+			(product) => product.product_id.toString() === product_id
+		);
 
-			let totalUnits = Number(product.stock) + Number(cart.quantity);
-			console.log(totalUnits);
-
-			if (product_quantity <= totalUnits) {
-				console.log("do something men");
-				const stock = totalUnits - product_quantity;
-
-				product = await Product.findByIdAndUpdate(
-					product_id,
-					{ stock: stock },
-					{ new: true }
-				);
-				console.log("///////////////////////");
-				console.log(product.stock);
-				console.log("///////////////////////");
-
-				cart = await Cart.findByIdAndUpdate(
-					cid,
-					{ quantity: product_quantity },
-					{ new: true }
-				);
-				console.log(cart.quantity);
-
-				// // UPDATE STOCK IN CART FILE
-				// const product_data = {
-				// 	pid: product_id,
-				// 	quantity: product_quantity,
-				// };
-
-				// cart = await cart_manager.updateCart({ cid, product_data });
-
-				// // UPDATE STOCK IN PRODUCT FILE
-				// console.log("BEFORE  ", product);
-
-				// product = await product_manager.updateProduct(product_id, {
-				// 	stock: totalUnits - product_quantity,
-				// });
-
-				// console.log("AFTER  ", product);
-			} else {
-				let error = new Error(
-					`Not enough stock. There are ${product.stock} units available`
-				);
-				error.status = 422;
-				throw error;
-			}
+		if (product_quantity > product.stock) {
+			const error = new Error(`There are only ${product.stock} items in cart`);
+			error.status = 422;
+			throw error;
 		}
+
+		if (!product_cart) {
+			const actual_stock = product.stock - product_quantity;
+
+			product = await Product.findByIdAndUpdate(
+				{ _id: product_id },
+				{ stock: actual_stock },
+				{ new: true }
+			);
+
+			cart.products.push({ product_id: product._id, quantity: product_quantity });
+
+			cart.save();
+		} else {
+			const total_units = product_cart.quantity + product.stock;
+
+			const actual_stock = total_units - product_quantity;
+
+			product = await Product.findByIdAndUpdate(
+				{ _id: product_id },
+				{ stock: actual_stock },
+				{ new: true }
+			);
+
+			product_cart.quantity = product_quantity;
+
+			cart.save();
+		}
+
 		return res.json({
 			status: 200,
 			success: true,
@@ -150,53 +170,90 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 /////////////////////////////
 router.delete("/:cid/product/:pid/:units", async (req, res, next) => {
 	try {
-		const cid = Number(req.params.cid);
-		const product_id = Number(req.params.pid);
-		const product_quantity = Number(req.params.units);
-		let product = await product_manager.getProductById(product_id);
-		let cart = await cart_manager.getCartById(cid);
+		const cid = req.params.cid;
+		const product_id = req.params.pid;
+		// const product_quantity = req.params.units;
 
-		if (product_quantity <= 0) {
-			const error = new Error(`Invalid product_quantity: ${product_quantity}`);
-			error.status = 422;
-			throw error;
-		}
+		let cart = await Cart.findById(cid);
 
-		const product_cart = cart.products.find(
-			(product) => product.pid === product_id
+		let product = await Product.findById(product_id);
+
+		let product_cart = cart.products.find(
+			(product) => product.product_id.toString() === product_id
 		);
 
-		if (!product_cart) {
-			const error = new Error(`Invalid id product id: ${product_id}`);
-			error.status = 422;
-			throw error;
-		}
+		const total_units = product_cart.quantity + product.stock;
 
-		if (product_cart.quantity - product_quantity >= 0) {
-			// UPDATE STOCK IN CART FILE
-			const product_data = {
-				pid: product_id,
-				quantity: product_quantity,
-			};
-			cart = await cart_manager.deleteProductCart({ cid, product_data });
-
-			// UPDATE STOCK IN PRODUCT FILE
-			product = await product_manager.updateProduct(product_id, {
-				stock: Number(product.stock) + Number(product_quantity),
-			});
-		} else {
-			const error = new Error(
-				`There are ${product_cart.quantity} items in cart, cannot delete ${product_quantity} items`
-			);
-			error.status = 422;
-			throw error;
-		}
+		// UPDATE STOCK IN CART
+		await Cart.updateOne(
+			{ _id: cid },
+			{ $pull: { products: { product_id: product_id } } }
+		);
+		// UPDATE STOCK IN PRODUCT
+		product = await Product.findByIdAndUpdate(
+			{ _id: product_id },
+			{ stock: total_units },
+			{ new: true }
+		);
 
 		res.json({
 			status: 200,
 			success: true,
 			cart,
 			stock: `There are ${product.stock} units in stock`,
+		});
+	} catch (error) {
+		next(error);
+	}
+});
+
+/////////////////////////////
+// GET /api/carts/bills/cid
+/////////////////////////////
+router.get("/bills/:cid", async (req, res, next) => {
+	try {
+
+		const carts = await Cart.aggregate([
+			{ $match: { _id: new mongoose.Types.ObjectId(req.params.cid) } },
+			{ $unwind: "$products" },
+			{
+					$lookup: {
+							from: "products",
+							localField: "products.product_id",
+							foreignField: "_id",
+							as: "product"
+					}
+			},
+			{ $unwind: "$product" },
+			{
+					$set: {
+							total: { $multiply: ["$products.quantity", "$product.price"] }
+					}
+			},
+			{
+					$group: {
+							_id: "$_id",
+							sum: { $sum: "$total" },
+							products: { $push: "$product" }
+					}
+			},
+			{
+					$project: {
+							_id: 0,
+							cart_id: "$_id",
+							sum: 1,
+							products: "$products"
+					}
+			}
+	]);
+		console.log(carts);
+
+		res.status(200).json({
+			status: 200,
+			success: true,
+			message: 'success',
+			total: carts[0],
+
 		});
 	} catch (error) {
 		next(error);

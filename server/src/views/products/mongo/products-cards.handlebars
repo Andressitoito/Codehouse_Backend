@@ -1,24 +1,65 @@
-
 <section class="pt-5">
 	<div class="container mt-2 pt-2">
+<div class="w-full mb-3 d-flex justify-content-center">
 
+<div class="input-group d-inline-flex w-50">
+  <input type="search" class="form-control rounded" placeholder="Lemongrass, Buffalo, Tall, or any grass" aria-label="Search" aria-describedby="search-addon" id="input-search"/>
+  <button type="button" class="btn btn-outline-primary" id="btn-search">Search</button>
+</div>
+
+</div>
 		<div class="row">
 
 			{{#each products}}
 
-			<div class="col-md-4 col-sm-6 mb-3 mb-sm-3">
-				<div class="card">
-					<img src={{this.thumbnail}} class="card-img-top" alt={{this.title}} />
-					<div class="card-body">
-						<h5 class="card-title limited-title">{{this.title}}</h5>
-						<p class="card-text limited-paragraph">{{this.description}}</p>
-						<a href="/products_mongo/{{this._id}}" class="btn btn-primary">See more details</a>
+				<div class="col-md-4 col-sm-6 mb-3 mb-sm-3">
+					<div class="card">
+						<img src={{this.thumbnail}} class="card-img-top" alt={{this.title}} />
+						<div class="card-body">
+							<h5 class="card-title limited-title">{{this.title}}</h5>
+							<p class="card-text limited-paragraph">{{this.description}}</p>
+							<p class="card-title price-tag">Price:
+								{{this.price}}</p>
+							<a href="/products_mongo/{{this._id}}" class="btn btn-primary">See more
+								details</a>
+						</div>
 					</div>
 				</div>
-			</div>
 
 			{{/each}}
 
 		</div>
 	</div>
+	<nav aria-label="Page navigation">
+		<ul class="pagination justify-content-center">
+			<li class="page-item"><a
+					class="page-link"
+					href="/products_mongo/cards?page=1"
+				>First
+				</a></li>
+			<li class="page-item" id="previous">
+				<a
+					class="page-link"
+					href="/products_mongo/cards?page={{data.prevPage}}"
+					tabindex="-1"
+					id="prev-btn"
+					data-prev="{{data.prevPage}}"
+				>Previous</a>
+			</li>
+			<li class="page-item"><a class="page-link" href="#">{{data.page}}</a></li>
+			<li class="page-item" id="next">
+				<a
+					class="page-link"
+					href="/products_mongo/cards?page={{data.nextPage}}"
+					id="next-btn"
+					data-next="{{data.nextPage}}"
+				>Next</a>
+			</li>
+			<li class="page-item"><a
+					class="page-link"
+					href="/products_mongo/cards?page={{data.totalPages}}"
+				>Last
+				</a></li>
+		</ul>
+	</nav>
 </section>

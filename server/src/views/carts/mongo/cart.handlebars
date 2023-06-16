@@ -1,6 +1,13 @@
 <section class="pt-5">
 	<div class="container mt-2 pt-2">
 
+		<div class="w-full mb-3 d-flex justify-content-center">
+
+			<div class="alert alert-primary h3" role="alert">
+				Total to pay: $ {{total}}
+			</div>
+		</div>
+
 		<div class="row">
 
 			{{#each products_data}}
@@ -19,9 +26,10 @@
 							<p class="card-title">Quantity:
 								<input
 									type="number"
-									class="form-control d-inline-block w-50 input-tag input-value-{{this.cid}}
+									class="form-control d-inline-block w-50 input-tag
 										{{this.cid}}
-										{{pid}}"
+										{{this.pid}}
+										out-light-blue"
 									maxlength="4"
 									placeholder={{this.quantity}}
 									value={{this.quantity}}
@@ -41,7 +49,7 @@
 
 								<button
 									type="button"
-									class="btn btn-danger cart-{{this.pid}} delete-product"
+									class="btn btn-danger delete-product {{this.pid}} {{this.cid}}"
 									data-pid="{{this.pid}}"
 									data-cid="{{this.cid}}"
 								>Delete</button>

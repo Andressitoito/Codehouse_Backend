@@ -11,8 +11,11 @@ import logger from "morgan";
 import send_navbar_data from "./middlewares/send_navbar_data.js";
 import handlebars from "handlebars";
 import { connect } from "mongoose";
-import exphbs from "express-handlebars"; 
+import exphbs from "express-handlebars";
 import "dotenv/config.js";
+import MongoStore from "connect-mongo";
+import cookieParser from "cookie-parser";
+import expressSession from "express-session";
 
 /////////////////////////////
 // VARIABLES
@@ -46,6 +49,18 @@ server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(logger("dev"));
 
+server.use(
+	expressSession({
+		store: MongoStore.create({
+			mongoUrl: process.env.MONGO_LINK,
+		}),
+		secret: process.env.SECRET_SESSION,
+		resave: true,
+		saveUninitialized: true,
+	})
+);
+server.use(cookieParser(process.env.SECRET_COOKIE));
+
 /////////////////////////////
 // SEND NAVBAR DATA
 /////////////////////////////
@@ -69,9 +84,7 @@ server.use("/", router);
 /////////////////////////////
 // DATABASE
 /////////////////////////////
-connect(
-	process.env.MONGO_LINK
-)
+connect(process.env.MONGO_LINK)
 	.then(() => console.log("Connected to database"))
 	.catch((err) => console.log(err));
 

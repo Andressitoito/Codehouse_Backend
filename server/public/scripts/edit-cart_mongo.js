@@ -7,13 +7,13 @@ const delete_buttons = document.querySelectorAll(".delete-product");
 edit_buttons.forEach((button) => {
 	button.addEventListener("click", async () => {
 		const product_id = button.classList[3];
-		console.log(product_id)
+		console.log("product_id ", product_id)
 		const quantity_value = document.querySelector(
 			`#edit-cart-quantity-${product_id}`
 		).value;
-		const cart_id = document.querySelector(`#edit-cart-quantity-${product_id}`)
-			.classList[5];
-			console.log(cart_id)
+		console.log("quantity_value ", quantity_value)
+		const cart_id = button.classList[4];
+		console.log("cart_id ", cart_id)
 
 		const response = await fetch(
 			`/api/carts_mongo/${cart_id}/product/${product_id}/${quantity_value}`,
@@ -50,31 +50,34 @@ input_tags.forEach((input) => {
 	input.addEventListener("change", () => {
 		const product_id = input.getAttribute("data-id");
 		const price = document.querySelector(`#price-value-${product_id}`);
+
 		const price_value = Number(price.classList[2]);
-		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${
-			input.value * price_value
-		}`;
+		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${input.value * price_value
+			}`;
 	});
 });
 
 delete_buttons.forEach((button) => {
 	button.addEventListener("click", async () => {
-		const product_id = Number(button.getAttribute("data-pid"));
-		const cart_id = Number(button.getAttribute("data-cid"));
+		const product_id = button.classList[3];
+		const cart_id = button.classList[4];
+		console.log("product_id ", product_id)
+		console.log("cart_id ", cart_id)
+
 		const quantity = Number(
 			document.querySelector(`#edit-cart-quantity-${product_id}`).value
 		);
 
+		console.log(quantity)
 		Swal.fire({
 			title: "Do you want to save the changes?",
 			showCancelButton: true,
 			confirmButtonColor: "#c12d2d",
 			confirmButtonText: "Yes, delete it!",
 		}).then(async (result) => {
-			/* Read more about isConfirmed, isDenied below */
 			if (result.isConfirmed) {
 				const response = await fetch(
-					`/api/carts/${cart_id}/product/${product_id}/${quantity}`,
+					`/api/carts_mongo/${cart_id}/product/${product_id}/${quantity}`,
 					{
 						method: "DELETE",
 					}

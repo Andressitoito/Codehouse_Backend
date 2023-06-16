@@ -1,12 +1,34 @@
 # E-Commerce Product Class Repository
 
-This repository contains a server build with Node.js and Express, set up to run on port 8080. 
+This repository contains a server build with Node.js and Express, set up to run on port 8080.
 
-## New Feature Persistence in MongoDB
+# New Features
 
-## Products
+### Pagination of products
 
-### Products home page with MongoDB 
+- Introducing pagination functionality to the server, allowing users to browse through products in a more organized and manageable manner.
+
+![Pagination of products](./server/public/images/readme/video_examples/pagination.gif)
+
+### Search Products by Name
+
+- The server now supports searching for products by their name, providing users with a quick and convenient way to find specific products.
+
+![Search Products by Name](./server/public/images/readme/video_examples/search.gif)
+
+### Updated Cart View with Subtotals and Total Amount
+
+- The cart view has been enhanced to display subtotals for individual items and the total amount to pay for the entire cart.
+
+![Updated Cart View with Subtotals and Total Amount](./server/public/images/readme/video_examples/totalpay.gif)
+
+### API Endpoint for Total Amount Calculation
+
+- We have added a new API endpoint that enables clients to calculate the total amount to pay for their purchases.
+
+![API Endpoint for Total Amount Calculation](./server/public/images/readme/carts/car-sum.png)
+
+### Products home page with MongoDB
 
 - From the home page where we can select tabs, products from MongoDB or local.
 
@@ -17,6 +39,8 @@ This repository contains a server build with Node.js and Express, set up to run 
 - Demostration of the process of adding a new product in MongoDB, same UI as local but in MongoDB
 
 ![Adding a Product with Success Transaction Alert](./server/public/images/readme/video_examples/Add_mongo.gif)
+
+# Previous Features
 
 ### Products home page showing navbar
 
