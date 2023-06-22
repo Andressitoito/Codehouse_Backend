@@ -27,10 +27,14 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		return res.render("products/add-product", {
-			title: "Add product to cart",
-			script: "add-product.js",
-		});
+		if (req.session?.role === 1) {
+			return res.render("products/add-product", {
+				title: "Add product to cart",
+				script: "add-product.js",
+			});
+		} else {
+			return res.redirect("/");
+		}
 	} catch (error) {
 		next(error);
 	}

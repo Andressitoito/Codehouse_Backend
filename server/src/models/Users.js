@@ -1,35 +1,37 @@
-import { model, Schema } from "mongoose"
+import { Schema, model } from "mongoose";
 
-const collection = "users"
+const collection = "users";
 
 const schema = new Schema({
- name: {
-  type: String,
-  required: true
- },
- last_name: {
-  type: String,
-  required: true
- },
- age: {
-  type: Number,
-  required: true
- },
- dni: {
-  type: String,
-  required: true
- },
- course: {
-  type: String,
-  required: true
- },
- note: {
-  type: Number,
-  required: true
- },
-})
+	name: {
+		type: String,
+		required: true,
+	},
+	photo: {
+		type: String,
+		default:
+			"https://www.pngitem.com/pimgs/m/227-2271053_usuario-persona-genrico-solo-general-smbolo-user-clipart.png",
+		required: true,
+	},
+	email: {
+		type: String,
+		required: true,
+		index: true,
+		unique: true,
+	},
+	age: {
+		type: Number,
+	},
+	role: {
+		type: Number,
+		default: 0,
+	},
+	password: {
+		type: String,
+		required: true,
+	},
+});
 
+const User = model(collection, schema);
 
-const User = model(collection, schema)
-
-export default User
+export default User;

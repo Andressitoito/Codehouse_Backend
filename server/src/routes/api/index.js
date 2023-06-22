@@ -5,6 +5,7 @@ import carts_router from './carts/carts.router.js'
 import carts_mongo from './carts/carts.mongo.js'
 import cookies_router from "./cookies/cookies.js";
 import sessions_router from "./sessions/sessions.js";
+import auth_router from "./auth/auth.js";
 
 const router = Router()
 
@@ -14,5 +15,6 @@ router.use('/carts', carts_router)
 router.use('/carts_mongo', carts_mongo)
 router.use('/cookies', cookies_router)
 router.use('/sessions', sessions_router)
+router.use('/auth', auth_router)
 
 export default router

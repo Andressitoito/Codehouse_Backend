@@ -4,6 +4,32 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### User Creation
+
+- This feature enables the creation of new user accounts within the system. It provides a way for individuals to register and create their unique profiles.
+
+![User Creation](./server/public/images/readme/video_examples/create_user.gif)
+
+### Login and Sign Out
+
+- The Login and Sign Out functionality provides a secure way for users to access their accounts. Sign Out allows users to log out, terminating their current session and preventing unauthorized access.
+
+![Login and Sign Out](./server/public/images/readme/video_examples/user_login_logout.gif)
+
+### Protected Routes for Non-Admin User
+
+- Protected Routes for Non-Admin User restricts certain pages or sections of the application to authorized users only. Non-admin users are granted limited access, ensuring that sensitive or administrative functionalities are restricted to the admin user.
+
+![Protected Routes for Non-Admin User](./server/public/images/readme/video_examples/user_path_protection.gif)
+
+### Admin User Unique
+
+- The Admin User Unique feature designates a specific user as the administrator, granting them elevated privileges and additional control over the system.
+
+![Admin User Unique](./server/public/images/readme/video_examples/unique_admin_access.gif)
+
+# Previous Features
+
 ### Pagination of products
 
 - Introducing pagination functionality to the server, allowing users to browse through products in a more organized and manageable manner.
@@ -39,8 +65,6 @@ This repository contains a server build with Node.js and Express, set up to run 
 - Demostration of the process of adding a new product in MongoDB, same UI as local but in MongoDB
 
 ![Adding a Product with Success Transaction Alert](./server/public/images/readme/video_examples/Add_mongo.gif)
-
-# Previous Features
 
 ### Products home page showing navbar
 

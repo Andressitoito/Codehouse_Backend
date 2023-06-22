@@ -26,13 +26,11 @@ let server = express();
 // ENGINE + VIEWS
 /////////////////////////////
 const handlebarsInstance = exphbs.create({
-	// Set the desired runtime options
 	runtimeOptions: {
 		allowProtoPropertiesByDefault: true,
 		allowProtoMethodsByDefault: true,
 	},
 });
-
 server.engine("handlebars", handlebarsInstance.engine); // Use the handlebars engine
 server.set("view engine", "handlebars");
 server.set("views", `${__dirname}/views`);
@@ -48,11 +46,11 @@ server.use("/public", express.static(`../public`));
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(logger("dev"));
-
 server.use(
 	expressSession({
 		store: MongoStore.create({
 			mongoUrl: process.env.MONGO_LINK,
+			ttl: 604800
 		}),
 		secret: process.env.SECRET_SESSION,
 		resave: true,

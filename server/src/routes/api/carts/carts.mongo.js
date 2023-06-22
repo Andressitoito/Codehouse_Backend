@@ -2,8 +2,6 @@
 // IMPORTS
 /////////////////////////////
 import { Router } from "express";
-import cart_manager from "../../../Manager/Cart_manager.js";
-import product_manager from "../../../Manager/Product_manager.js";
 import Cart from "../../../models/Cart.js";
 import Product from "../../../models/Products.js";
 import mongoose from "mongoose";
@@ -19,36 +17,35 @@ router.get("/", async (req, res, next) => {
 			{ $match: { _id: new mongoose.Types.ObjectId("648276ab74476c69be6576b3") } },
 			{ $unwind: "$products" },
 			{
-					$lookup: {
-							from: "products",
-							localField: "products.product_id",
-							foreignField: "_id",
-							as: "product"
-					}
+				$lookup: {
+					from: "products",
+					localField: "products.product_id",
+					foreignField: "_id",
+					as: "product"
+				}
 			},
 			{ $unwind: "$product" },
 			{
-					$set: {
-							total: { $multiply: ["$products.quantity", "$product.price"] }
-					}
+				$set: {
+					total: { $multiply: ["$products.quantity", "$product.price"] }
+				}
 			},
 			{
-					$group: {
-							_id: "$_id",
-							sum: { $sum: "$total" },
-							products: { $push: "$product" }
-					}
+				$group: {
+					_id: "$_id",
+					sum: { $sum: "$total" },
+					products: { $push: "$product" }
+				}
 			},
 			{
-					$project: {
-							_id: 0,
-							cart_id: "$_id",
-							sum: 1,
-							products: "$products"
-					}
+				$project: {
+					_id: 0,
+					cart_id: "$_id",
+					sum: 1,
+					products: "$products"
+				}
 			}
-	]);
-		console.log(carts);
+		]);
 
 		res.status(200).json({
 			status: 200,
@@ -92,6 +89,7 @@ router.post("/", async (req, res, next) => {
 		res.json({
 			status: 200,
 			success: true,
+			cart
 		});
 	} catch (error) {
 		next(error);
@@ -112,6 +110,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 			error.status = 422;
 			throw error;
 		}
+
 		let cart = await Cart.findById(cid);
 
 		let product = await Product.findById(product_id);
@@ -154,7 +153,7 @@ router.put("/:cid/product/:pid/:units", async (req, res, next) => {
 			cart.save();
 		}
 
-		return res.json({
+		return res.status(200).json({
 			status: 200,
 			success: true,
 			cart,
@@ -217,36 +216,33 @@ router.get("/bills/:cid", async (req, res, next) => {
 			{ $match: { _id: new mongoose.Types.ObjectId(req.params.cid) } },
 			{ $unwind: "$products" },
 			{
-					$lookup: {
-							from: "products",
-							localField: "products.product_id",
-							foreignField: "_id",
-							as: "product"
-					}
+				$lookup: {
+					from: "products",
+					localField: "products.product_id",
+					foreignField: "_id",
+					as: "product"
+				}
 			},
 			{ $unwind: "$product" },
 			{
-					$set: {
-							total: { $multiply: ["$products.quantity", "$product.price"] }
-					}
+				$set: {
+					total: { $multiply: ["$products.quantity", "$product.price"] }
+				}
 			},
 			{
-					$group: {
-							_id: "$_id",
-							sum: { $sum: "$total" },
-							products: { $push: "$product" }
-					}
+				$group: {
+					_id: "$_id",
+					sum: { $sum: "$total" },
+				}
 			},
 			{
-					$project: {
-							_id: 0,
-							cart_id: "$_id",
-							sum: 1,
-							products: "$products"
-					}
+				$project: {
+					_id: 0,
+					cart_id: "$_id",
+					sum: 1,
+				}
 			}
-	]);
-		console.log(carts);
+		]);
 
 		res.status(200).json({
 			status: 200,

@@ -23,7 +23,7 @@ router.get("/cards", async (req, res, next) => {
 		// console.log(products);
 		const { docs, ...data } = products;
 
-		console.log(data);
+		// console.log(data);
 
 		return res.render("products/mongo/products-cards", {
 			title: "Products Cards",
@@ -42,10 +42,14 @@ router.get("/cards", async (req, res, next) => {
 router.get("/add-product", async (req, res, next) => {
 	try {
 		console.log("add mongo product");
-		return res.render("products/mongo/add-product", {
-			title: "Add product to cart",
-			script: "add_mongo_product.js",
-		});
+		if (req.session?.role === 1) {
+			return res.render("products/mongo/add-product", {
+				title: "Add product to cart",
+				script: "add_mongo_product.js",
+			});
+		} else {
+			return res.redirect("/");
+		}
 	} catch (error) {
 		next(error);
 	}
