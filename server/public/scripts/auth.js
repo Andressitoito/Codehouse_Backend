@@ -70,7 +70,7 @@ document.querySelector("#signup").addEventListener("click", async (e) => {
 		Swal.fire({
 			icon: "error",
 			title: "Something went wrong!",
-			text: `<p>${data_user.response || "User Success"}</p>
+			text: `<p>${data_user.message}</p>
    <p>${data_cookie.response || "Cookie Success"}</p>`,
 			footer: '<a href="/chat/">Ask for a solution in our chat!</a>',
 		});
@@ -95,10 +95,10 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 		},
 	});
 	const data_user = await res_user.json();
-
+	
+	console.log(data_user);
 	if (data_user.success) {
 		checkLog();
-		console.log(data_user);
 
 		Swal.fire({
 			position: "top-end",
@@ -116,7 +116,7 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 		Swal.fire({
 			icon: "error",
 			title: "Something went wrong!",
-			text: `<p>${data_user.response || "User Success"}</p>`,
+			html: `<p>${data_user.message}</p>`,
 			footer: '<a href="/chat/">Ask for a solution in our chat!</a>',
 		});
 	}

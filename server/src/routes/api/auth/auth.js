@@ -5,6 +5,9 @@ import { Router } from "express";
 import user_validator from "../../../middlewares/user_validator.js";
 import password_8_char from "../../../middlewares/password_8_char.js";
 import User from "../../../models/Users.js";
+import create_hash from "../../../middlewares/create_hash.js";
+import valid_password from "../../../middlewares/valid_password.js";
+import passport from "passport";
 
 /////////////////////////////
 // VARIABLES
@@ -39,12 +42,43 @@ auth_router.post(
 	"/register",
 	user_validator,
 	password_8_char,
+	create_hash,
+	passport.authenticate("register", { failureRedirect: "/fail-register" }),
+	(req, res) => {
+		return res.status(201).json({
+			success: true,
+			message: "User created",
+		});
+	}
+);
+
+auth_router.get("/fail-register", (req, res) => {
+	return res.status(400).json({
+		success: false,
+		message: "error auth",
+	});
+});
+
+/////////////////////////////
+// USER SIGN IN
+/////////////////////////////
+auth_router.post(
+	"/signin",
+	password_8_char,
+	passport.authenticate("signin", {
+		failureRedirect: "/api/auth/fail-signin",
+	}),
+	valid_password,
 	async (req, res, next) => {
 		try {
-			await User.create(req.body);
-			return res.status(201).json({
+			const { email } = req.body;
+
+			req.session.email = email;
+			req.session.role = req.user.role;
+
+			return res.status(200).json({
 				success: true,
-				message: "User created",
+				message: "User signed in",
 			});
 		} catch (error) {
 			next(error);
@@ -52,33 +86,11 @@ auth_router.post(
 	}
 );
 
-/////////////////////////////
-// USER SIGN IN
-/////////////////////////////
-auth_router.post("/signin", async (req, res, next) => {
-	try {
-		const { email } = req.body;
-
-		const one = await User.findOne({ email });
-
-		if (one) {
-			req.session.email = email;
-			req.session.role = one.role;
-
-			return res.status(200).json({
-				success: true,
-				message: "User signed in",
-				name: one.name,
-			});
-		} else {
-			return res.status(404).json({
-				success: false,
-				message: "User not found",
-			});
-		}
-	} catch (error) {
-		next(error);
-	}
+auth_router.get("/fail-signin", (req, res) => {
+	return res.status(400).json({
+		success: false,
+		message: "error auth",
+	});
 });
 
 /////////////////////////////

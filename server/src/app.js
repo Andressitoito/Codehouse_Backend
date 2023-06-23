@@ -16,6 +16,8 @@ import "dotenv/config.js";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
+import passport from "passport";
+import passport_local from './config/passport_local.js'
 
 /////////////////////////////
 // VARIABLES
@@ -31,7 +33,7 @@ const handlebarsInstance = exphbs.create({
 		allowProtoMethodsByDefault: true,
 	},
 });
-server.engine("handlebars", handlebarsInstance.engine); // Use the handlebars engine
+server.engine("handlebars", handlebarsInstance.engine);
 server.set("view engine", "handlebars");
 server.set("views", `${__dirname}/views`);
 
@@ -43,6 +45,8 @@ server.use("/public", express.static(`../public`));
 /////////////////////////////
 // MIDDLEWARES
 /////////////////////////////
+passport_local();
+server.use(passport.initialize());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(logger("dev"));
@@ -56,7 +60,8 @@ server.use(
 		resave: true,
 		saveUninitialized: true,
 	})
-);
+	);
+	server.use(passport.session());
 server.use(cookieParser(process.env.SECRET_COOKIE));
 
 /////////////////////////////
