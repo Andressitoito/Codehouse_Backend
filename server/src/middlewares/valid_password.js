@@ -1,11 +1,7 @@
 import { compareSync } from "bcrypt";
-import User from "../models/Users.js";
 
 export default async function valid_password(req, res, next) {
-	// const user = await User.findOne({ email: req.body.email });
-	//
-	// if (user) {
-	const verified = compareSync(req.body.valid_password, user.password);
+	const verified = compareSync(req.body.password, req.user.password);
 
 	if (verified) {
 		return next();
@@ -16,3 +12,4 @@ export default async function valid_password(req, res, next) {
 		message: "Auth error",
 	});
 }
+

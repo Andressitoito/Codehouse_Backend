@@ -17,18 +17,20 @@ const auth_router = Router();
 /////////////////////////////
 // CHECK USER STATUS & ROLE
 /////////////////////////////
-auth_router.get("/checkLog", async (req, res, next) => {
+auth_router.get("/checkLog", passport.authenticate('session'), async (req, res, next) => {
 	try {
-		let checkLog = req.session.email;
-		let user_role = req.session.role;
-
-		checkLog = checkLog ?? false;
-		user_role = user_role ?? 0;
+		if (!req.isAuthenticated()) {
+			return res.status(200).json({
+				success: true,
+				checkLog: false,
+				user_role: 0,
+			});
+		}
 
 		return res.status(200).json({
 			success: true,
-			checkLog,
-			user_role,
+			checkLog: true,
+			user_role: req.user.role,
 		});
 	} catch (error) {
 		next(error);
