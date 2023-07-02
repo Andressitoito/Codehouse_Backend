@@ -1,5 +1,5 @@
 export default function user_validator(req, res, next) {
-	const { name, password, email } = req.body;
+	const { password, email, name } = req.body;
 
 	if (!name || !password || !email) {
 		return res.status(422).json({

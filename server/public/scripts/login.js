@@ -31,3 +31,4 @@ document.querySelector("#signout").addEventListener("click", (e) => {
   .then((res) => alert(res))
   .catch((err) => console.log(err));
 });
+

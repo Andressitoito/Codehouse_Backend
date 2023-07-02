@@ -228,7 +228,9 @@
       <a class="nav-link btn text-bg-dark position-relative" href="/carts_mongo"> Mongo Cart<span
         class="position-absolute top-1 start-100 mt-1 translate-middle badge rounded-pill bg-primary">{{mongo_products_quantity}}</span></a>
 
-      <button class="btn text-bg-dark login-btn" id="logout">Logout</button>
+      <button class="btn text-bg-dark" id="logout">Logout</button>
+
+      <button class="btn text-bg-dark login-btn" id="git-login">Git</button>
 
       <ul class="nav navbar-nav navbar-right">
        <li id="login_menu">
@@ -239,12 +241,19 @@
           <form action="/examples/actions/confirmation.php" method="post" class="">
            <p class="hint-text">Welcome again!</p>
            <div class="form-group mb-3">
-            <input type="text" class="form-control" placeholder="Email" required="required" id="login_email"
-             value="">
+            <input type="text" class="form-control" placeholder="Email" required="required" id="login_email" 
+            
+            value="admin@admin.com"
+            
+            >
            </div>
            <div class="form-group mb-3">
             <input type="password" class="form-control" placeholder="Password" required="required" id="login_password"
-             value="">
+
+
+             value="12345678"
+             
+             >
            </div>
 
            <input type="submit" class="btn flex-1 btn-primary w-100 btn-block" value="Login" id="login">
@@ -260,20 +269,17 @@
           <form action="/examples/actions/confirmation.php" method="post">
            <p class="hint-text">Fill in this form to create your account!</p>
            <div class="form-group mb-3">
-            <input type="text" class="form-control" placeholder="Name" required="required" id="signup_name"
-             value="">
+            <input type="text" class="form-control" placeholder="Name" required="required" id="signup_name" value="">
            </div>
            <div class="form-group mb-3">
-            <input type="text" class="form-control" placeholder="Email" required="required" id="signup_email"
-             value="">
+            <input type="text" class="form-control" placeholder="Email" required="required" id="signup_email" value="">
            </div>
            <div class="form-group mb-3">
             <input type="password" class="form-control" placeholder="Password" required="required" id="signup_password"
              value="">
            </div>
            <div class="form-group mb-3">
-            <input type="password" class="form-control" placeholder="Confirm Password" required="required"
-             value="">
+            <input type="password" class="form-control" placeholder="Confirm Password" required="required" value="">
            </div>
 
            <input type="submit" class="btn w-100 btn-primary btn-block" value="Sign up" id="signup">

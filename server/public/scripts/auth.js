@@ -1,3 +1,5 @@
+
+
 ////////////////////////////
 // PATH PROTECTION
 /////////////////////////////
@@ -25,6 +27,39 @@ const checkLog = async () => {
 };
 
 checkLog();
+
+function getCookieValue(name) {
+	const cookies = document.cookie.split(";");
+
+	for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+
+			// Check if the cookie starts with the provided name
+			if (cookie.startsWith(name + "=")) {
+					// Extract the cookie value
+					const value = cookie.substring(name.length + 1);
+					return decodeURIComponent(value);
+			}
+	}
+
+	// Cookie not found
+	return null;
+}
+
+// Example usage to extract a cookie value
+const tokenStr = getCookieValue("token");
+console.log(tokenStr);
+
+
+const token = tokenStr;
+const [header, payload, signature] = token.split('.');
+
+const decodedHeader = JSON.parse(atob(header));
+const decodedPayload = JSON.parse(atob(payload));
+
+console.log(decodedHeader); // Access header data
+console.log(decodedPayload);
+
 
 ////////////////////////////
 // SIGN UP
@@ -84,8 +119,6 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	e.preventDefault();
 	const email = document.querySelector("#login_email").value;
 	const password = document.querySelector("#login_password").value;
-	const res_cookie = await fetch(`/api/cookies/set/${email}`);
-	const data_cookie = await res_cookie.json();
 
 	const res_user = await fetch(`/api/auth/signin`, {
 		method: "POST",
@@ -104,7 +137,7 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 			position: "top-end",
 			icon: "success",
 			title: "Saved!",
-			html: `<p>Welcome again ${data_user.name}!</p>`,
+			html: `<p>Welcome again ${data_user.username}!</p>`,
 			showConfirmButton: false,
 			timer: 2500,
 			timerProgressBar: true,
@@ -122,12 +155,36 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	}
 });
 
-/////////////////////////////
-// SIGN OUT
-/////////////////////////////
+// /////////////////////////////
+// // SIGN OUT SESSIONS
+// /////////////////////////////
+// document.querySelector("#logout").addEventListener("click", async (e) => {
+// 	e.preventDefault();
+// 	const res = await fetch(`/api/sessions/signout`, {
+// 		method: "POST",
+// 	});
+
+// 	const data = await res.json();
+
+// 	Swal.fire({
+// 		position: "top-end",
+// 		icon: "success",
+// 		title: `${data.message}`,
+// 		showConfirmButton: false,
+// 		willClose: () => {
+// 			window.location.href = "/";
+// 		},
+// 		timer: 1500,
+// 	});
+// 	checkLog();
+// });
+
+// ///////////////////////////
+// SIGN OUT JWT
+// ///////////////////////////
 document.querySelector("#logout").addEventListener("click", async (e) => {
 	e.preventDefault();
-	const res = await fetch(`/api/sessions/signout`, {
+	const res = await fetch(`/api/auth/signout`, {
 		method: "POST",
 	});
 
@@ -144,4 +201,21 @@ document.querySelector("#logout").addEventListener("click", async (e) => {
 		timer: 1500,
 	});
 	checkLog();
+});
+
+
+
+
+
+/////////////////////////////
+// GIT LOGIN
+/////////////////////////////
+document.querySelector("#git-login").addEventListener("click", async(e) => {
+	e.preventDefault();
+	console.log('git clicked')
+
+	const res = await fetch(`http://localhost:8080/api/auth/github/callback`)
+	const data = await res.json()
+
+	console.log(data)
 });

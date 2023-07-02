@@ -4,12 +4,15 @@
 import { Router } from "express";
 import __dirname from "../../utils/utils.js";
 import Product from "../../models/Products.js";
+import passport from "passport";
+import passport_call from "../../middlewares/passport_call.js";
+
 const router = Router();
 
 /////////////////////////////
 // GET ALL PRODUCTS
 /////////////////////////////
-router.get("/cards", async (req, res, next) => {
+router.get("/cards", passport_call, async (req, res, next) => {
 	try {
 		const page = req.query.page ?? 1;
 		const limit = req.query.limit ?? 6;
