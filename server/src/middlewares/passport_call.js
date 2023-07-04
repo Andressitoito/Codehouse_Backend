@@ -1,14 +1,14 @@
 import passport from "passport";
 
-export default function passport_call( strategy) {
- return async (req,res,next) => {
+export default function passport_call(strategy) {
+ return async (req, res, next) => {
   passport.authenticate(
    strategy,
-   (err,user,info)=>{
+   (err, user, info) => {
     if (err) {
      return next(err)
     }
-    if(!user){
+    if (!user) {
      return res.status(401).json({
       error: info.toString()
      })
@@ -16,6 +16,6 @@ export default function passport_call( strategy) {
     req.user = user
     return next()
    }
-  )(req,res,next)
+  )(req, res, next)
  }
 }

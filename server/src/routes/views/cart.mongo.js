@@ -29,8 +29,6 @@ router.get("/", async (req, res, next) => {
 				quantity: product.quantity,
 			};
 		});
-		console.log("Products from cart");
-		console.log(products);
 
 		return res.render("carts/mongo/cart", {
 			title: "Product Cart",

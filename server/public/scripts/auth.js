@@ -1,114 +1,120 @@
-
-
 ////////////////////////////
 // PATH PROTECTION
 /////////////////////////////
-const checkLog = async () => {
-	const res = await fetch("/api/auth/checkLog");
-	const data = await res.json();
-
-	if (data.checkLog) {
-		document.querySelector("#logout").classList.remove("hide");
-		document.querySelector("#signup_menu").classList.add("hide");
-		document.querySelector("#login_menu").classList.add("hide");
-	} else {
-		document.querySelector("#logout").classList.add("hide");
-		document.querySelector("#signup_menu").classList.remove("hide");
-		document.querySelector("#login_menu").classList.remove("hide");
-	}
-
-	if (data.user_role === 1) {
-		document.querySelector("#add_mongo_product").classList.remove("hide");
-		document.querySelector("#add_fs_product").classList.remove("hide");
-	} else {
-		document.querySelector("#add_mongo_product").classList.add("hide");
-		document.querySelector("#add_fs_product").classList.add("hide");
-	}
-};
-
-checkLog();
-
+let main_username = "";
 function getCookieValue(name) {
 	const cookies = document.cookie.split(";");
 
 	for (let i = 0; i < cookies.length; i++) {
-			const cookie = cookies[i].trim();
+		const cookie = cookies[i].trim();
 
-			// Check if the cookie starts with the provided name
-			if (cookie.startsWith(name + "=")) {
-					// Extract the cookie value
-					const value = cookie.substring(name.length + 1);
-					return decodeURIComponent(value);
-			}
+		if (cookie.startsWith(name + "=")) {
+			const value = cookie.substring(name.length + 1);
+			return decodeURIComponent(value);
+		}
 	}
 
-	// Cookie not found
 	return null;
 }
 
-// Example usage to extract a cookie value
-const tokenStr = getCookieValue("token");
-console.log(tokenStr);
+const checkLog = async () => {
+	const tokenStr = getCookieValue("token");
 
+	const token = tokenStr;
 
-const token = tokenStr;
-const [header, payload, signature] = token.split('.');
+	if (token) {
+		const [header, payload, signature] = token.split(".");
 
-const decodedHeader = JSON.parse(atob(header));
-const decodedPayload = JSON.parse(atob(payload));
+		const decodedHeader = JSON.parse(atob(header));
+		const decodedPayload = JSON.parse(atob(payload));
 
-console.log(decodedHeader); // Access header data
-console.log(decodedPayload);
+		console.log(decodedPayload);
 
+		document.querySelector("#logout").classList.remove("hide");
+		document.querySelector("#signup_menu").classList.add("hide");
+		document.querySelector("#login_menu").classList.add("hide");
+
+		const { role } = decodedPayload;
+
+		if (role === 1) {
+			document.querySelector("#add_mongo_product").classList.remove("hide");
+			document.querySelector("#add_fs_product").classList.remove("hide");
+		} else {
+			document.querySelector("#add_mongo_product").classList.add("hide");
+			document.querySelector("#add_fs_product").classList.add("hide");
+		}
+	} else {
+		document.querySelector("#add_mongo_product").classList.add("hide");
+		document.querySelector("#add_fs_product").classList.add("hide");
+		document.querySelector("#logout").classList.add("hide");
+		document.querySelector("#signup_menu").classList.remove("hide");
+		document.querySelector("#login_menu").classList.remove("hide");
+	}
+};
+
+checkLog();
 
 ////////////////////////////
 // SIGN UP
 /////////////////////////////
 document.querySelector("#signup").addEventListener("click", async (e) => {
 	e.preventDefault();
-	const email = document.querySelector("#signup_email").value;
-	const name = document.querySelector("#signup_name").value;
-	console.log(email);
-	console.log(name);
-	const password = document.querySelector("#signup_password").value;
-	console.log(password);
-	const res_cookie = await fetch(`/api/cookies/set/${email}`);
-	const data_cookie = await res_cookie.json();
+	const name = document.getElementById("signup_name").value.trim();
+	const email = document.getElementById("signup_email").value.trim();
+	const password = document.getElementById("signup_password").value.trim();
+	const confirm_password = document
+		.getElementById("confirm_password")
+		.value.trim();
 
-	console.log(data_cookie);
-
-	const res_user = await fetch(`/api/auth/register`, {
-		method: "POST",
-		body: JSON.stringify({ email, password, name }),
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
-	const data_user = await res_user.json();
-
-	if (data_user.success) {
-		console.log(data_user);
-
-		Swal.fire({
-			position: "top-end",
-			icon: "success",
-			title: "Saved!",
-			html: `<p>${email} has been successfully registered!</p>`,
-			showConfirmButton: false,
-			timer: 2500,
-			timerProgressBar: true,
-			willClose: () => {
-				window.location.href = "/";
-			},
-		});
-	} else {
+	if (
+		name === "" ||
+		email === "" ||
+		password === "" ||
+		password !== confirm_password
+	) {
 		Swal.fire({
 			icon: "error",
 			title: "Something went wrong!",
-			text: `<p>${data_user.message}</p>
-   <p>${data_cookie.response || "Cookie Success"}</p>`,
+			html: `<p>Check user data, please</p>`,
 			footer: '<a href="/chat/">Ask for a solution in our chat!</a>',
 		});
+
+		return;
+	} else {
+		const res_user = await fetch(`/api/auth/register`, {
+			method: "POST",
+			body: JSON.stringify({ email, password, name }),
+			headers: {
+				"Content-Type": "application/json",
+			},
+		});
+		const data_user = await res_user.json();
+
+		console.log(data_user);
+
+		if (data_user.success) {
+			console.log(data_user);
+
+			Swal.fire({
+				position: "top-end",
+				icon: "success",
+				title: "Saved!",
+				html: `<p>${email} has been successfully registered!</p>`,
+				showConfirmButton: false,
+				timer: 2500,
+				timerProgressBar: true,
+				willClose: () => {
+					window.location.href = "/";
+				},
+			});
+		} else {
+			Swal.fire({
+				icon: "error",
+				title: "Something went wrong!",
+				html: `<p>${data_user.message}</p>`,
+				footer: '<a href="/chat/">Ask for a solution in our chat!</a>',
+			});
+		}
 	}
 });
 
@@ -128,7 +134,7 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 		},
 	});
 	const data_user = await res_user.json();
-	
+
 	console.log(data_user);
 	if (data_user.success) {
 		checkLog();
@@ -155,45 +161,51 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	}
 });
 
-// /////////////////////////////
-// // SIGN OUT SESSIONS
-// /////////////////////////////
-// document.querySelector("#logout").addEventListener("click", async (e) => {
-// 	e.preventDefault();
-// 	const res = await fetch(`/api/sessions/signout`, {
-// 		method: "POST",
-// 	});
+///////////////////////////
+// SIGN OUT SESSIONS
+///////////////////////////
+document.querySelector("#session-logout").addEventListener("click", async (e) => {
+	e.preventDefault();
+	const res = await fetch(`/api/auth/signout/jwt`, {
+		method: "POST",
+	});
 
-// 	const data = await res.json();
+	const data = await res.json();
 
-// 	Swal.fire({
-// 		position: "top-end",
-// 		icon: "success",
-// 		title: `${data.message}`,
-// 		showConfirmButton: false,
-// 		willClose: () => {
-// 			window.location.href = "/";
-// 		},
-// 		timer: 1500,
-// 	});
-// 	checkLog();
-// });
+	console.log(data)
+
+	// Swal.fire({
+	// 	position: "top-end",
+	// 	icon: "success",
+	// 	title: `${data.message}`,
+	// 	showConfirmButton: false,
+	// 	willClose: () => {
+	// 		window.location.href = "/";
+	// 	},
+	// 	timer: 1500,
+	// });
+	checkLog();
+});
 
 // ///////////////////////////
 // SIGN OUT JWT
 // ///////////////////////////
 document.querySelector("#logout").addEventListener("click", async (e) => {
 	e.preventDefault();
-	const res = await fetch(`/api/auth/signout`, {
+
+	const res = await fetch(`/api/auth/logout/jwt`, {
 		method: "POST",
 	});
 
 	const data = await res.json();
 
+	console.log(data)
+
 	Swal.fire({
 		position: "top-end",
 		icon: "success",
-		title: `${data.message}`,
+		title: "See you later!",
+		html: `<p>${data.message}</p>`,
 		showConfirmButton: false,
 		willClose: () => {
 			window.location.href = "/";
@@ -203,19 +215,21 @@ document.querySelector("#logout").addEventListener("click", async (e) => {
 	checkLog();
 });
 
-
-
-
-
 /////////////////////////////
 // GIT LOGIN
 /////////////////////////////
-document.querySelector("#git-login").addEventListener("click", async(e) => {
+document.querySelector("#git-login").addEventListener("click", async (e) => {
 	e.preventDefault();
-	console.log('git clicked')
 
-	const res = await fetch(`http://localhost:8080/api/auth/github/callback`)
-	const data = await res.json()
-
-	console.log(data)
+	window.location.href = "http://localhost:8080/api/auth/github";
 });
+
+/////////////////////////////
+// GIT SUBMIT
+/////////////////////////////
+document.querySelector("#git-submit").addEventListener("click", async (e) => {
+	e.preventDefault();
+
+	window.location.href = "http://localhost:8080/api/auth/github";
+});
+

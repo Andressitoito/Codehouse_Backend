@@ -116,8 +116,6 @@ export default function () {
 			},
 			async (accessToken, refreshToken, profile, done) => {
 				try {
-					console.log(profile.username);
-					console.log(profile.profileUrl);
 					let one = await User.findOne({ email: profile._json.login });
 
 					if (one) {

@@ -12,7 +12,7 @@ const router = Router();
 /////////////////////////////
 // GET ALL PRODUCTS
 /////////////////////////////
-router.get("/cards", passport_call, async (req, res, next) => {
+router.get("/cards", passport_call('jwt'), async (req, res, next) => {
 	try {
 		const page = req.query.page ?? 1;
 		const limit = req.query.limit ?? 6;
@@ -45,6 +45,8 @@ router.get("/cards", passport_call, async (req, res, next) => {
 router.get("/add-product", async (req, res, next) => {
 	try {
 		console.log("add mongo product");
+
+		console.log(req.session)
 		if (req.session?.role === 1) {
 			return res.render("products/mongo/add-product", {
 				title: "Add product to cart",
@@ -63,8 +65,6 @@ router.get("/add-product", async (req, res, next) => {
 /////////////////////////////
 router.get("/:pid", async (req, res, next) => {
 	try {
-		// const product = await product_manager.getProductById(product_id);
-
 		const product = await Product.find({ _id: req.params.pid });
 
 		return res.render("products/mongo/add-product-to-cart", {
