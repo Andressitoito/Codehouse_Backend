@@ -4,6 +4,32 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### User creation with Github
+
+Creation of user accounts using Github authentication, integrating Github's OAuth authentication flow, and using the Github API to retrieve user information.
+
+![User Creation With Github](./server/public/images/readme/video_examples/github_creation.gif)
+
+### Logout user with Github
+
+Implementing the Github authentication flow, which redirects users to Github's login and logout page and handles the callback with an access token.
+
+![Logout user with Github](./server/public/images/readme/video_examples/github_logout.gif)
+
+### Protection of routes until user is logged
+
+To ensure that only authenticated users can access them, middleware functions that check if a user is logged in before allowing access to protected routes. This protection, you can restrict certain parts to authenticated users only, preventing unauthorized access and securing sensitive data or functionalities.
+
+![Protection of routes until user is logged](./server/public/images/readme/video_examples/routes_protection.gif)
+
+### Working with JWT tokens to ensure user authorization
+
+Generating and signing JWT tokens on the server side, send and verify these tokens on subsequent requests. By leveraging JWT tokens, applications can authenticate and authorize users without the need for server-side sessions.
+
+![Working with JWT tokens to ensure user authorization](./server/public/images/readme/video_examples/jwt_token.gif)
+
+# Previous Features
+
 ### User Creation
 
 - This feature enables the creation of new user accounts within the system. It provides a way for individuals to register and create their unique profiles.
@@ -27,8 +53,6 @@ This repository contains a server build with Node.js and Express, set up to run 
 - The Admin User Unique feature designates a specific user as the administrator, granting them elevated privileges and additional control over the system.
 
 ![Admin User Unique](./server/public/images/readme/video_examples/unique_admin_access.gif)
-
-# Previous Features
 
 ### Pagination of products
 

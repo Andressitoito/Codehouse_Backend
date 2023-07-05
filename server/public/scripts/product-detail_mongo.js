@@ -2,6 +2,18 @@ const product_id = document
 	.querySelector("#price-value")
 	.getAttribute("data-id");
 
+const checkLogin = async () => {
+	const tokenStr = getCookieValue("token");
+
+	if (tokenStr) {
+		document.querySelector(".product-detail-unique").disabled = false;
+	} else {
+		document.querySelector(".product-detail-unique").disabled = true;
+	}
+};
+
+checkLogin();
+
 document
 	.querySelector(`#add-to-cart-${product_id}`)
 	.addEventListener("click", async () => {
@@ -9,7 +21,7 @@ document
 			`#edit-cart-${product_id}`
 		).value;
 
-		const cart_id = '648276ab74476c69be6576b3'
+		const cart_id = "648276ab74476c69be6576b3";
 
 		console.log({
 			product_id: product_id,
@@ -51,6 +63,7 @@ document
 		const price_value = document
 			.querySelector(`#price-value`)
 			.getAttribute("data-price");
-		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${document.querySelector(`#edit-cart-${product_id}`).value * price_value
-			}`;
+		document.querySelector(`#card-multiply-${product_id}`).innerHTML = `Total: $${
+			document.querySelector(`#edit-cart-${product_id}`).value * price_value
+		}`;
 	});

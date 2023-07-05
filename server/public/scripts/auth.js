@@ -22,6 +22,8 @@ const checkLog = async () => {
 
 	const token = tokenStr;
 
+	console.log({user_authorize_token: token})
+
 	if (token) {
 		const [header, payload, signature] = token.split(".");
 
@@ -30,7 +32,10 @@ const checkLog = async () => {
 
 		console.log(decodedPayload);
 
+		main_username = decodedPayload.name;
+
 		document.querySelector("#logout").classList.remove("hide");
+		document.querySelector("#logout").textContent = `Logout ${main_username}`;
 		document.querySelector("#signup_menu").classList.add("hide");
 		document.querySelector("#login_menu").classList.add("hide");
 
@@ -42,9 +47,14 @@ const checkLog = async () => {
 		} else {
 			document.querySelector("#add_mongo_product").classList.add("hide");
 			document.querySelector("#add_fs_product").classList.add("hide");
+			document.querySelector("#fs_cart").classList.remove("hide");
+			document.querySelector("#mongo_cart").classList.remove("hide");
 		}
 	} else {
+		document.querySelector("#fs_cart").classList.add("hide");
+		document.querySelector("#mongo_cart").classList.add("hide");
 		document.querySelector("#add_mongo_product").classList.add("hide");
+		document.querySelector("#logout").innerHTML = `Logout`;
 		document.querySelector("#add_fs_product").classList.add("hide");
 		document.querySelector("#logout").classList.add("hide");
 		document.querySelector("#signup_menu").classList.remove("hide");
@@ -90,11 +100,7 @@ document.querySelector("#signup").addEventListener("click", async (e) => {
 		});
 		const data_user = await res_user.json();
 
-		console.log(data_user);
-
 		if (data_user.success) {
-			console.log(data_user);
-
 			Swal.fire({
 				position: "top-end",
 				icon: "success",
@@ -119,7 +125,7 @@ document.querySelector("#signup").addEventListener("click", async (e) => {
 });
 
 /////////////////////////////
-// LOGIN
+// LOGIN USER & PASS
 /////////////////////////////
 document.querySelector("#login").addEventListener("click", async (e) => {
 	e.preventDefault();
@@ -161,45 +167,19 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	}
 });
 
-///////////////////////////
-// SIGN OUT SESSIONS
-///////////////////////////
-document.querySelector("#session-logout").addEventListener("click", async (e) => {
-	e.preventDefault();
-	const res = await fetch(`/api/auth/signout/jwt`, {
-		method: "POST",
-	});
-
-	const data = await res.json();
-
-	console.log(data)
-
-	// Swal.fire({
-	// 	position: "top-end",
-	// 	icon: "success",
-	// 	title: `${data.message}`,
-	// 	showConfirmButton: false,
-	// 	willClose: () => {
-	// 		window.location.href = "/";
-	// 	},
-	// 	timer: 1500,
-	// });
-	checkLog();
-});
-
 // ///////////////////////////
 // SIGN OUT JWT
 // ///////////////////////////
 document.querySelector("#logout").addEventListener("click", async (e) => {
 	e.preventDefault();
 
-	const res = await fetch(`/api/auth/logout/jwt`, {
+	const res = await fetch(`/api/auth/logout`, {
 		method: "POST",
 	});
 
 	const data = await res.json();
 
-	console.log(data)
+	console.log(data);
 
 	Swal.fire({
 		position: "top-end",
@@ -215,13 +195,57 @@ document.querySelector("#logout").addEventListener("click", async (e) => {
 	checkLog();
 });
 
+// ///////////////////////////
+// FORCE SIGN OUT JWT
+// ///////////////////////////
+// document.querySelector("#logout-force").addEventListener("click", async (e) => {
+// 	e.preventDefault();
+
+// 	const res = await fetch(`/api/auth/logout/jwt-force`, {
+// 		method: "POST",
+// 	});
+
+// 	const data = await res.json();
+
+// 	console.log(data)
+
+// 		checkLog();
+// });
+
 /////////////////////////////
 // GIT LOGIN
 /////////////////////////////
 document.querySelector("#git-login").addEventListener("click", async (e) => {
 	e.preventDefault();
 
-	window.location.href = "http://localhost:8080/api/auth/github";
+	window.location.href = "http://localhost:8080/api/auth/github/callback";
+
+	Swal.fire({
+		title: `Signin in!`,
+		html: `<br><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+		class="bi bi-github" viewBox="0 0 16 16">
+		<path
+			d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+	</svg> <br><br> <b></b> seconds.`,
+		timer: 5000,
+		allowOutsideClick: false,
+		timerProgressBar: true,
+		didOpen: () => {
+			Swal.showLoading();
+			const b = Swal.getHtmlContainer().querySelector("b");
+			timerInterval = setInterval(() => {
+				b.textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
+			}, 100);
+		},
+		willClose: () => {
+			clearInterval(timerInterval);
+		},
+	}).then((result) => {
+		/* Read more about handling dismissals below */
+		// if (result.dismiss === Swal.DismissReason.timer) {
+		// 	console.log('I was closed by the timer');
+		// }
+	});
 });
 
 /////////////////////////////
@@ -230,6 +254,32 @@ document.querySelector("#git-login").addEventListener("click", async (e) => {
 document.querySelector("#git-submit").addEventListener("click", async (e) => {
 	e.preventDefault();
 
-	window.location.href = "http://localhost:8080/api/auth/github";
-});
+	window.location.href = "http://localhost:8080/api/auth/github/callback";
 
+	Swal.fire({
+		title: `Creating new user...`,
+		html: `<br><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+		class="bi bi-github" viewBox="0 0 16 16">
+		<path
+			d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+	</svg> <br><br> <b></b> seconds.`,
+		timer: 5000,
+		allowOutsideClick: false,
+		timerProgressBar: true,
+		didOpen: () => {
+			Swal.showLoading();
+			const b = Swal.getHtmlContainer().querySelector("b");
+			timerInterval = setInterval(() => {
+				b.textContent = (Swal.getTimerLeft() / 1000).toFixed(0);
+			}, 100);
+		},
+		willClose: () => {
+			clearInterval(timerInterval);
+		},
+	}).then((result) => {
+		/* Read more about handling dismissals below */
+		// if (result.dismiss === Swal.DismissReason.timer) {
+		// 	console.log('I was closed by the timer');
+		// }
+	});
+});

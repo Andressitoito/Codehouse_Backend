@@ -6,13 +6,14 @@ import __dirname from "../../utils/utils.js";
 import Product from "../../models/Products.js";
 import passport from "passport";
 import passport_call from "../../middlewares/passport_call.js";
+import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
 
 const router = Router();
 
 /////////////////////////////
 // GET ALL PRODUCTS
 /////////////////////////////
-router.get("/cards", passport_call('jwt'), async (req, res, next) => {
+router.get("/cards", async (req, res, next) => {
 	try {
 		const page = req.query.page ?? 1;
 		const limit = req.query.limit ?? 6;
@@ -42,11 +43,11 @@ router.get("/cards", passport_call('jwt'), async (req, res, next) => {
 /////////////////////////////
 // ADD PRODUCT FORM
 /////////////////////////////
-router.get("/add-product", async (req, res, next) => {
+router.get("/add-product", redirect_unauthorized, async (req, res, next) => {
 	try {
 		console.log("add mongo product");
 
-		console.log(req.session)
+		console.log(req.session);
 		if (req.session?.role === 1) {
 			return res.render("products/mongo/add-product", {
 				title: "Add product to cart",

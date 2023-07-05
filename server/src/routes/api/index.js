@@ -7,6 +7,8 @@ import cookies_router from "./cookies/cookies.js";
 import sessions_router from "./sessions/sessions.js";
 import auth_router from "./auth/auth.js";
 
+// import prueba from './auth/prueba.js'
+
 const router = Router()
 
 router.use('/products', products_router)
@@ -16,5 +18,7 @@ router.use('/carts_mongo', carts_mongo)
 router.use('/cookies', cookies_router)
 router.use('/sessions', sessions_router)
 router.use('/auth', auth_router)
+
+// router.use('/auth/pruebas', prueba)
 
 export default router

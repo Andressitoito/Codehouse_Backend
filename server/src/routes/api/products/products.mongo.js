@@ -7,13 +7,15 @@ import productValidator from "../../../middlewares/product_validator.js";
 import Product from "../../../models/Products.js";
 import passport from "passport";
 import passport_call from "../../../middlewares/passport_call.js";
+import { redirect_unauthorized } from "../../../middlewares/redirect_unauthorized.js";
 
 const router = Router();
 
 /////////////////////////////
 // GET /api/products
 /////////////////////////////
-router.get("/", passport_call('jwt'), async (req, res, next) => {
+
+router.get("/", redirect_unauthorized, async (req, res, next) => {
 	try {
 		const products = await Product.find();
 
