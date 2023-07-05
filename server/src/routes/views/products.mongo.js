@@ -43,12 +43,10 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 // ADD PRODUCT FORM
 /////////////////////////////
-router.get("/add-product", redirect_unauthorized, async (req, res, next) => {
+router.get("/add-product",  async (req, res, next) => {
 	try {
-		console.log("add mongo product");
 
-		console.log(req.session);
-		if (req.session?.role === 1) {
+				if (req.user?.role === 1) {
 			return res.render("products/mongo/add-product", {
 				title: "Add product to cart",
 				script: "add_mongo_product.js",

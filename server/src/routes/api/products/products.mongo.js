@@ -8,14 +8,14 @@ import Product from "../../../models/Products.js";
 import passport from "passport";
 import passport_call from "../../../middlewares/passport_call.js";
 import { redirect_unauthorized } from "../../../middlewares/redirect_unauthorized.js";
+import { unauthorized_role } from "../../../middlewares/unauhorized_role.js";
 
 const router = Router();
 
 /////////////////////////////
 // GET /api/products
 /////////////////////////////
-
-router.get("/", redirect_unauthorized, async (req, res, next) => {
+router.get("/", async (req, res, next) => {
 	try {
 		const products = await Product.find();
 
@@ -53,9 +53,8 @@ router.get("/:pid", async (req, res, next) => {
 /////////////////////////////
 router.post(
 	"/",
-	// passport.authenticate("jwt", { session: false }),
-	passport_call('jwt'),
 	productValidator,
+	unauthorized_role,
 	async (req, res, next) => {
 		try {
 			let { title, description, price, thumbnail, stock } = req.body;
@@ -94,29 +93,35 @@ router.post(
 /////////////////////////////
 // PUT /api/products/:pid
 /////////////////////////////
-router.put("/:pid", async (req, res, next) => {
-	try {
-		const dataToUpdate = req.body;
-		const idToUpdate = req.params.pid;
+router.put(
+	"/:pid",
+	passport_call("jwt"),
+	unauthorized_role,
+	async (req, res, next) => {
+		try {
+			const dataToUpdate = req.body;
+			const idToUpdate = req.params.pid;
 
-		const product = await Product.findByIdAndUpdate(idToUpdate, dataToUpdate, {
-			new: true,
-		});
+			const product = await Product.findByIdAndUpdate(idToUpdate, dataToUpdate, {
+				new: true,
+			});
 
-		res.json({
-			status: 201,
-			success: true,
-			product,
-		});
-	} catch (error) {
-		next(error);
+			res.json({
+				status: 201,
+				success: true,
+				product,
+			});
+		} catch (error) {
+			next(error);
+		}
 	}
-});
+);
 
 /////////////////////////////
 // DELETE /api/products/:pid
 /////////////////////////////
-router.delete("/:pid", async (req, res, next) => {
+
+router.delete("/:pid", unauthorized_role, async (req, res, next) => {
 	try {
 		const idToDelete = req.params.pid;
 

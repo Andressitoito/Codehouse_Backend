@@ -15,6 +15,8 @@ productForm.addEventListener("submit", async (e) => {
 		headers: { "Content-Type": "application/json" },
 	});
 	const data = await response.json();
+
+	console.log(data)
 	if (response.ok) {
 		console.log(data); // Show success modal
 
