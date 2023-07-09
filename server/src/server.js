@@ -13,8 +13,6 @@ let ready = () => {
 	console.log(`Server ready on port ${PORT}`);
 };
 
-console.log("process.env.PORT ", process.env.PORT)
-
 /////////////////////////////
 // CHATS
 /////////////////////////////
