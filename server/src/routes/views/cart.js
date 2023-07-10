@@ -4,12 +4,13 @@
 import { Router } from "express";
 import cart_manager from "../../Manager/Cart_manager.js";
 import product_manager from "../../Manager/Product_manager.js";
+import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
 const router = Router();
 
 /////////////////////////////
 // GET CART BY ID
 /////////////////////////////
-router.get("/cart/:cid", async (req, res, next) => {
+router.get("/cart/:cid", redirect_unauthorized, async (req, res, next) => {
 	try {
 		const cart_id = Number(req.params.cid);
 		const cart = await cart_manager.getCartById(cart_id);
@@ -34,7 +35,7 @@ router.get("/cart/:cid", async (req, res, next) => {
 		return res.render("carts/cart", {
 			title: "Product Cart",
 			products_data,
-			script_cart: "edit-cart.js",
+			script: "edit-cart.js",
 		});
 	} catch (error) {
 		next(error);

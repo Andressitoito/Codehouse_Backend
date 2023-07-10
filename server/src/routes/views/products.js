@@ -7,9 +7,9 @@ import __dirname from "../../utils/utils.js";
 const router = Router();
 
 /////////////////////////////
-// GET ALL PRDUCTS
+// GET ALL PRODUCTS
 /////////////////////////////
-router.get("/cards", async (req, res) => {
+router.get("/cards", async (req, res, next) => {
 	try {
 		let products = await product_manager.getProducts();
 
@@ -27,10 +27,14 @@ router.get("/cards", async (req, res) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		return res.render("products/add-product", {
-			title: "Add product to cart",
-			script_product: "add-product.js",
-		});
+		if (req.session?.role === 1) {
+			return res.render("products/add-product", {
+				title: "Add product to cart",
+				script: "add-product.js",
+			});
+		} else {
+			return res.redirect("/");
+		}
 	} catch (error) {
 		next(error);
 	}
@@ -45,7 +49,7 @@ router.get("/:pid", async (req, res, next) => {
 		const product = await product_manager.getProductById(product_id);
 
 		return res.render("products/add-product-to-cart", {
-			script_product_detail: "product-detail.js",
+			script: "product-detail.js",
 			product,
 		});
 	} catch (error) {

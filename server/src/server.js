@@ -3,14 +3,17 @@
 /////////////////////////////
 import server from "./app.js";
 import { Server } from "socket.io";
+import "dotenv/config.js";
 
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 let ready = () => {
 	console.log(`Server ready on port ${PORT}`);
 };
+
+console.log("process.env.PORT ", process.env.PORT)
 
 /////////////////////////////
 // CHATS

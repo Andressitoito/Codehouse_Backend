@@ -1,2 +1,8 @@
 /server/node_modules
 /server/requests
+/Service Evaluation Server
+.env
+
+server/src/routes/router.js
+server/src/routes/user_class.router.js
+server/src/routes/api/auth/prueba.js

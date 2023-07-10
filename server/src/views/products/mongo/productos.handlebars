@@ -1,0 +1,29 @@
+	<section>
+		<h1>Welcome</h1>
+	</section>
+	<section>
+		<ul class="list">
+			<li><a href="/api/products">All Products</a></li>
+			<li><a href="/api/carts">All Carts</a></li>
+		</ul>
+	</section>
+	<section class="create-product">
+		<h3>Create Product</h3>
+		<form action="/api/products" method="post">
+			<label for="title">
+				Product name
+				<input type="text" name="title" required />
+			</label>
+			<label for="description">
+				Desciption
+				<textarea name="description" cols="30" rows="5" maxlength="150" required></textarea>
+			</label>
+			<label for="price">
+				Price
+				<input type="number" name="price" required />
+			</label>
+			<label for="submit">
+				<input type="submit" value="Create Product!" class="btn submit" required />
+			</label>
+		</form>
+	</section>

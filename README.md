@@ -1,8 +1,94 @@
 # E-Commerce Product Class Repository
 
-This repository contains a server build with Node.js and Express, set up to run on port 8080. 
+This repository contains a server build with Node.js and Express, set up to run on port 8080.
 
-## Products
+# New Features
+
+### User creation with Github
+
+Creation of user accounts using Github authentication, integrating Github's OAuth authentication flow, and using the Github API to retrieve user information.
+
+![User Creation With Github](./server/public/images/readme/video_examples/github_creation.gif)
+
+### Logout user with Github
+
+Implementing the Github authentication flow, which redirects users to Github's login and logout page and handles the callback with an access token.
+
+![Logout user with Github](./server/public/images/readme/video_examples/github_logout.gif)
+
+### Protection of routes until user is logged
+
+To ensure that only authenticated users can access them, middleware functions that check if a user is logged in before allowing access to protected routes. This protection, you can restrict certain parts to authenticated users only, preventing unauthorized access and securing sensitive data or functionalities.
+
+![Protection of routes until user is logged](./server/public/images/readme/video_examples/routes_protection.gif)
+
+### Working with JWT tokens to ensure user authorization
+
+Generating and signing JWT tokens on the server side, send and verify these tokens on subsequent requests. By leveraging JWT tokens, applications can authenticate and authorize users without the need for server-side sessions.
+
+![Working with JWT tokens to ensure user authorization](./server/public/images/readme/video_examples/jwt_token.gif)
+
+# Previous Features
+
+### User Creation
+
+- This feature enables the creation of new user accounts within the system. It provides a way for individuals to register and create their unique profiles.
+
+![User Creation](./server/public/images/readme/video_examples/create_user.gif)
+
+### Login and Sign Out
+
+- The Login and Sign Out functionality provides a secure way for users to access their accounts. Sign Out allows users to log out, terminating their current session and preventing unauthorized access.
+
+![Login and Sign Out](./server/public/images/readme/video_examples/user_login_logout.gif)
+
+### Protected Routes for Non-Admin User
+
+- Protected Routes for Non-Admin User restricts certain pages or sections of the application to authorized users only. Non-admin users are granted limited access, ensuring that sensitive or administrative functionalities are restricted to the admin user.
+
+![Protected Routes for Non-Admin User](./server/public/images/readme/video_examples/user_path_protection.gif)
+
+### Admin User Unique
+
+- The Admin User Unique feature designates a specific user as the administrator, granting them elevated privileges and additional control over the system.
+
+![Admin User Unique](./server/public/images/readme/video_examples/unique_admin_access.gif)
+
+### Pagination of products
+
+- Introducing pagination functionality to the server, allowing users to browse through products in a more organized and manageable manner.
+
+![Pagination of products](./server/public/images/readme/video_examples/pagination.gif)
+
+### Search Products by Name
+
+- The server now supports searching for products by their name, providing users with a quick and convenient way to find specific products.
+
+![Search Products by Name](./server/public/images/readme/video_examples/search.gif)
+
+### Updated Cart View with Subtotals and Total Amount
+
+- The cart view has been enhanced to display subtotals for individual items and the total amount to pay for the entire cart.
+
+![Updated Cart View with Subtotals and Total Amount](./server/public/images/readme/video_examples/totalpay.gif)
+
+### API Endpoint for Total Amount Calculation
+
+- We have added a new API endpoint that enables clients to calculate the total amount to pay for their purchases.
+
+![API Endpoint for Total Amount Calculation](./server/public/images/readme/carts/car-sum.png)
+
+### Products home page with MongoDB
+
+- From the home page where we can select tabs, products from MongoDB or local.
+
+![Products from home page](./server/public/images/readme/video_examples/mongo_home.gif)
+
+### Adding a Product in MongoDB
+
+- Demostration of the process of adding a new product in MongoDB, same UI as local but in MongoDB
+
+![Adding a Product with Success Transaction Alert](./server/public/images/readme/video_examples/Add_mongo.gif)
 
 ### Products home page showing navbar
 

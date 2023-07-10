@@ -4,19 +4,20 @@
 import { Router } from "express";
 import product_manager from "../../../Manager/Product_manager.js";
 import productValidator from "../../../middlewares/product_validator.js";
-import areUnits from "../../../middlewares/areUnits.js";
+import auth from "../../../middlewares/auth.js";
+import { redirect_unauthorized } from "../../../middlewares/redirect_unauthorized.js";
 
 const router = Router();
 
 /////////////////////////////
 // GET /api/products
 /////////////////////////////
-router.get("/", async (req, res, next) => {
+router.get("/", redirect_unauthorized, async (req, res, next) => {
 	try {
 		let query = parseInt(req.query.limit);
 
 		let products = await product_manager.getProducts(query);
-		
+
 		res.json({
 			status: 200,
 			success: true,
@@ -49,7 +50,7 @@ router.get("/:pid", async (req, res, next) => {
 /////////////////////////////
 // POST /api/products
 /////////////////////////////
-router.post("/", productValidator, async (req, res, next) => {
+router.post("/", auth, productValidator, async (req, res, next) => {
 	try {
 		let { title, description, price, thumbnail, stock } = req.body;
 

@@ -92,6 +92,141 @@
    -webkit-box-orient: vertical;
    max-height: 3.6em;
   }
+
+  .out-light-blue {
+   outline: 2px solid rgb(166, 242, 242);
+  }
+
+  .form-control {
+   box-shadow: none;
+   font-weight: normal;
+   font-size: 15px;
+  }
+
+  .form-control:focus {
+   border-color: #33cabb;
+   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar .form-inline {
+   display: inline-block;
+  }
+
+  .navbar .nav li {
+   position: relative;
+  }
+
+  .navbar .nav li a {
+   color: #888;
+  }
+
+  .navbar .nav .btn-primary,
+  .navbar .nav .btn-primary:active {
+   color: #fff;
+   background: #33cabb;
+   outline: none;
+   border: transparent;
+   border-radius: 6px;
+  }
+
+  .navbar .nav .btn-primary:hover,
+  .navbar .nav .btn-primary:focus {
+   color: #fff;
+   outline: none;
+   background: #31bfb1;
+  }
+
+  .login-btn {
+   background-color: rgb(79, 79, 79) !important;
+   margin-left: 15px;
+   margin-right: 5px;
+   border: transparent;
+   border-radius: 6px;
+  }
+
+  .submit-btn {
+   color: #333333 !important
+  }
+
+  #logout {
+   background-color: rgb(79, 79, 79) !important;
+   margin: 0 0 0 15px;
+  }
+
+  .navbar ul.nav li.active a,
+  .navbar ul.nav li.open>a {
+   background: transparent !important;
+  }
+
+  .navbar ul.nav li.open>a.get-started-btn {
+   color: #fff;
+   background: #31bfb1 !important;
+  }
+
+  .navbar .dropdown-menu {
+   border-color: #e5e5e5;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+  }
+
+  .navbar .nav .dropdown-menu li a,
+  .navbar .nav .dropdown-menu li a:hover,
+  .navbar .nav .dropdown-menu li a:focus {
+   line-height: normal;
+  }
+
+  .dropdown-menu.form-wrapper {
+   width: 280px;
+   padding: 15px;
+   right: 0;
+  }
+
+  .navbar .navbar-right .dropdown-toggle::after {
+   display: none;
+  }
+
+  .hide {
+   display: none;
+  }
+
+  .nav-link.btn:hover {
+   background-color: rgb(83, 82, 82) !important;
+   transition: ease-out;
+   transition: 500ms;
+  }
+
+  .or-seperator {
+   margin-top: 32px;
+   text-align: center;
+   border-top: 1px solid #e0e0e0;
+  }
+
+  .or-seperator b {
+   color: #666;
+   padding: 0 8px;
+   width: 30px;
+   height: 30px;
+   font-size: 13px;
+   text-align: center;
+   line-height: 26px;
+   background: #fff;
+   display: inline-block;
+   border: 1px solid #e0e0e0;
+   border-radius: 50%;
+   position: relative;
+   top: -15px;
+   z-index: 1;
+  }
+
+  .centered-btn {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 1rem
+  }
+
+  .show {
+   display: block !important;
+  }
  </style>
  </style>
 </head>
@@ -99,45 +234,140 @@
 <body class="text-bg-dark">
  <nav class="navbar fixed-top navbar-expand-md bg-dark navbar-dark px-5">
   <div class="container-fluid">
-   <a class="navbar-brand col" href="#">E Commerce BackEnd</a>
+   <a class="navbar-brand col" href="#">Grass and Plants</a>
    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
    </button>
    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+
+
     <div class="col-auto">
      <div class="navbar-nav flex-column flex-md-row justify-content-around">
-      <a class="nav-link active" aria-current="page" href="/">Home</a>
-      <a class="nav-link" href="/products/add-product">Add New Product</a>
-      <a class="nav-link" href="/products/cards">Products</a>
-      <a class="nav-link" href="/chat/">Chat!</a>
-      <a class="nav-link position-relative" href="/carts/cart/1">Cart<span
-        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-primary">{{products_quantity}}</span></a>
+      <a class="nav-link btn text-bg-dark" href="/">Home</a>
+      <li class="nav-item dropdown text-bg-dark">
+       <a class="nav-link btn text-bg-dark dropdown-toggle" href="#" id="navbarDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Fs Links
+       </a>
+       <div class="dropdown-menu " aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/products/add-product" id="add_fs_product">Add New Product</a>
+        <a class="dropdown-item" href="/products/cards">Products</a>
+        <a class="dropdown-item" href="/carts/cart/1" id="fs_cart">Cart<span
+          class="position-absolute top-1 start-100 translate-middle badge cart-badge rounded-pill bg-primary">{{products_quantity}}</span></a>
+       </div>
+      </li>
+
+
+
+      <a class="nav-link btn text-bg-dark center-btn" href="/products_mongo/add-product" id="add_mongo_product">Add
+       Mongo Product</a>
+
+
+      <a class="nav-link btn text-bg-dark" href="/products_mongo/cards">Mongo Products</a>
+      <a class="nav-link btn text-bg-dark" href="/chat/">Chat!</a>
+      <a class="nav-link btn text-bg-dark position-relative" href="/carts_mongo" id="mongo_cart"> Mongo Cart<span
+        class="position-absolute top-1 start-100 mt-1 translate-middle badge rounded-pill bg-primary">{{mongo_products_quantity}}</span></a>
+
+      <button class="btn text-bg-dark" id="logout">Logout</button>
+
+      {{!-- <button class="btn text-bg-dark show" id="logout-force">Logout</button> --}}
+
+      <ul class="nav navbar-nav navbar-right">
+       <li id="login_menu">
+        <a data-toggle="dropdown" class="dropdown-toggle text-bg-dark nav-link btn text-bg-dark  login-btn"
+         href="#">Login</a>
+        <ul class="dropdown-menu form-wrapper text-bg-dark">
+         <li>
+          <form action="/examples/actions/confirmation.php" method="post" class="">
+           <p class="hint-text">Welcome again!</p>
+           <div class="form-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" required="required" id="login_email"
+             value="">
+           </div>
+           <div class="form-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" required="required" id="login_password"
+             value="">
+           </div>
+
+           <input type="submit" class="btn flex-1 btn-primary w-100 btn-block submit-btn" value="Login" id="login">
+
+           <div class="or-seperator"><b>or</b></div>
+
+           <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-login">Continue with
+            Github<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+             class="bi bi-github" viewBox="0 0 16 16">
+             <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+            </svg></button>
+
+          </form>
+         </li>
+        </ul>
+       </li>
+       <li id="signup_menu">
+        <a href="#" data-toggle="dropdown" class="nav-link btn  btn-primary dropdown-toggle get-started-btn ">Sign
+         up</a>
+        <ul class="dropdown-menu form-wrapper text-bg-dark">
+         <li>
+          <form>
+           <p class="hint-text">Fill in this form to create your account!</p>
+           <div class="form-group mb-3">
+            <input type="text" class="form-control" placeholder="Name" id="signup_name" value="" required="required">
+           </div>
+           <div class="form-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" id="signup_email" value="" required="required">
+           </div>
+           <div class="form-group mb-3">
+            <input type="password" class="form-control" required="required" placeholder="Password" id="signup_password"
+             value="">
+           </div>
+           <div class="form-group mb-3">
+            <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" value=""
+             required="required">
+           </div>
+
+           <input type="submit" class="btn w-100 btn-primary btn-block submit-btn" value="Sign up" id="signup">
+
+           <div class="or-seperator"><b>or</b></div>
+
+          </form>
+
+          <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-submit">Continue with
+           Github<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github"
+            viewBox="0 0 16 16">
+            <path
+             d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+           </svg></button>
+
+         </li>
+        </ul>
+       </li>
+      </ul>
      </div>
     </div>
    </div>
   </div>
+
+
+
  </nav>
  {{{body}}}
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="/socket.io/socket.io.js"></script>
+ <script src="/public/scripts/auth.js"></script>
 
- {{#if script_chat}}
- <script src="/public/scripts/{{script_chat}}"></script>
+ {{#if script}}
+ <script src="/public/scripts/{{script}}"></script>
  {{/if}}
 
- {{#if script_product}}
- <script src="/public/scripts/{{script_product}}"></script>
- {{/if}}
 
- {{#if script_product_detail}}
- <script src="/public/scripts/{{script_product_detail}}"></script>
- {{/if}}
-
- {{#if script_cart}}
- <script src="/public/scripts/{{script_cart}}"></script>
- {{/if}}
 
 </body>
 
