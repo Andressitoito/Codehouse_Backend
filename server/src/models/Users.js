@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
+import Cart from "./Cart.js";
 
 const collection = "users";
 
@@ -23,15 +24,35 @@ const schema = new Schema({
 		type: Number,
 	},
 	role: {
-		type: Number,
-		default: 0,
+		type: String,
+		default: "USER",
 	},
 	password: {
 		type: String,
 		required: true,
 	},
+	cart_id: {
+		type: Types.ObjectId,
+		ref: "carts",
+		index: true,
+	},
+});
+
+schema.pre("save", async function (next) {
+	try {
+		// Create a new empty cart
+		const newCart = new Cart();
+		await newCart.save();
+
+		// Set the cart_id to the user
+		this.cart_id = newCart._id;
+		next();
+	} catch (error) {
+		next(error);
+	}
 });
 
 const User = model(collection, schema);
 
 export default User;
+

@@ -13,7 +13,7 @@ class CartFsController {
 	/////////////////////////////
 	// GET /api/carts
 	/////////////////////////////
-	getCarts = async (req, res, next) => {
+	getCartsFs = async (req, res, next) => {
 		try {
 			let carts = await cart_manager.getCarts();
 
@@ -31,7 +31,7 @@ class CartFsController {
 	/////////////////////////////
 	// GET /api/carts/:cid
 	/////////////////////////////
-	getCartById = async (req, res, next) => {
+	getCartByIdFs = async (req, res, next) => {
 		try {
 			let cid = parseInt(req.params.cid);
 
@@ -50,7 +50,7 @@ class CartFsController {
 	/////////////////////////////
 	// POST /api/carts
 	/////////////////////////////
-	createCart = async (req, res, next) => {
+	createCartFs = async (req, res, next) => {
 		try {
 			let cart = await cart_manager.addCart();
 
@@ -67,7 +67,7 @@ class CartFsController {
 	/////////////////////////////
 	// PUT /api/carts/:cid/product/:pid/:units
 	/////////////////////////////
-	updateProductInCartById = async (req, res, next) => {
+	updateProductInCartByIdFs = async (req, res, next) => {
 		try {
 			const cid = Number(req.params.cid);
 			const product_id = Number(req.params.pid);
@@ -146,7 +146,7 @@ class CartFsController {
 	/////////////////////////////
 	// DELETE /api/carts/:cid/product/:pid/:units
 	/////////////////////////////
-	deleteProductInCartyId = async (req, res, next) => {
+	deleteProductInCartyIdFs = async (req, res, next) => {
 		try {
 			const cid = Number(req.params.cid);
 			const product_id = Number(req.params.pid);

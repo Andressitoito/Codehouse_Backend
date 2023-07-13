@@ -2,7 +2,6 @@
 /server/requests
 /Service Evaluation Server
 .env
+.env.production
+.env.development
 
-server/src/routes/router.js
-server/src/routes/user_class.router.js
-server/src/routes/api/auth/prueba.js

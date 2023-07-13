@@ -6,36 +6,36 @@ import CartFsController from "../../../controllers/cart_fs.controller.js";
 
 const router = Router();
 const {
-	getCarts,
-	getCartById,
-	createCart,
-	updateProductInCartById,
-	deleteProductInCartyId,
+	getCartsFs,
+	getCartByIdFs,
+	createCartFs,
+	updateProductInCartByIdFs,
+	deleteProductInCartyIdFs,
 } = new CartFsController();
 
 /////////////////////////////
 // GET /api/carts
 /////////////////////////////
-router.get("/", getCarts);
+router.get("/", getCartsFs);
 
 /////////////////////////////
 // GET /api/carts/:cid
 /////////////////////////////
-router.get("/:cid", getCartById);
+router.get("/:cid", getCartByIdFs);
 
 /////////////////////////////
 // POST /api/carts
 /////////////////////////////
-router.post("/", createCart);
+router.post("/", createCartFs);
 
 /////////////////////////////
 // PUT /api/carts/:cid/product/:pid/:units
 /////////////////////////////
-router.put("/:cid/product/:pid/:units", updateProductInCartById);
+router.put("/:cid/product/:pid/:units", updateProductInCartByIdFs);
 
 /////////////////////////////
 // DELETE /api/carts/:cid/product/:pid/:units
 /////////////////////////////
-router.delete("/:cid/product/:pid/:units", deleteProductInCartyId);
+router.delete("/:cid/product/:pid/:units", deleteProductInCartyIdFs);
 
 export default router;

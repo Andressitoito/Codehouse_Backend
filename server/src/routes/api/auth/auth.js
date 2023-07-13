@@ -9,7 +9,6 @@ import passport from "passport";
 import password_is_ok from "../../../middlewares/password_is_ok.js";
 import create_token from "../../../middlewares/create_token.js";
 import passport_call from "../../../middlewares/passport_call.js";
-import router from "../../views/products.mongo.js";
 
 /////////////////////////////
 // VARIABLES
@@ -111,9 +110,7 @@ auth_router.get("/fail-signin", (req, res) => {
 // USER SIGN OUT
 ///////////////////////////
 auth_router.post("/signout-session", async (req, res, next) => {
-	console.log("DESRTROY SESSIONNN");
 	try {
-		req.session.destroy();
 		return res.status(200).json({
 			success: true,
 			message: "User successfuly logged out",
@@ -130,7 +127,6 @@ auth_router.post(
 	"/logout",
 	passport_call("jwt", { session: false }),
 	async (req, res, next) => {
-		req.session.destroy();
 		delete req.user;
 
 		return res.status(200).clearCookie("token").json({
@@ -144,13 +140,51 @@ auth_router.post(
 // DEV-TOOL USER SIGNOUT FORCE
 /////////////////////////////
 auth_router.post("/logout/jwt-force", async (req, res, next) => {
-	req.session.destroy();
 	delete req.user;
 
 	return res.status(200).clearCookie("token").json({
 		success: true,
 		message: "User logged out successfully",
 	});
+});
+
+/////////////////////////////
+// USER CURRENT STATE
+/////////////////////////////
+auth_router.get("/current", passport_call("jwt"), (req, res) => {
+	const token = req.cookies.token;
+	const user = req.user.name
+	const role = req.user.role
+
+	console.log(req.user)
+
+	res.send(`
+				<html>
+				<head>
+						<style>
+								body {
+										background-color: #000;
+										color: #fff;
+										text-align: center;
+										padding: 100px;
+										font-size: 24px;
+								}
+								div {
+										width: 75%;
+										margin: 0 auto;
+										overflow-wrap: break-word;
+								}
+						</style>
+				</head>
+				<body>
+						<h3>User: ${user}</h3>
+						<h4>Role: ${role}</h4>
+						<div>
+								<p>Token: ${token}</p>
+						</div>
+				</body>
+		</html>
+  `);
 });
 
 export default auth_router;

@@ -41,7 +41,7 @@ const checkLog = async () => {
 
 		const { role } = decodedPayload;
 
-		if (role === 1) {
+		if (role === 'ADMIN') {
 			document.querySelector("#add_mongo_product").classList.remove("hide");
 			document.querySelector("#add_fs_product").classList.remove("hide");
 		} else {
