@@ -27,7 +27,7 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		if (req.session?.role === 1) {
+		if (req.session?.role === "ADMIN") {
 			return res.render("products/add-product", {
 				title: "Add product to cart",
 				script: "add-product.js",

@@ -13,9 +13,9 @@ import handlebars from "handlebars";
 import { connect } from "mongoose";
 import exphbs from "express-handlebars";
 import "dotenv/config.js";
-import MongoStore from "connect-mongo";
+// import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
-import expressSession from "express-session";
+// import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
 
@@ -62,9 +62,7 @@ server.use(
 		saveUninitialized: true,
 	})
 );
-
-// server.use(passport.session());
-
+server.use(passport.session());
 server.use(cookieParser(process.env.SECRET_COOKIE));
 
 /////////////////////////////
