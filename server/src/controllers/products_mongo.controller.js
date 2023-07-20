@@ -1,11 +1,11 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import { productService } from "../service/index.js";
+import { productMongoService } from "../service/index.js";
 
 class ProductsMongoController {
 	constructor() {
-		this.productService = productService;
+		this.productMongoService = productMongoService;
 	}
 
 	/////////////////////////////
@@ -13,7 +13,7 @@ class ProductsMongoController {
 	/////////////////////////////
 	getProducts = async (req, res, next) => {
 		try {
-			const products = await this.productService.getProducts();
+			const products = await this.productMongoService.getProducts();
 
 			res.json({
 				status: 200,
@@ -31,7 +31,7 @@ class ProductsMongoController {
 	getProductsById = async (req, res, next) => {
 		try {
 			const id = req.params.pid;
-			const product = await this.productService.getProductsById(id);
+			const product = await this.productMongoService.getProductsById(id);
 
 			res.json({
 				status: 200,
@@ -62,7 +62,7 @@ class ProductsMongoController {
 				}
 			}
 
-			const product = await this.productService.createNewProduct({
+			const product = await this.productMongoService.createNewProduct({
 				title,
 				description,
 				price,
@@ -88,7 +88,7 @@ class ProductsMongoController {
 			const dataToUpdate = req.body;
 			const idToUpdate = req.params.pid;
 
-			const product = await this.productService.updateProduct(
+			const product = await this.productMongoService.updateProduct(
 				idToUpdate,
 				dataToUpdate,
 				{
@@ -113,7 +113,7 @@ class ProductsMongoController {
 		try {
 			const idToDelete = req.params.pid;
 
-			const message = await this.productService.deleteProduct(idToDelete);
+			const message = await this.productMongoService.deleteProduct(idToDelete);
 
 			res.json({
 				status: 200,

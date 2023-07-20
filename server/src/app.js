@@ -2,7 +2,7 @@
 // IMPORTS
 /////////////////////////////
 // import { engine } from "express-handlebars";
-import express from "express";
+import express, { application } from "express";
 import __dirname from "./utils/utils.js";
 import router from "./routes/index.js";
 import errorHandler from "./middlewares/error_handler.js";
@@ -13,11 +13,14 @@ import handlebars from "handlebars";
 import { connect } from "mongoose";
 import exphbs from "express-handlebars";
 import "dotenv/config.js";
-// import MongoStore from "connect-mongo";
+import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
-// import expressSession from "express-session";
+import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
+
+import { config } from './config/config.js'
+import cors from 'cors'
 
 /////////////////////////////
 // VARIABLES
@@ -86,8 +89,15 @@ handlebars.registerHelper("sum", (a, b) => {
 server.use("/", router);
 
 /////////////////////////////
+// CORS
+/////////////////////////////
+server.use(cors())
+
+/////////////////////////////
 // DATABASE
 /////////////////////////////
+// config.connectDB()
+
 connect(process.env.MONGO_LINK)
 	.then(() => console.log("Connected to database"))
 	.catch((err) => console.log(err));

@@ -1,7 +1,7 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import product_manager from "../Manager/Product_manager.js";
+import product_manager from "../dao/memory/Product_manager.js";
 
 class ProductsFsController {
 	constructor() {

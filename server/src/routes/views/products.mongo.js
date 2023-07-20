@@ -3,7 +3,7 @@
 /////////////////////////////
 import { Router } from "express";
 import __dirname from "../../utils/utils.js";
-import Product from "../../models/Products.js";
+import Product from "../../dao/mongo/products/models/Products.js";
 import passport from "passport";
 import passport_call from "../../middlewares/passport_call.js";
 import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
@@ -46,7 +46,7 @@ router.get("/cards", async (req, res, next) => {
 router.get("/add-product",  async (req, res, next) => {
 	try {
 
-				if (req.user?.role === 1) {
+				if (req.user?.role === 'ADMIN') {
 			return res.render("products/mongo/add-product", {
 				title: "Add product to cart",
 				script: "add_mongo_product.js",

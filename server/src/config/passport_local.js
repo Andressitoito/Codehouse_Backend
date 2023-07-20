@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-local";
 import GHStrategy from "passport-github2";
-import User from "../models/Users.js";
+import User from "../dao/mongo/users/models/Users.js";
 import jwt from "passport-jwt";
 
 const { GH_APP_ID, GH_CLIENT_ID, GH_CLIENT_SECRET } = process.env;

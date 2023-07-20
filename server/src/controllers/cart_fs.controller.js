@@ -1,8 +1,8 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import product_manager from "../Manager/Product_manager.js";
-import cart_manager from "../Manager/Cart_manager.js";
+import product_manager from "../dao/memory/Product_manager.js";
+import cart_manager from "../dao/memory/Cart_manager.js";
 
 class CartFsController {
 	constructor() {
