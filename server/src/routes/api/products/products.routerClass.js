@@ -5,7 +5,7 @@ import RouterClass from "../router.js";
 import productValidator from "../../../middlewares/product_validator.js";
 import passport_call from "../../../middlewares/passport_call.js";
 import { unauthorized_role } from "../../../middlewares/unauhorized_role.js";
-import ProductsMongoController from "../../../controllers/products_mongo.controller.js";
+import ProductsMongoController from "../../../controllers/products.controller.js";
 
 const {
 	getProducts,
@@ -55,7 +55,6 @@ class ProductsMongoRouter extends RouterClass {
 		/////////////////////////////
 		// DELETE /api/products/:pid
 		/////////////////////////////
-
 		this.delete(
 			"/:pid",
 			["ADMIN", "USER_PREMIUM"],
