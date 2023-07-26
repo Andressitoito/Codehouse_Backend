@@ -5,7 +5,7 @@ import { Router } from "express";
 import productValidator from "../../../middlewares/product_validator.js";
 import passport_call from "../../../middlewares/passport_call.js";
 import { unauthorized_role } from "../../../middlewares/unauhorized_role.js";
-import ProductsMongoController from "../../../controllers/products_mongo.controller.js";
+import ProductsController from "../../../controllers/products.controller.js";
 
 const router = Router();
 
@@ -15,7 +15,7 @@ const {
 	createNewProduct,
 	updateProduct,
 	deleteProduct,
-} = new ProductsMongoController();
+} = new ProductsController();
 
 /////////////////////////////
 // GET /api/products
@@ -30,7 +30,7 @@ router.get("/:pid", getProductsById);
 /////////////////////////////
 // POST /api/products
 /////////////////////////////
-router.post("/", productValidator, unauthorized_role,createNewProduct);
+router.post("/", productValidator, unauthorized_role, createNewProduct);
 
 /////////////////////////////
 // PUT /api/products/:pid

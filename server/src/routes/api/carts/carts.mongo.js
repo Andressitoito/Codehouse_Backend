@@ -2,7 +2,7 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import CartMongoController from "../../../controllers/cart_mongo.controller.js";
+import CartController from "../../../controllers/carts.controller.js";
 
 const router = Router();
 const {
@@ -12,7 +12,7 @@ const {
 	createCart,
 	updateCart,
 	deleteProductsInCart,
-} = new CartMongoController();
+} = new CartController();
 
 /////////////////////////////
 // GET /api/carts

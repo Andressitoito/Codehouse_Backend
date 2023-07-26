@@ -2,7 +2,7 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import product_manager from "../../dao/memory/Product_manager.js";
+import product_manager from "../../dao/memory/products/models/Product_manager.js";
 import __dirname from "../../utils/utils.js";
 const router = Router();
 

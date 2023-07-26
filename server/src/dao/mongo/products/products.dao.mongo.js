@@ -11,27 +11,27 @@ class ProductsDaoMongo {
 	/////////////////////////////
 	// GET /api/products
 	/////////////////////////////
-	getProducts = async (limit = 5, page = 1) => {
+	get = async (limit = 5, page = 1) => {
 		return await this.Product.paginate({}, { limit, page, lean: true });
 	};
 	/////////////////////////////
 	// GET /api/products/:pid
 	/////////////////////////////
-	getProductsById = async (pid) => {
+	getById = async (pid) => {
 		return await this.Product.findById({ _id: pid });
 	};
 
 	/////////////////////////////
 	// POST /api/products
 	/////////////////////////////
-	createNewProduct = async (newProduct) => {
+	create = async (newProduct) => {
 		return await this.Product.create(newProduct);
 	};
 
 	/////////////////////////////
 	// PUT /api/products/:pid
 	/////////////////////////////
-	updateProduct = async (pid, dataToUpdate) => {
+	update = async (pid, dataToUpdate) => {
 		return await this.Product.findByIdAndUpdate(pid, dataToUpdate, {
 			new: true,
 		});
@@ -40,7 +40,7 @@ class ProductsDaoMongo {
 	/////////////////////////////
 	// DELETE /api/products/:pid
 	/////////////////////////////
-	deleteProduct = async (pid) => {
+	delete = async (pid) => {
 		return await this.Product.findByIdAndDelete(pid);
 	};
 }

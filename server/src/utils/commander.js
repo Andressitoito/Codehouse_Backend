@@ -12,12 +12,14 @@
 
 // node commander.js -d -p 8080 --mode development -u root --letters a b c
 
-import { commander } from 'commander'
 
-const commander = new commander()
 
-commander
-.option('--mode <mode>', 'Development mode', 'development')
-.parse()
+import { Command } from 'commander';
 
-export default commander
+const Commander = new Command();
+
+Commander
+  .option('--mode <mode>', 'Development mode', 'development')
+  .parse();
+
+export default Commander;

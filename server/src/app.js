@@ -2,7 +2,7 @@
 // IMPORTS
 /////////////////////////////
 // import { engine } from "express-handlebars";
-import express, { application } from "express";
+import express from "express";
 import __dirname from "./utils/utils.js";
 import router from "./routes/index.js";
 import errorHandler from "./middlewares/error_handler.js";
@@ -19,7 +19,7 @@ import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
 
-import { config } from './config/config.js'
+import config from './config/config.js'
 import cors from 'cors'
 
 /////////////////////////////

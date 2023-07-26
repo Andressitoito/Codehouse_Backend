@@ -1,4 +1,4 @@
-import cart_manager from "../dao/memory/Cart_manager.js";
+import cart_manager from "../dao/memory/carts/models/Cart_manager.js";
 import Cart from "../dao/mongo/carts/models/Cart.js";
 
 const send_navbar_data = async (req, res, next) => {

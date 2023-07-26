@@ -1,15 +1,12 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import Cart from "../dao/mongo/carts/models/Cart.js";
-import Product from "../dao/mongo/products/models/Products.js";
-import mongoose from "mongoose";
-
+import { response } from "express";
 import { cartsService } from "../service/index.js";
 
-class CartMongoController {
+class CartController {
 	constructor() {
-		this.cartsService = cartsService
+		this.cartsService = cartsService;
 	}
 
 	/////////////////////////////
@@ -17,7 +14,8 @@ class CartMongoController {
 	/////////////////////////////
 	getCarts = async (req, res, next) => {
 		try {
-			const carts = await this.cartsService.getCarts()
+			console.log('enter here')
+			const carts = await this.cartsService.getCarts();
 
 			res.status(200).json({
 				status: 200,
@@ -74,7 +72,11 @@ class CartMongoController {
 			const pid = req.params.pid;
 			const dataToUpdate = req.params.units;
 
-			const { cart, product } = await this.cartsService.updateCart(cid, pid, dataToUpdate)
+			const { cart, product } = await this.cartsService.updateCart(
+				cid,
+				pid,
+				dataToUpdate
+			);
 
 			return res.status(200).json({
 				status: 200,
@@ -92,37 +94,8 @@ class CartMongoController {
 	/////////////////////////////
 	getBillCart = async (req, res, next) => {
 		try {
-			const carts = await Cart.aggregate([
-				{ $match: { _id: new mongoose.Types.ObjectId(req.params.cid) } },
-				{ $unwind: "$products" },
-				{
-					$lookup: {
-						from: "products",
-						localField: "products.product_id",
-						foreignField: "_id",
-						as: "product",
-					},
-				},
-				{ $unwind: "$product" },
-				{
-					$set: {
-						total: { $multiply: ["$products.quantity", "$product.price"] },
-					},
-				},
-				{
-					$group: {
-						_id: "$_id",
-						sum: { $sum: "$total" },
-					},
-				},
-				{
-					$project: {
-						_id: 0,
-						cart_id: "$_id",
-						sum: 1,
-					},
-				},
-			]);
+			const cid = req.params.cid;
+			const carts = await this.cartsService.getBill(cid);
 
 			res.status(200).json({
 				status: 200,
@@ -141,30 +114,9 @@ class CartMongoController {
 	deleteProductsInCart = async (req, res, next) => {
 		try {
 			const cid = req.params.cid;
-			const product_id = req.params.pid;
-			// const product_quantity = req.params.units;
+			const pid = req.params.pid;
 
-			let cart = await Cart.findById(cid);
-
-			let product = await Product.findById(product_id);
-
-			let product_cart = cart.products.find(
-				(product) => product.product_id.toString() === product_id
-			);
-
-			const total_units = product_cart.quantity + product.stock;
-
-			// UPDATE STOCK IN CART
-			await Cart.updateOne(
-				{ _id: cid },
-				{ $pull: { products: { product_id: product_id } } }
-			);
-			// UPDATE STOCK IN PRODUCT
-			product = await Product.findByIdAndUpdate(
-				{ _id: product_id },
-				{ stock: total_units },
-				{ new: true }
-			);
+			const { cart, product } = await this.cartsService.delete(cid, pid);
 
 			res.json({
 				status: 200,
@@ -178,4 +130,5 @@ class CartMongoController {
 	};
 }
 
-export default CartMongoController
+export default CartController;
+

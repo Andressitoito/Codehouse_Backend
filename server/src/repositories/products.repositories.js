@@ -1,39 +1,35 @@
-class ProductRepository {
+class ProductMongoRepository {
 	constructor(dao) {
 		this.dao = dao;
 	}
 
-	getProducts = async() => {
-  let result = await this.dao.get()
+	getProducts = async () => {
+		let result = await this.dao.get();
 
-  return result
- };
-	getProduct = async(pid) => {
-  let result = await this.dao.getById()
+		return result;
+	};
+	getProduct = async (pid) => {
+		let result = await this.dao.getById(pid);
 
-  return result
- };
-	createProduct = async() => {
+		return result;
+	};
+	createProduct = async (newProduct) => {
+		// "user case dto userDTO comes here"
 
-  // "user case dto userDTO comes here"
+		let result = await this.dao.create(newProduct);
 
-   
-  let result = await this.dao.create()
+		return result;
+	};
+	updateProduct = async (pid, objectToUpdate) => {
+		let result = await this.dao.update(pid, objectToUpdate);
 
-  return result
- };
-	updateProduct = async(pid, objectToUpdate) => {
-  let result = await this.dao.update()
+		return result;
+	};
+	deleteProduct = async (pid) => {
+		let result = await this.dao.delete(pid);
 
-  return result
- };
-	deleteProduct = async() => {
-  let result = await this.dao.delete()
-
-  return result
- };
+		return result;
+	};
 }
 
-module.exports = {
-	ProductRepository,
-};
+export default ProductMongoRepository

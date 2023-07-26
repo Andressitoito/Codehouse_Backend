@@ -2,7 +2,8 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import RouterClass from "../router.js";
-import CartMongoController from "../../../controllers/cart_mongo.controller.js";
+import CartController from "../../../controllers/carts.controller.js";
+import errorLog from "../../../middlewares/errorLog.js";
 
 const {
 	getCarts,
@@ -11,7 +12,7 @@ const {
 	createCart,
 	updateCart,
 	deleteProductsInCart,
-} = new CartMongoController();
+} = new CartController();
 
 /////////////////////////////
 // CLASS & METHODS
@@ -21,7 +22,7 @@ class CartMongoRouter extends RouterClass {
 		/////////////////////////////
 		// GET /api/carts
 		/////////////////////////////
-		this.get("/", getCarts);
+		this.get("/", errorLog, getCarts);
 
 		/////////////////////////////
 		// GET /api/carts/:cid
