@@ -8,8 +8,6 @@ const { GH_APP_ID, GH_CLIENT_ID, GH_CLIENT_SECRET } = process.env;
 
 const callback = "http://localhost:8080/api/auth/github/callback";
 
-console.log(GH_CLIENT_ID, GH_CLIENT_SECRET)
-
 export default function () {
 	passport.serializeUser((user, done) => done(null, user._id));
 
@@ -97,9 +95,6 @@ export default function () {
 				]),
 			},
 			async (jwt_payload, done) => {
-
-				console.log("jwt_payload ", jwt_payload)
-
 				try {
 					let one = await User.findOne({ email: jwt_payload.email });
 

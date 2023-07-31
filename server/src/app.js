@@ -17,7 +17,7 @@ import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import passport from "passport";
-import passport_local from './config/passport_local.js'
+import passport_local from "./config/passport_local.js";
 
 /////////////////////////////
 // VARIABLES
@@ -50,18 +50,21 @@ server.use(passport.initialize());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(logger("dev"));
+
 server.use(
 	expressSession({
 		store: MongoStore.create({
 			mongoUrl: process.env.MONGO_LINK,
-			ttl: 604800
+			ttl: 604800,
 		}),
 		secret: process.env.SECRET_SESSION,
 		resave: true,
 		saveUninitialized: true,
 	})
-	);
-	server.use(passport.session());
+);
+
+// server.use(passport.session());
+
 server.use(cookieParser(process.env.SECRET_COOKIE));
 
 /////////////////////////////

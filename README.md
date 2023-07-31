@@ -4,6 +4,20 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### User model with Cart_Id linked, and role
+
+This new user model is now associated with the cart_id. Upon creation, each user is assigned a unique cart_id that is linked to the user. Also the role user is now created by default as "USER".
+
+![User model with Cart_Id linked and role](./server/public/images/readme/users/mongo_user_data.png)
+
+### API route to check current user
+
+This API route 'api/auth/current' can be utilized to verify the current status of the user. If the user is logged in, their data will be displayed; otherwise, an error message saying 'no token authentication' will be returned.
+
+![API route to check current user](./server/public/images/readme/users/auth_token.png)
+
+# Previous Features
+
 ### User creation with Github
 
 Creation of user accounts using Github authentication, integrating Github's OAuth authentication flow, and using the Github API to retrieve user information.
@@ -27,8 +41,6 @@ To ensure that only authenticated users can access them, middleware functions th
 Generating and signing JWT tokens on the server side, send and verify these tokens on subsequent requests. By leveraging JWT tokens, applications can authenticate and authorize users without the need for server-side sessions.
 
 ![Working with JWT tokens to ensure user authorization](./server/public/images/readme/video_examples/jwt_token.gif)
-
-# Previous Features
 
 ### User Creation
 
