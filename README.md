@@ -4,6 +4,14 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### Complete Server Refactoring: Folder Structure and Module Organization
+
+Extensively refactored the entire server codebase to implement a more organized folder structure and module management. Created 'Dao' (Data Access Object) and 'DTO' (Data Transfer Object) folders, as well as 'Service,' 'Repository,' and 'Controllers' components. This comprehensive refactoring ensures better code separation, modularity, and scalability, setting a solid foundation to manage future growth and maintainability of the application.
+
+![Complete Server Refactoring: Folder Structure and Module Organization](./server/public/images/readme/users/restructuring.png)
+
+# Previous Features
+
 ### User model with Cart_Id linked, and role
 
 This new user model is now associated with the cart_id. Upon creation, each user is assigned a unique cart_id that is linked to the user. Also the role user is now created by default as "USER".
@@ -16,7 +24,6 @@ This API route 'api/auth/current' can be utilized to verify the current status o
 
 ![API route to check current user](./server/public/images/readme/users/auth_token.png)
 
-# Previous Features
 
 ### User creation with Github
 

@@ -1,11 +1,11 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import product_manager from "../Manager/Product_manager.js";
+import { productsService } from "../service/index.js";
 
-class ProductsFsController {
+class ProductsController {
 	constructor() {
-		this.product_manager = product_manager;
+		this.productsService = productsService;
 	}
 
 	/////////////////////////////
@@ -13,9 +13,7 @@ class ProductsFsController {
 	/////////////////////////////
 	getProducts = async (req, res, next) => {
 		try {
-			let query = parseInt(req.query.limit);
-
-			let products = await product_manager.getProducts(query);
+			const products = await this.productsService.get();
 
 			res.json({
 				status: 200,
@@ -27,14 +25,13 @@ class ProductsFsController {
 			next(error);
 		}
 	};
-
 	/////////////////////////////
 	// GET /api/products/:pid
 	/////////////////////////////
 	getProductsById = async (req, res, next) => {
 		try {
-			let id = parseInt(req.params.pid);
-			let product = await product_manager.getProductById(id);
+			const id = req.params.pid;
+			const product = await this.productsService.getById(id);
 
 			res.json({
 				status: 200,
@@ -49,7 +46,7 @@ class ProductsFsController {
 	/////////////////////////////
 	// POST /api/products
 	/////////////////////////////
-	createProduct = async (req, res, next) => {
+	createNewProduct = async (req, res, next) => {
 		try {
 			let { title, description, price, thumbnail, stock } = req.body;
 
@@ -65,7 +62,7 @@ class ProductsFsController {
 				}
 			}
 
-			const product = await product_manager.addProduct({
+			const product = await this.productsService.create({
 				title,
 				description,
 				price,
@@ -89,28 +86,14 @@ class ProductsFsController {
 	updateProduct = async (req, res, next) => {
 		try {
 			const dataToUpdate = req.body;
-			const idToUpdate = Number(req.params.pid);
+			const idToUpdate = req.params.pid;
 
-			const products = await product_manager.getProducts();
-
-			let productFinded = products.find((product) => product.id === idToUpdate);
-
-			if (req.body.title) {
-				const isRepeated = products.find(
-					(product) => product.title === req.body.title
-				);
-				if (isRepeated.id !== idToUpdate) {
-					const error = new Error(
-						`This title: '${req.body.title}' already exists at id: ${productFinded.id}`
-					);
-					error.status = 422;
-					throw error;
-				}
-			}
-
-			const product = await product_manager.updateProduct(
+			const product = await this.productsService.update(
 				idToUpdate,
-				dataToUpdate
+				dataToUpdate,
+				{
+					new: true,
+				}
 			);
 
 			res.json({
@@ -128,8 +111,9 @@ class ProductsFsController {
 	/////////////////////////////
 	deleteProduct = async (req, res, next) => {
 		try {
-			const idToDelete = Number(req.params.pid);
-			const message = await product_manager.deleteProduct(idToDelete);
+			const idToDelete = req.params.pid;
+
+			const message = await this.productsService.delete(idToDelete);
 
 			res.json({
 				status: 200,
@@ -142,4 +126,4 @@ class ProductsFsController {
 	};
 }
 
-export default ProductsFsController;
+export default ProductsController;

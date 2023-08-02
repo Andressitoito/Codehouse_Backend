@@ -2,8 +2,8 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import cart_manager from "../../Manager/Cart_manager.js";
-import product_manager from "../../Manager/Product_manager.js";
+import cart_manager from "../../dao/memory/carts/models/Cart_manager.js";
+import product_manager from "../../dao/memory/products/models/Product_manager.js";
 import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
 const router = Router();
 

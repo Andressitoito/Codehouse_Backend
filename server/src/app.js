@@ -19,6 +19,9 @@ import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
 
+import config from './config/config.js'
+import cors from 'cors'
+
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
@@ -62,9 +65,7 @@ server.use(
 		saveUninitialized: true,
 	})
 );
-
-// server.use(passport.session());
-
+server.use(passport.session());
 server.use(cookieParser(process.env.SECRET_COOKIE));
 
 /////////////////////////////
@@ -88,8 +89,15 @@ handlebars.registerHelper("sum", (a, b) => {
 server.use("/", router);
 
 /////////////////////////////
+// CORS
+/////////////////////////////
+server.use(cors())
+
+/////////////////////////////
 // DATABASE
 /////////////////////////////
+// config.connectDB()
+
 connect(process.env.MONGO_LINK)
 	.then(() => console.log("Connected to database"))
 	.catch((err) => console.log(err));

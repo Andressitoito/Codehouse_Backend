@@ -1,5 +1,5 @@
 import { Schema, model, Types } from "mongoose";
-import Cart from "./Cart.js";
+import Cart from "../../carts/models/Cart.js";
 
 const collection = "users";
 

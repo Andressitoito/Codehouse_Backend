@@ -89,4 +89,4 @@ class RouterClass {
 
 }
 
-module.exports = RouterClass;
+export default RouterClass

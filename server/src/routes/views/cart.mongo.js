@@ -2,8 +2,8 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import Cart from "../../models/Cart.js";
-import Product from "../../models/Products.js";
+import Cart from "../../dao/mongo/carts/models/Cart.js";
+import Product from "../../dao/mongo/products/models/Products.js"
 import mongoose from "mongoose";
 import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
 const router = Router();

@@ -2,7 +2,7 @@
 // IMPORTS & VARIABLES
 /////////////////////////////
 import { Router } from "express";
-import product_manager from "../../Manager/Product_manager.js";
+import product_manager from "../../dao/memory/products/models/Product_manager.js";
 import __dirname from "../../utils/utils.js";
 const router = Router();
 
@@ -27,7 +27,7 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 router.get("/add-product", async (req, res, next) => {
 	try {
-		if (req.session?.role === 1) {
+		if (req.session?.role === "ADMIN") {
 			return res.render("products/add-product", {
 				title: "Add product to cart",
 				script: "add-product.js",

@@ -1,5 +1,5 @@
-import cart_manager from "../Manager/Cart_manager.js";
-import Cart from "../models/Cart.js";
+import cart_manager from "../dao/memory/carts/models/Cart_manager.js";
+import Cart from "../dao/mongo/carts/models/Cart.js";
 
 const send_navbar_data = async (req, res, next) => {
 	// FILE SISTEM CART DATA	
