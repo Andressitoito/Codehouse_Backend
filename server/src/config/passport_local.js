@@ -16,43 +16,43 @@ export default function () {
 		return done(null, user);
 	});
 
-	// passport.use(
-	// 	"register",
-	// 	new Strategy(
-	// 		{ passReqToCallback: true, usernameField: "email" },
-	// 		async (req, username, password, done) => {
-	// 			try {
-	// 				let one = await User.findOne({ email: username });
-	// 				if (one) {
-	// 					return done(null, false);
-	// 				} else {
-	// 					let user = await User.create(req.body);
-	// 					delete user.password;
-	// 					return done(null, user);
-	// 				}
-	// 			} catch (error) {
-	// 				return done(error);
-	// 			}
-	// 		}
-	// 	)
-	// ); // register strategy
+	passport.use(
+		"register",
+		new Strategy(
+			{ passReqToCallback: true, usernameField: "email" },
+			async (req, username, password, done) => {
+				try {
+					let one = await User.findOne({ email: username });
+					if (one) {
+						return done(null, false);
+					} else {
+						let user = await User.create(req.body);
+						delete user.password;
+						return done(null, user);
+					}
+				} catch (error) {
+					return done(error);
+				}
+			}
+		)
+	); // register strategy
 
-	// passport.use(
-	// 	"login",
-	// 	new Strategy({ usernameField: "email" }, async (username, password, done) => {
-	// 		try {
-	// 			let one = await User.findOne({ email: username });
+	passport.use(
+		"login",
+		new Strategy({ usernameField: "email" }, async (username, password, done) => {
+			try {
+				let one = await User.findOne({ email: username });
 
-	// 			if (one) {
-	// 				return done(null, one);
-	// 			} else {
-	// 				return done(null, false);
-	// 			}
-	// 		} catch (error) {
-	// 			return done(error);
-	// 		}
-	// 	})
-	// ); // session init strategy
+				if (one) {
+					return done(null, one);
+				} else {
+					return done(null, false);
+				}
+			} catch (error) {
+				return done(error);
+			}
+		})
+	); // session init strategy
 
 	passport.use(
 		"github",
