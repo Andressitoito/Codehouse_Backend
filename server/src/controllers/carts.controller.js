@@ -1,7 +1,6 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-import { response } from "express";
 import { cartsService } from "../service/index.js";
 
 class CartController {
@@ -14,7 +13,6 @@ class CartController {
 	/////////////////////////////
 	getCarts = async (req, res, next) => {
 		try {
-			console.log('enter here')
 			const carts = await this.cartsService.getCarts();
 
 			res.status(200).json({
@@ -128,7 +126,29 @@ class CartController {
 			next(error);
 		}
 	};
+
+	/////////////////////////////
+	// PUT /:cid/purchase
+	/////////////////////////////
+	purchase = async (req, res, next) => {
+		try {
+			const cid = req.params.cid;
+			const pid = req.params.pid;
+
+			const { cart, product } = await this.cartsService.delete(cid, pid);
+
+			res.json({
+				status: 200,
+				success: true,
+				cart,
+				stock: `There are ${product.stock} units in stock`,
+			});
+		} catch (error) {
+			next(error);
+		}
+	};
 }
 
 export default CartController;
 
+// "648276ab74476c69be6576b3"

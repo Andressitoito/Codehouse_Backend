@@ -20,6 +20,7 @@ import passport_local from "./config/passport_local.js";
 
 import config from './config/config.js'
 import cors from 'cors'
+import errorMiddleware from "./middlewares/error_middleware.js";
 
 /////////////////////////////
 // VARIABLES
@@ -105,6 +106,7 @@ config.connectDB()
 // ERROR HANDLING
 /////////////////////////////
 server.use(errorHandler);
+server.use(errorMiddleware)
 server.use(not_found_handler);
 
 export default server;

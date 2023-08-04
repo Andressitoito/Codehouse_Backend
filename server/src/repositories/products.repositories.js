@@ -3,29 +3,30 @@ class ProductMongoRepository {
 		this.dao = dao;
 	}
 
-	getProducts = async () => {
+	get = async () => {
 		let result = await this.dao.get();
 
 		return result;
 	};
-	getProduct = async (pid) => {
+	getById = async (pid) => {
 		let result = await this.dao.getById(pid);
 
 		return result;
 	};
-	createProduct = async (newProduct) => {
-		// "user case dto userDTO comes here"
+	create = async (newProduct) => {
+		// "user case dto userDTO comes here"\
+		console.log('create from adao')
 
 		let result = await this.dao.create(newProduct);
 
 		return result;
 	};
-	updateProduct = async (pid, objectToUpdate) => {
+	update = async (pid, objectToUpdate) => {
 		let result = await this.dao.update(pid, objectToUpdate);
 
 		return result;
 	};
-	deleteProduct = async (pid) => {
+	delete = async (pid) => {
 		let result = await this.dao.delete(pid);
 
 		return result;

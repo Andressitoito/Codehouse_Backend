@@ -9,15 +9,67 @@ import passport from "passport";
 import password_is_ok from "../../../middlewares/password_is_ok.js";
 import create_token from "../../../middlewares/create_token.js";
 import passport_call from "../../../middlewares/passport_call.js";
+import sendMail from "../../../utils/sendMail.js";
+import sendSms from "../../../utils/sensSms.js";
+import generateUserFaker from "../../../utils/mocks/generateUserFaker.js";
 
+import compression from "express-compression";
+import router from "../carts/carts.mongo.js";
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
 const auth_router = Router();
+auth_router.use(
+	compression({
+		rotli: {
+			enabled: true,
+			zlib: {},
+		},
+	})
+);
 
 /////////////////////////////
 // GITHUB AUTH
 /////////////////////////////
+
+auth_router.get("/stringlargo", (req, res) => {
+	let string = `Hi I am a super long string super long`;
+
+	let num = 0;
+
+	for (let i = 0; i < 5e5; i++) {
+		num++;
+		string += `
+	Hola ${num}
+	`;
+	}
+
+	res.send(string);
+});
+
+auth_router.get("/mail", async (req, res) => {
+	await sendMail();
+	res.send("send MAIL");
+});
+
+auth_router.get("/sms", async (req, res) => {
+	await sendSms("Andy", "Ledesma");
+	res.send("send SMS");
+});
+
+auth_router.get("/mockuser", (req, res) => {
+	let users = [];
+
+	for (let i = 0; i < 100; i++) {
+		users.push(generateUserFaker());
+	}
+
+	res.send({
+		status: "success",
+		payload: users,
+	});
+});
+
 auth_router.get(
 	"/github",
 	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => {})
@@ -73,7 +125,7 @@ auth_router.get("/fail-register", (req, res) => {
 
 /////////////////////////////
 // USER SIGN IN EMAIL * PASS
-////////////////////////// ///
+/////////////////////////////
 auth_router.post(
 	"/signin",
 	passport.authenticate("login", {
@@ -153,10 +205,10 @@ auth_router.post("/logout/jwt-force", async (req, res, next) => {
 /////////////////////////////
 auth_router.get("/current", passport_call("jwt"), (req, res) => {
 	const token = req.cookies.token;
-	const user = req.user.name
-	const role = req.user.role
+	const user = req.user.name;
+	const role = req.user.role;
 
-	console.log(req.user)
+	console.log(req.user);
 
 	res.send(`
 				<html>

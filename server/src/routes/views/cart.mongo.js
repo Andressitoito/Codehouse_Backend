@@ -3,7 +3,6 @@
 /////////////////////////////
 import { Router } from "express";
 import Cart from "../../dao/mongo/carts/models/Cart.js";
-import Product from "../../dao/mongo/products/models/Products.js"
 import mongoose from "mongoose";
 import { redirect_unauthorized } from "../../middlewares/redirect_unauthorized.js";
 const router = Router();
@@ -13,14 +12,16 @@ const router = Router();
 /////////////////////////////
 router.get("/", redirect_unauthorized, async (req, res, next) => {
 	try {
-		const cart = await Cart.findOne({ _id: "648276ab74476c69be6576b3" }).populate(
+
+		console.log("req.user from views", req.user)
+		const cart = await Cart.findOne({ _id: req.user.cart_id }).populate(
 			"products.product_id"
 		);
 		let total = 0;
 		const products = cart.products.map((product) => {
 			total += product.product_id.price * product.quantity;
 			return {
-				cid: "648276ab74476c69be6576b3",
+				cid: req.user.cart_id,
 				pid: product.product_id._id,
 				title: product.product_id.title,
 				description: product.product_id.description,
@@ -47,7 +48,7 @@ router.get("/", redirect_unauthorized, async (req, res, next) => {
 /////////////////////////////
 router.get("/cart/bill", async (req, res, next) => {
 	try {
-		const cartId = "648276ab74476c69be6576b3";
+		const cartId = req.user.cart_id;
 		const cartObjectId = new mongoose.Types.ObjectId(cartId);
 
 		const cart = await Cart.aggregate([{ $match: { _id: cartObjectId } }]);

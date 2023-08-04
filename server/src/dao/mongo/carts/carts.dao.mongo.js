@@ -14,7 +14,7 @@ class CartsDaoMongo {
 	/////////////////////////////
 	// GET /api/carts
 	/////////////////////////////
-	get = async () => {
+	get = async (cid) => {
 		return await this.Cart.aggregate([
 			{
 				$match: { _id: new mongoose.Types.ObjectId("648276ab74476c69be6576b3") },
@@ -167,6 +167,37 @@ class CartsDaoMongo {
 	delete = async (cid, pid) => {
 		const product_id = pid;
 		// const product_quantity = req.params.units;
+
+		let cart = await Cart.findById(cid);
+
+		let product = await Product.findById(product_id);
+
+		let product_cart = cart.products.find(
+			(product) => product.product_id.toString() === product_id
+		);
+
+		const total_units = product_cart.quantity + product.stock;
+
+		// UPDATE STOCK IN CART
+		await Cart.updateOne(
+			{ _id: cid },
+			{ $pull: { products: { product_id: product_id } } }
+		);
+		// UPDATE STOCK IN PRODUCT
+		product = await Product.findByIdAndUpdate(
+			{ _id: product_id },
+			{ stock: total_units },
+			{ new: true }
+		);
+
+		return { cart, product };
+	};
+
+	/////////////////////////////
+	// PUT /api/carts/:cid/purchase
+	/////////////////////////////
+	purchase = async (cid, pid, body) => {
+		const product_id = pid;
 
 		let cart = await Cart.findById(cid);
 

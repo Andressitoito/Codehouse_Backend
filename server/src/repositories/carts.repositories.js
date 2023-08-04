@@ -3,8 +3,8 @@ class CartMongoRepository {
   this.dao = dao;
  }
 
- getCarts = async () => {
-  let result = await this.dao.get();
+ getCarts = async (cid) => {
+  let result = await this.dao.get(cid);
 
   return result;
  };
