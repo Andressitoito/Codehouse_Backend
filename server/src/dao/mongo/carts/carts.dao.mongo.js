@@ -17,7 +17,7 @@ class CartsDaoMongo {
 	get = async (cid) => {
 		return await this.Cart.aggregate([
 			{
-				$match: { _id: new mongoose.Types.ObjectId("648276ab74476c69be6576b3") },
+				$match: { _id: new mongoose.Types.ObjectId(cid) },
 			},
 			{ $unwind: "$products" },
 			{
@@ -87,34 +87,34 @@ class CartsDaoMongo {
 			(product) => product.product_id.toString() === product_id
 		);
 
-		if (product_quantity > product.stock) {
-			const error = new Error(`There are only ${product.stock} items in cart`);
-			error.status = 422;
-			throw error;
-		}
+		// if (product_quantity > product.stock) {
+		// 	const error = new Error(`There are only ${product.stock} items in cart`);
+		// 	error.status = 422;
+		// 	throw error;
+		// }
 
 		if (!product_cart) {
-			const actual_stock = product.stock - product_quantity;
+			// const actual_stock = product.stock - product_quantity;
 
-			product = await Product.findByIdAndUpdate(
-				{ _id: product_id },
-				{ stock: actual_stock },
-				{ new: true }
-			);
+			// product = await Product.findByIdAndUpdate(
+			// 	{ _id: product_id },
+			// 	{ stock: actual_stock },
+			// 	{ new: true }
+			// );
 
 			cart.products.push({ product_id: product._id, quantity: product_quantity });
 
 			cart.save();
 		} else {
-			const total_units = product_cart.quantity + product.stock;
+			// const total_units = product_cart.quantity + product.stock;
 
-			const actual_stock = total_units - product_quantity;
+			// const actual_stock = total_units - product_quantity;
 
-			product = await Product.findByIdAndUpdate(
-				{ _id: product_id },
-				{ stock: actual_stock },
-				{ new: true }
-			);
+			// product = await Product.findByIdAndUpdate(
+			// 	{ _id: product_id },
+			// 	{ stock: actual_stock },
+			// 	{ new: true }
+			// );
 
 			product_cart.quantity = product_quantity;
 
@@ -170,13 +170,11 @@ class CartsDaoMongo {
 
 		let cart = await Cart.findById(cid);
 
-		let product = await Product.findById(product_id);
+		// let product_cart = cart.products.find(
+		// 	(product) => product.product_id.toString() === product_id
+		// );
 
-		let product_cart = cart.products.find(
-			(product) => product.product_id.toString() === product_id
-		);
-
-		const total_units = product_cart.quantity + product.stock;
+		// const total_units = product_cart.quantity + product.stock;
 
 		// UPDATE STOCK IN CART
 		await Cart.updateOne(
@@ -184,47 +182,135 @@ class CartsDaoMongo {
 			{ $pull: { products: { product_id: product_id } } }
 		);
 		// UPDATE STOCK IN PRODUCT
-		product = await Product.findByIdAndUpdate(
-			{ _id: product_id },
-			{ stock: total_units },
-			{ new: true }
-		);
+		// product = await Product.findByIdAndUpdate(
+		// 	{ _id: product_id },
+		// 	{ stock: total_units },
+		// 	{ new: true }
+		// );
 
-		return { cart, product };
+		return { cart };
 	};
 
 	/////////////////////////////
 	// PUT /api/carts/:cid/purchase
 	/////////////////////////////
-	purchase = async (cid, pid, body) => {
-		const product_id = pid;
+	purchase = async (cid) => {
+		let amount = 0;
+		let cart = await Cart.find({ _id: cid });
 
-		let cart = await Cart.findById(cid);
+		cart = cart[0];
 
-		let product = await Product.findById(product_id);
+		const productIds = cart.products.map((product) => product.product_id);
 
-		let product_cart = cart.products.find(
-			(product) => product.product_id.toString() === product_id
-		);
+		async function checkStock(productId) {
+			try {
+				let product = await Product.findOne({ _id: productId });
 
-		const total_units = product_cart.quantity + product.stock;
+				if (!product) {
+					return;
+				}
 
-		// UPDATE STOCK IN CART
-		await Cart.updateOne(
-			{ _id: cid },
-			{ $pull: { products: { product_id: product_id } } }
-		);
-		// UPDATE STOCK IN PRODUCT
-		product = await Product.findByIdAndUpdate(
-			{ _id: product_id },
-			{ stock: total_units },
-			{ new: true }
-		);
+				let product_cart = cart.products.find(
+					(product) => product.product_id === productId
+				);
 
-		return { cart, product };
+				if (product_cart.quantity <= product.stock) {
+					// 	UPDATE AMOUNT
+					amount += product.price * product_cart.quantity;
+					// UPDATE STOCK IN CART
+					await Cart.updateOne(
+						{ _id: cid },
+						{ $pull: { products: { product_id: productId } } }
+					);
+					// UPDATE STOCK IN PRODUCT
+					const total_units = product.stock - product_cart.quantity;
+					product = await Product.findByIdAndUpdate(
+						{ _id: productId },
+						{ stock: total_units },
+						{ new: true }
+					);
+				}
+			} catch (error) {
+				throw error;
+			}
+		}
+
+		console.log("list of product ids", productIds);
+
+		async function processProducts() {
+			try {
+				for (const productId of productIds) {
+					await checkStock(productId);
+				}
+
+				console.log("all producst has been processed");
+			} catch (error) {
+				throw error;
+			}
+		}
+
+		try {
+			await processProducts();
+		} catch (error) {
+			throw error;
+		}
+		return amount;
 	};
 }
 
 export default CartsDaoMongo;
 
+// update = async (cid, pid, dataToUpdate) => {
+// 	const product_id = pid;
+// 	const product_quantity = dataToUpdate;
 
+// 	if (product_quantity <= 0) {
+// 		const error = new Error(`Invalid product_quantity: ${product_quantity}`);
+// 		error.status = 422;
+// 		throw error;
+// 	}
+
+// 	let cart = await Cart.findById(cid);
+
+// 	let product = await Product.findById(product_id);
+
+// 	let product_cart = cart.products.find(
+// 		(product) => product.product_id.toString() === product_id
+// 	);
+
+// 	if (product_quantity > product.stock) {
+// 		const error = new Error(`There are only ${product.stock} items in cart`);
+// 		error.status = 422;
+// 		throw error;
+// 	}
+
+// 	if (!product_cart) {
+// 		const actual_stock = product.stock - product_quantity;
+
+// 		product = await Product.findByIdAndUpdate(
+// 			{ _id: product_id },
+// 			{ stock: actual_stock },
+// 			{ new: true }
+// 		);
+
+// 		cart.products.push({ product_id: product._id, quantity: product_quantity });
+
+// 		cart.save();
+// 	} else {
+// 		const total_units = product_cart.quantity + product.stock;
+
+// 		const actual_stock = total_units - product_quantity;
+
+// 		product = await Product.findByIdAndUpdate(
+// 			{ _id: product_id },
+// 			{ stock: actual_stock },
+// 			{ new: true }
+// 		);
+
+// 		product_cart.quantity = product_quantity;
+
+// 		cart.save();
+// 	}
+
+// 	return { cart, product };
+// };

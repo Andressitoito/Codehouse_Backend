@@ -14,7 +14,8 @@ import sendSms from "../../../utils/sensSms.js";
 import generateUserFaker from "../../../utils/mocks/generateUserFaker.js";
 
 import compression from "express-compression";
-import router from "../carts/carts.mongo.js";
+import generateProductFaker from "../../../utils/mocks/generateProductFaker.js";
+
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
@@ -31,45 +32,6 @@ auth_router.use(
 /////////////////////////////
 // GITHUB AUTH
 /////////////////////////////
-
-auth_router.get("/stringlargo", (req, res) => {
-	let string = `Hi I am a super long string super long`;
-
-	let num = 0;
-
-	for (let i = 0; i < 5e5; i++) {
-		num++;
-		string += `
-	Hola ${num}
-	`;
-	}
-
-	res.send(string);
-});
-
-auth_router.get("/mail", async (req, res) => {
-	await sendMail();
-	res.send("send MAIL");
-});
-
-auth_router.get("/sms", async (req, res) => {
-	await sendSms("Andy", "Ledesma");
-	res.send("send SMS");
-});
-
-auth_router.get("/mockuser", (req, res) => {
-	let users = [];
-
-	for (let i = 0; i < 100; i++) {
-		users.push(generateUserFaker());
-	}
-
-	res.send({
-		status: "success",
-		payload: users,
-	});
-});
-
 auth_router.get(
 	"/github",
 	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => {})
@@ -238,5 +200,73 @@ auth_router.get("/current", passport_call("jwt"), (req, res) => {
 		</html>
   `);
 });
+
+/////////////////////////////
+// TEST COMPRESSION
+/////////////////////////////
+auth_router.get("/stringlargo", (req, res) => {
+	let string = `Hi I am a super long string super long`;
+
+	let num = 0;
+
+	for (let i = 0; i < 5e5; i++) {
+		num++;
+		string += `
+	Hola ${num}
+	`;
+	}
+
+	res.send(string);
+});
+
+/////////////////////////////
+// TEST MAIL
+/////////////////////////////
+auth_router.get("/mail", async (req, res) => {
+	await sendMail();
+	res.send("send MAIL");
+});
+
+/////////////////////////////
+// TEST SMS
+/////////////////////////////
+auth_router.get("/sms", async (req, res) => {
+	await sendSms("Andy", "Ledesma");
+	res.send("send SMS");
+});
+
+/////////////////////////////
+// MOCK USER
+/////////////////////////////
+auth_router.get("/mockuser", (req, res) => {
+	let users = [];
+
+	for (let i = 0; i < 100; i++) {
+		users.push(generateUserFaker());
+	}
+
+	res.send({
+		status: "success",
+		payload: users,
+	});
+});
+
+
+/////////////////////////////
+// MOCK PRODUCTS
+/////////////////////////////
+auth_router.get("/mockingproducts", (req, res) => {
+	let products = [];
+
+	for (let i = 0; i < 100; i++) {
+		products.push(generateProductFaker());
+	}
+
+	res.send({
+		status: "success",
+		payload: products,
+	});
+});
+
 
 export default auth_router;
