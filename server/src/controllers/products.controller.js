@@ -25,7 +25,7 @@ class ProductsController {
 			next(error);
 		}
 	};
-	
+
 	/////////////////////////////
 	// GET /api/products/:pid
 	/////////////////////////////
@@ -63,9 +63,6 @@ class ProductsController {
 				}
 			}
 
-			console.log("req.body contronller ", req.body)
-			
-			console.log('get in here to create product')
 			const product = await this.productsService.create({
 				title,
 				description,
@@ -92,13 +89,9 @@ class ProductsController {
 			const dataToUpdate = req.body;
 			const idToUpdate = req.params.pid;
 
-			const product = await this.productsService.update(
-				idToUpdate,
-				dataToUpdate,
-				{
-					new: true,
-				}
-			);
+			const product = await this.productsService.update(idToUpdate, dataToUpdate, {
+				new: true,
+			});
 
 			res.json({
 				status: 201,

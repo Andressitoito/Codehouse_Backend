@@ -1,31 +1,21 @@
+import createProductError from "../utils/errors/productError/createProductError.js";
+import { productEnumsError } from "../utils/errors/productError/productEnumsError.js";
+import ProductError from "../utils/errors/productError/productError.js";
+
 function productValidator(req, res, next) {
 	const { title, description, price, thumbnail } = req.body;
-	if (!title) {
-		return res.json({
-			status: 422,
-			success: false,
-			message: "Title is required",
+
+	if (!title || !description || !thumbnail || !price) {
+		ProductError.createError({
+			name: "Product creation error",
+			cause: createProductError(title, description, thumbnail, price),
+			message: "Error creating product",
+			code: productEnumsError.INVALID_TYPE_ERROR,
 		});
-	}
-	if (!description) {
-		return res.json({
-			status: 422,
+
+		return res.status(422).json({
 			success: false,
-			message: "Description is required",
-		});
-	}
-	if (!price) {
-		return res.json({
-			status: 422,
-			success: false,
-			message: "Price is required",
-		});
-	}
-	if (!thumbnail) {
-		return res.json({
-			status: 422,
-			success: false,
-			message: "Thumbnail is required",
+			message: "Error creating product",
 		});
 	}
 	next();

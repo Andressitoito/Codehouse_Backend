@@ -13,7 +13,6 @@ const router = Router();
 router.get("/", redirect_unauthorized, async (req, res, next) => {
 	try {
 
-		console.log("req.user from views", req.user)
 		const cart = await Cart.findOne({ _id: req.user.cart_id }).populate(
 			"products.product_id"
 		);
@@ -53,12 +52,9 @@ router.get("/cart/bill", async (req, res, next) => {
 
 		const cart = await Cart.aggregate([{ $match: { _id: cartObjectId } }]);
 
-		console.log(cart);
-
 		return res.render("carts/mongo/cart", {
 			title: "Product Cart",
 			script: "edit-cart_mongo.js",
-			// products_data: products
 		});
 	} catch (error) {
 		next(error);

@@ -242,8 +242,6 @@ class CartsDaoMongo {
 				for (const productId of productIds) {
 					await checkStock(productId);
 				}
-
-				console.log("all producst has been processed");
 			} catch (error) {
 				throw error;
 			}

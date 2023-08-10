@@ -1,11 +1,11 @@
 // import { UserDTO } from "../dto/user.dto";
 
-import CustomError from "../utils/error/customError.js";
-import { EErrors } from "../utils/error/enums.js";
-import generateInfoUser from "../utils/error/gereateInfoUser.js";
+import CustomError from "../utils/errors/userError/customError.js";
+import { EErrors } from "../utils/errors/userError/enums.js";
+import generateInfoUser from "../utils/errors/userError/gereateInfoUser.js";
 
 export default function user_validator(req, res, next) {
-	const { password, email, name } = req.body;
+	const { password, email } = req.body;
 
 	if (!name || !password || !email) {
 		CustomError.createError({
