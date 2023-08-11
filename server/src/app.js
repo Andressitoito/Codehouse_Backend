@@ -7,7 +7,8 @@ import __dirname from "./utils/utils.js";
 import router from "./routes/index.js";
 import errorHandler from "./middlewares/error_handler.js";
 import not_found_handler from "./middlewares/not_found_handler.js";
-import logger from "morgan";
+// import logger from "morgan";
+
 import send_navbar_data from "./middlewares/send_navbar_data.js";
 import handlebars from "handlebars";
 import exphbs from "express-handlebars";
@@ -21,6 +22,7 @@ import passport_local from "./config/passport_local.js";
 import config from './config/config.js'
 import cors from 'cors'
 import errorMiddleware from "./middlewares/error_middleware.js";
+import { addLogger } from "./config/logger.js";
 
 /////////////////////////////
 // VARIABLES
@@ -52,7 +54,8 @@ passport_local();
 server.use(passport.initialize());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
-server.use(logger("dev"));
+// server.use(logger("dev"));
+server.use(addLogger)
 
 server.use(
 	expressSession({

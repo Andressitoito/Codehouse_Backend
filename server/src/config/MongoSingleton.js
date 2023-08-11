@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { logger } from "./logger.js";
 
 class MongoSingleton {
 	static #instance;
@@ -17,7 +18,7 @@ class MongoSingleton {
 			return;
 		}
 		this.#instance = new MongoSingleton();
-		console.log("Connected");
+		logger.info("Connected");
 		return this.#instance;
 	}
 }
