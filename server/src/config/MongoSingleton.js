@@ -13,7 +13,7 @@ class MongoSingleton {
 
 	static getInstance() {
 		if (this.#instance) {
-			console.log("Already connected");
+			logger.info("Already connected");
 			this.#instance;
 			return;
 		}

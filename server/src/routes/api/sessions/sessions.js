@@ -21,7 +21,7 @@ sessions_router.get("/", async (req, res) => {
 
 sessions_router.post("/login", async (req, res, next) => {
 	try {
-		const { email } = req.body;
+		const { email, password } = req.body;
 
 		req.session.email = email;
 
@@ -36,7 +36,7 @@ sessions_router.post("/login", async (req, res, next) => {
 
 sessions_router.post("/signout", async (req, res, next) => {
 	try {
-		req.session.destroy()
+		req.session.destroy();
 
 		return res.status(200).json({
 			success: true,

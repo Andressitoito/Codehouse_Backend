@@ -4,19 +4,25 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### Enhanced Logging with Winston Logger Integration
+
+To improve performance monitoring and error tracking, the Winston logger was successfully integrated and configured within the server codebase. This implementation allows for effective logging across different levels of information: 'fatal,' 'error,' 'warn,' and 'info.' With this setup, the application gains a robust logging mechanism to facilitate debugging and troubleshooting.
+
+![Enhanced Logging with Winston Logger Integration](./server/public/images/readme/misc/logger_info.png)
+
+# Previous Features
+
 ### Mocking Products Router for Real-Time Product Mock
 
-A new products router was successfully implemented, integrating mock data to showcase a real-time list of randomized products. 
+A new products router was successfully implemented, integrating mock data to showcase a real-time list of randomized products.
 
 ![Mocking Products Router for Real-Time Product Mock](./server/public/images/readme/products/product_mocking_route.png)
 
 ### Custom Error Middleware for Enhanced Product Creation
 
-As part of improving error handling, a custom error middleware was introduced, specifically designed to handle errors during product creation processes. 
+As part of improving error handling, a custom error middleware was introduced, specifically designed to handle errors during product creation processes.
 
 ![Custom Error Middleware for Enhanced Product Creation](./server/public/images/readme/products/custom_product_error.png)
-
-# Previous Features
 
 ### Ticket Model for Streamlined Purchases
 

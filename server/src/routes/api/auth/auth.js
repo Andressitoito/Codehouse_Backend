@@ -15,6 +15,7 @@ import generateUserFaker from "../../../utils/mocks/generateUserFaker.js";
 
 import compression from "express-compression";
 import generateProductFaker from "../../../utils/mocks/generateProductFaker.js";
+import { faker } from "@faker-js/faker";
 
 /////////////////////////////
 // VARIABLES
@@ -251,7 +252,6 @@ auth_router.get("/mockuser", (req, res) => {
 	});
 });
 
-
 /////////////////////////////
 // MOCK PRODUCTS
 /////////////////////////////
@@ -268,5 +268,66 @@ auth_router.get("/mockingproducts", (req, res) => {
 	});
 });
 
+/////////////////////////////
+// ERROR TESTS
+/////////////////////////////
+auth_router.get("/logger", (req, res) => {
+	req.logger.info(`Loggertest: ${new Date().toLocaleString()}`);
+	res.send("Registered & Error");
+});
+
+/////////////////////////////
+// TEST ALL ERROR LOGS
+/////////////////////////////
+auth_router.get("/loggerTest", (req, res) => {
+	req.logger.fatal(`Logger fatal test: ${new Date().toLocaleString()}`);
+	req.logger.error(`Logger error test: ${new Date().toLocaleString()}`);
+	req.logger.warn(`Logger warning test: ${new Date().toLocaleString()}`);
+	req.logger.info(`Logger info test: ${new Date().toLocaleString()}`);
+	req.logger.debug(`Logger debug test: ${new Date().toLocaleString()}`);
+	res.send("Errors registered");
+});
+
+/////////////////////////////
+// ARTILLERY SIMPLE
+/////////////////////////////
+auth_router.get("/simpleOperation", (req, res, next) => {
+	let suma = 0;
+
+	for (let i = 0; i < 100000; i++) {
+		suma += i;
+	}
+
+	// artillery quick --count 40 --num 50 "http://localhost:8080/api/auth/simpleOperation" -o simple.json
+	// artillery quick --count 40 --num 50 "http://localhost:8080/api/auth/complexOperation" -o complex.json
+	res.send(`Simple operation ${suma}`);
+});
+
+/////////////////////////////
+// ARTILLERY COMPLEX
+/////////////////////////////
+auth_router.get("/complexOperation", (req, res, next) => {
+	let suma = 0;
+
+	for (let i = 0; i < 100000000; i++) {
+		suma += i;
+	}
+
+	res.send(`complex operation ${suma}`);
+});
+
+auth_router.get("/testUser", (req, res) => {
+	let persona = {
+		first_name: faker.person.firstName(),
+		last_name: faker.person.lastName(),
+		email: faker.internet.email(),
+		password: faker.internet.password(),
+	};
+
+	res.send({
+		status: "success",
+		payload: persona,
+	});
+});
 
 export default auth_router;

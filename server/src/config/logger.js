@@ -1,4 +1,4 @@
-import winston, { format } from "winston";
+import winston from "winston";
 
 // const logger = winston.createLogger({
 //   transports: [
@@ -21,16 +21,16 @@ const customLevelOptions = {
 	levels: {
 		fatal: 0,
 		error: 1,
-		warning: 2,
+		warn: 2,
 		info: 3,
 		debug: 4,
 	},
 	colors: {
 		fatal: "red",
 		error: "yellow",
-		warinig: "yellow",
+		warn: "yellow",
 		info: "blue",
-		debug: "white",
+		debug: "cyan",
 	},
 };
 
@@ -46,7 +46,7 @@ const logger = winston.createLogger({
 		}),
 		new winston.transports.File({
 			filename: "./errors.log",
-			level: "warning",
+			level: "warn",
 			format: winston.format.simple(),
 		}),
 	],

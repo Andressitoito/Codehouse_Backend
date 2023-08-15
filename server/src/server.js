@@ -4,7 +4,7 @@
 import server from "./app.js";
 import { Server } from "socket.io";
 import "dotenv/config.js";
-
+import http from "http";
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
@@ -21,7 +21,7 @@ const chats = [];
 /////////////////////////////
 // SERVERS HTTP, SOCKET IO
 /////////////////////////////
-const http_server = server.listen(PORT, ready);
+const http_server =  http.createServer(server)
 const socket_server = new Server(http_server);
 
 /////////////////////////////
@@ -41,3 +41,5 @@ socket_server.on("connection", (socket) => {
 	});
 	console.log(socket.client.id);
 });
+
+export { http_server };
