@@ -10,7 +10,6 @@ import not_found_handler from "./middlewares/not_found_handler.js";
 import logger from "morgan";
 import send_navbar_data from "./middlewares/send_navbar_data.js";
 import handlebars from "handlebars";
-import { connect } from "mongoose";
 import exphbs from "express-handlebars";
 import "dotenv/config.js";
 import MongoStore from "connect-mongo";
@@ -21,6 +20,7 @@ import passport_local from "./config/passport_local.js";
 
 import config from './config/config.js'
 import cors from 'cors'
+import errorMiddleware from "./middlewares/error_middleware.js";
 
 /////////////////////////////
 // VARIABLES
@@ -96,16 +96,17 @@ server.use(cors())
 /////////////////////////////
 // DATABASE
 /////////////////////////////
-// config.connectDB()
+config.connectDB()
 
-connect(process.env.MONGO_LINK)
-	.then(() => console.log("Connected to database"))
-	.catch((err) => console.log(err));
+// connect(process.env.MONGO_LINK)
+// 	.then(() => console.log("Connected to database"))
+// 	.catch((err) => console.log(err));
 
 /////////////////////////////
 // ERROR HANDLING
 /////////////////////////////
 server.use(errorHandler);
+server.use(errorMiddleware)
 server.use(not_found_handler);
 
 export default server;

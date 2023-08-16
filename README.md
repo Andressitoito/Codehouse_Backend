@@ -4,13 +4,26 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### Ticket Model for Streamlined Purchases
+
+A new ticket model was introduced to facilitate seamless purchase processing. The ticket model enables users to initiate, manage, and track their purchases efficiently. Each ticket is associated with a specific purchase, containing relevant transaction details and status updates. With this ticket model, customers can easily complete their purchases and stay informed about the progress of their transactions.
+
+![Ticket Model for Streamlined Purchases](./server/public/images/readme/tickets/ticket_model.png)
+
+### Implementing handlePolicies Middleware for Secure Transactions
+
+To enhance security and prevent unauthorized transactions, the handlePolicies middleware was integrated into the system. This middleware verifies user permissions and ensures that only authorized users can perform certain actions, such as making purchases or accessing sensitive data. 
+
+![Implementing handlePolicies Middleware](./server/public/images/readme/products/product_policies.png)
+
+# Previous Features
+
 ### Complete Server Refactoring: Folder Structure and Module Organization
 
 Extensively refactored the entire server codebase to implement a more organized folder structure and module management. Created 'Dao' (Data Access Object) and 'DTO' (Data Transfer Object) folders, as well as 'Service,' 'Repository,' and 'Controllers' components. This comprehensive refactoring ensures better code separation, modularity, and scalability, setting a solid foundation to manage future growth and maintainability of the application.
 
 ![Complete Server Refactoring: Folder Structure and Module Organization](./server/public/images/readme/users/restructuring.png)
 
-# Previous Features
 
 ### User model with Cart_Id linked, and role
 

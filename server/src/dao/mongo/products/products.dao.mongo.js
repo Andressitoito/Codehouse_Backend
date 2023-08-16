@@ -14,6 +14,7 @@ class ProductsDaoMongo {
 	get = async (limit = 5, page = 1) => {
 		return await this.Product.paginate({}, { limit, page, lean: true });
 	};
+	
 	/////////////////////////////
 	// GET /api/products/:pid
 	/////////////////////////////
@@ -25,6 +26,7 @@ class ProductsDaoMongo {
 	// POST /api/products
 	/////////////////////////////
 	create = async (newProduct) => {
+		console.log('tryong to crate product')
 		return await this.Product.create(newProduct);
 	};
 

@@ -25,6 +25,7 @@ class ProductsController {
 			next(error);
 		}
 	};
+	
 	/////////////////////////////
 	// GET /api/products/:pid
 	/////////////////////////////
@@ -62,6 +63,9 @@ class ProductsController {
 				}
 			}
 
+			console.log("req.body contronller ", req.body)
+			
+			console.log('get in here to create product')
 			const product = await this.productsService.create({
 				title,
 				description,
