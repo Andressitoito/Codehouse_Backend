@@ -14,9 +14,6 @@ class ProductMongoRepository {
 		return result;
 	};
 	create = async (newProduct) => {
-		// "user case dto userDTO comes here"\
-		console.log('create from adao')
-
 		let result = await this.dao.create(newProduct);
 
 		return result;
@@ -33,4 +30,4 @@ class ProductMongoRepository {
 	};
 }
 
-export default ProductMongoRepository
+export default ProductMongoRepository;

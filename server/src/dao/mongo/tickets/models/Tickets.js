@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
-
-const { v4: uuidv4 } = require("uuid");
+import { v4 as uuidv4 } from "uuid";
 
 function generateTicketCode() {
 	return uuidv4().toUpperCase().replace(/-/g, "");
@@ -29,6 +28,6 @@ const schema = new Schema({
 	},
 });
 
-const User = model(collection, schema);
+const Ticket = model(collection, schema);
 
-export default User;
+export default Ticket;

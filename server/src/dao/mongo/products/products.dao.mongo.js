@@ -26,7 +26,6 @@ class ProductsDaoMongo {
 	// POST /api/products
 	/////////////////////////////
 	create = async (newProduct) => {
-		console.log('tryong to crate product')
 		return await this.Product.create(newProduct);
 	};
 

@@ -4,6 +4,20 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### Mocking Products Router for Real-Time Product Mock
+
+A new products router was successfully implemented, integrating mock data to showcase a real-time list of randomized products. 
+
+![Mocking Products Router for Real-Time Product Mock](./server/public/images/readme/products/product_mocking_route.png)
+
+### Custom Error Middleware for Enhanced Product Creation
+
+As part of improving error handling, a custom error middleware was introduced, specifically designed to handle errors during product creation processes. 
+
+![Custom Error Middleware for Enhanced Product Creation](./server/public/images/readme/products/custom_product_error.png)
+
+# Previous Features
+
 ### Ticket Model for Streamlined Purchases
 
 A new ticket model was introduced to facilitate seamless purchase processing. The ticket model enables users to initiate, manage, and track their purchases efficiently. Each ticket is associated with a specific purchase, containing relevant transaction details and status updates. With this ticket model, customers can easily complete their purchases and stay informed about the progress of their transactions.
@@ -12,18 +26,15 @@ A new ticket model was introduced to facilitate seamless purchase processing. Th
 
 ### Implementing handlePolicies Middleware for Secure Transactions
 
-To enhance security and prevent unauthorized transactions, the handlePolicies middleware was integrated into the system. This middleware verifies user permissions and ensures that only authorized users can perform certain actions, such as making purchases or accessing sensitive data. 
+To enhance security and prevent unauthorized transactions, the handlePolicies middleware was integrated into the system. This middleware verifies user permissions and ensures that only authorized users can perform certain actions, such as making purchases or accessing sensitive data.
 
 ![Implementing handlePolicies Middleware](./server/public/images/readme/products/product_policies.png)
-
-# Previous Features
 
 ### Complete Server Refactoring: Folder Structure and Module Organization
 
 Extensively refactored the entire server codebase to implement a more organized folder structure and module management. Created 'Dao' (Data Access Object) and 'DTO' (Data Transfer Object) folders, as well as 'Service,' 'Repository,' and 'Controllers' components. This comprehensive refactoring ensures better code separation, modularity, and scalability, setting a solid foundation to manage future growth and maintainability of the application.
 
 ![Complete Server Refactoring: Folder Structure and Module Organization](./server/public/images/readme/users/restructuring.png)
-
 
 ### User model with Cart_Id linked, and role
 
@@ -36,7 +47,6 @@ This new user model is now associated with the cart_id. Upon creation, each user
 This API route 'api/auth/current' can be utilized to verify the current status of the user. If the user is logged in, their data will be displayed; otherwise, an error message saying 'no token authentication' will be returned.
 
 ![API route to check current user](./server/public/images/readme/users/auth_token.png)
-
 
 ### User creation with Github
 

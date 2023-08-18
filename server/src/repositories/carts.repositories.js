@@ -35,6 +35,12 @@ class CartMongoRepository {
 
   return result;
  };
+
+ purchase = async (cid) => {
+  let result = await this.dao.purchase(cid);
+
+  return result;
+ };
 }
 
 export default CartMongoRepository

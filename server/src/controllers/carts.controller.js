@@ -1,6 +1,7 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
+import Ticket from "../dao/mongo/tickets/models/Tickets.js";
 import { cartsService } from "../service/index.js";
 
 class CartController {
@@ -114,13 +115,13 @@ class CartController {
 			const cid = req.params.cid;
 			const pid = req.params.pid;
 
-			const { cart, product } = await this.cartsService.delete(cid, pid);
+			const { cart } = await this.cartsService.delete(cid, pid);
 
 			res.json({
 				status: 200,
 				success: true,
 				cart,
-				stock: `There are ${product.stock} units in stock`,
+				stock: `There are more units in stock`,
 			});
 		} catch (error) {
 			next(error);
@@ -132,16 +133,32 @@ class CartController {
 	/////////////////////////////
 	purchase = async (req, res, next) => {
 		try {
-			const cid = req.params.cid;
-			const pid = req.params.pid;
+			// console.log(cart)
 
-			const { cart, product } = await this.cartsService.delete(cid, pid);
+			console.log("req.user FROM PURCHASE CONTROLLER ", req.user);
+
+			const cid = req.params.cid;
+			console.log("cid form req.params", cid);
+
+			console.log("	llegamos aca");
+
+			const amount = await this.cartsService.purchase(cid);
+			console.log(amount);
+
+			if (amount !== 0) {
+				const ticketData = {
+					purchaser: req.user.email,
+					amount,
+				};
+				const ticket = await Ticket.create(ticketData);
+				console.log(ticket);
+			}
 
 			res.json({
 				status: 200,
 				success: true,
-				cart,
-				stock: `There are ${product.stock} units in stock`,
+				message: `The cart was updated and the ticket generated`,
+				amount,
 			});
 		} catch (error) {
 			next(error);
