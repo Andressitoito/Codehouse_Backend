@@ -4,13 +4,25 @@ This repository contains a server build with Node.js and Express, set up to run 
 
 # New Features
 
+### Introducing a Robust Forgot Password Feature
+
+Introduce an advanced "Forgot Password" feature that has been seamlessly integrated into our server. This feature not only enhances user convenience but also reinforces account security.
+
+![Introducing a Robust Forgot Password Feature](./server/public/images/readme/users/forgot_password.png)
+
+#### Email Verification for Added Security
+
+When a user initiates a password reset request, the server now performs a thorough email verification process. This involves sending a unique verification link to the user's registered email address. This step ensures that only authorized users can proceed with resetting their passwords.vv
+
+![Email Verification for Added Security](./server/public/images/readme/users/reset_password.png)
+
+# Previous Features
+
 ### Enhanced Logging with Winston Logger Integration
 
 To improve performance monitoring and error tracking, the Winston logger was successfully integrated and configured within the server codebase. This implementation allows for effective logging across different levels of information: 'fatal,' 'error,' 'warn,' and 'info.' With this setup, the application gains a robust logging mechanism to facilitate debugging and troubleshooting.
 
 ![Enhanced Logging with Winston Logger Integration](./server/public/images/readme/misc/logger_info.png)
-
-# Previous Features
 
 ### Mocking Products Router for Real-Time Product Mock
 

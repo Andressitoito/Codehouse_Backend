@@ -21,7 +21,8 @@ const chats = [];
 /////////////////////////////
 // SERVERS HTTP, SOCKET IO
 /////////////////////////////
-const http_server =  http.createServer(server)
+// const http_server =  http.createServer(server)
+const http_server =  server.listen( PORT, ready);
 const socket_server = new Server(http_server);
 
 /////////////////////////////

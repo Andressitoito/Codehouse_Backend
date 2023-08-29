@@ -20,7 +20,26 @@ const transport = nodemailer.createTransport({
 	},
 });
 
-const sendMail = async () => {
+const sendMail = async (emailUser, subject, html) => {
+	return await transport.sendMail({
+		from: "Coder Test <andresledesma87@gmail.com>",
+		to: "andresledesma87@gmail.com",
+		subject: "Correo electronico de prueba",
+		html: `
+  <h1>Esto es un correo de prueba</h1>
+  `,
+		attachments: [
+			{
+				filename: "restructuring.png",
+				path: __dirname + "/utils/restructuring.png",
+				cid: "restructuring.png",
+			},
+		],
+	});
+};
+
+
+const sendMaildefault = async (emailUser, subject, html) => {
 	return await transport.sendMail({
 		from: "Coder Test <andresledesma87@gmail.com>",
 		to: "andresledesma87@gmail.com",
@@ -39,3 +58,4 @@ const sendMail = async () => {
 };
 
 export default sendMail;
+
