@@ -19,9 +19,11 @@ GreenShop is your go-to destination for all things green, whether you're sprucin
 
 # New Features
 
-Integrate Swagger for Comprehensive API Documentation
+## Integrate Swagger for Comprehensive API Documentation
 
+Implemented Swagger to generate detailed documentation for the API, providing comprehensive information about its functionalities. Specifically, documented endpoints related to 'Products' and 'Carts.' This addition improves developer and user understanding of the API, making it easier to work with and integrate into various applications.
 
+![Email Restoration with Link to Restore Password](./server/public/images/readme/misc/api_documentation.png)
 
 # Previous Features
 
