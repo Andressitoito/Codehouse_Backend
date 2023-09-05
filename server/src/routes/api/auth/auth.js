@@ -9,7 +9,7 @@ import passport from "passport";
 import password_is_ok from "../../../middlewares/password_is_ok.js";
 import create_token from "../../../middlewares/create_token.js";
 import passport_call from "../../../middlewares/passport_call.js";
-import sendMail from "../../../utils/sendMail.js";
+import { sendMail } from "../../../utils/sendMail.js";
 import sendSms from "../../../utils/sensSms.js";
 import generateUserFaker from "../../../utils/mocks/generateUserFaker.js";
 
@@ -35,7 +35,7 @@ auth_router.use(
 /////////////////////////////
 auth_router.get(
 	"/github",
-	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => {})
+	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => { })
 );
 
 auth_router.get(

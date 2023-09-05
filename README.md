@@ -1,8 +1,27 @@
-# E-Commerce Product Class Repository
+# GreenShop E-commerce Server
 
-This repository contains a server build with Node.js and Express, set up to run on port 8080.
+Welcome to GreenShop, your all-in-one e-commerce server powered by cutting-edge technologies! Our server is designed to provide a seamless shopping experience for users interested in a wide variety of top-quality grass and plants. Whether you're a gardening enthusiast, a landscaping professional, or just looking to add some greenery to your space, GreenShop has got you covered.
+
+**Key Features:**
+- **GitHub Login:** Enjoy a streamlined login experience with your GitHub credentials.
+- **Email Login:** Not on GitHub? No problem! You can also log in using your email and password.
+- **Secure MongoDB Database:** Your data is stored safely and efficiently in our MongoDB database.
+- **Password Restoration:** Forgot your password? No worries! Easily restore your access through our email-based password restoration feature.
+
+**Shopping Made Easy:**
+- **Product Search:** Browse our extensive collection of grass and plants with ease.
+- **Shopping Cart:** Add your favorite products to your cart and breeze through the checkout process.
+- **User-Centric Views:** Experience personalized views and features tailored to non-users, logged-in users, and admin roles.
+
+GreenShop is your go-to destination for all things green, whether you're sprucing up your garden or adding a touch of nature to your surroundings. Explore our server today and embark on a botanical journey like never before!
 
 # New Features
+
+## Email Restoration with Link to Restore Password
+
+Experience the ultimate password recovery convenience! Our server sends you an email with a magic link to effortlessly restore your forgotten password.
+
+![Email Restoration with Link to Restore Password](./server/public/images/readme/misc/reset_password.png)
 
 ### Introducing a Robust Forgot Password Feature
 
