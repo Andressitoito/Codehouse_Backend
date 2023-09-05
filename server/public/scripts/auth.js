@@ -22,7 +22,7 @@ const checkLog = async () => {
 
 	const token = tokenStr;
 
-	console.log({user_authorize_token: token})
+	console.log({ user_authorize_token: token });
 
 	if (token) {
 		const [header, payload, signature] = token.split(".");
@@ -41,7 +41,7 @@ const checkLog = async () => {
 
 		const { role } = decodedPayload;
 
-		if (role === 'ADMIN') {
+		if (role === "ADMIN") {
 			document.querySelector("#add_mongo_product").classList.remove("hide");
 			document.querySelector("#add_fs_product").classList.remove("hide");
 		} else {
@@ -167,6 +167,36 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	}
 });
 
+document.querySelector("#login_email").addEventListener("change", (e) => {
+	e.preventDefault();
+
+	const email = document.querySelector("#login_email").value;
+
+	if (email === "") {
+		document.querySelector("#forgot-password").disabled = true;
+	} else {
+		document.querySelector("#forgot-password").disabled = false;
+	}
+});
+
+console.log(document.querySelector("#login_email"));
+document.querySelector("#forgot-password").disabled = true;
+
+document.querySelector("#forgot-password").addEventListener("click", (e) => {
+	e.preventDefault();
+
+	console.log(document.querySelector("#login_email").value);
+
+	fetch(`/api/sessions/forgot-password`, {
+		method: "POST",
+		body: JSON.stringify({ email: document.querySelector("#login_email").value }),
+		headers: {
+			"Content-type": "application/json",
+		}
+	}).then(res => res.json())
+		.then(data => console.log(data))
+});
+
 // ///////////////////////////
 // SIGN OUT JWT
 // ///////////////////////////
@@ -276,10 +306,5 @@ document.querySelector("#git-submit").addEventListener("click", async (e) => {
 		willClose: () => {
 			clearInterval(timerInterval);
 		},
-	}).then((result) => {
-		/* Read more about handling dismissals below */
-		// if (result.dismiss === Swal.DismissReason.timer) {
-		// 	console.log('I was closed by the timer');
-		// }
-	});
+	}).then((result) => { });
 });

@@ -1,0 +1,123 @@
+paths:
+  /api/carts_mongo:
+    get:
+      summary: Get all shopping carts
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cart"
+        "500":
+          description: Internal server error
+    post:
+      summary: Create shopping cart
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Cart"
+        "500":
+          description: Internal server error
+
+  /api/cart_mongo/{uid}:
+    get:
+      summary: Get a shopping cart by ID
+      tags:
+        - Carts
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Cart ID required
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "500":
+          description: Internal server error
+    put:
+      summary: Update a shopping cart by ID
+      tags:
+        - Carts
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Cart ID required
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "500":
+          description: Internal server error
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product_id:
+                type: string
+                description: Product ID
+              quantity:
+                type: number
+                description: Quantity
+      example:
+        products:
+          - product_id: "3rewfq325t254tefwr253twe"
+            quantity: 2
+
+  requestBodies:
+    updateCarts:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              products:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    product_id:
+                      type: string
+                      description: Product ID
+                    quantity:
+                      type: number
+                      description: Quantity
+      example:
+        products:
+          - product_id: "3rewfq325t254tefwr253twe"
+            quantity: 2

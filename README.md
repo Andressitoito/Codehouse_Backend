@@ -3,12 +3,14 @@
 Welcome to GreenShop, your all-in-one e-commerce server powered by cutting-edge technologies! Our server is designed to provide a seamless shopping experience for users interested in a wide variety of top-quality grass and plants. Whether you're a gardening enthusiast, a landscaping professional, or just looking to add some greenery to your space, GreenShop has got you covered.
 
 **Key Features:**
+
 - **GitHub Login:** Enjoy a streamlined login experience with your GitHub credentials.
 - **Email Login:** Not on GitHub? No problem! You can also log in using your email and password.
 - **Secure MongoDB Database:** Your data is stored safely and efficiently in our MongoDB database.
 - **Password Restoration:** Forgot your password? No worries! Easily restore your access through our email-based password restoration feature.
 
 **Shopping Made Easy:**
+
 - **Product Search:** Browse our extensive collection of grass and plants with ease.
 - **Shopping Cart:** Add your favorite products to your cart and breeze through the checkout process.
 - **User-Centric Views:** Experience personalized views and features tailored to non-users, logged-in users, and admin roles.
@@ -16,6 +18,12 @@ Welcome to GreenShop, your all-in-one e-commerce server powered by cutting-edge 
 GreenShop is your go-to destination for all things green, whether you're sprucing up your garden or adding a touch of nature to your surroundings. Explore our server today and embark on a botanical journey like never before!
 
 # New Features
+
+Integrate Swagger for Comprehensive API Documentation
+
+
+
+# Previous Features
 
 ## Email Restoration with Link to Restore Password
 
@@ -34,8 +42,6 @@ Introduce an advanced "Forgot Password" feature that has been seamlessly integra
 When a user initiates a password reset request, the server now performs a thorough email verification process. This involves sending a unique verification link to the user's registered email address. This step ensures that only authorized users can proceed with resetting their passwords.vv
 
 ![Email Verification for Added Security](./server/public/images/readme/users/reset_password.png)
-
-# Previous Features
 
 ### Enhanced Logging with Winston Logger Integration
 
