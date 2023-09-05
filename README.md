@@ -1,22 +1,59 @@
-# E-Commerce Product Class Repository
+# GreenShop E-commerce Server
 
-This repository contains a server build with Node.js and Express, set up to run on port 8080.
+Welcome to GreenShop, your all-in-one e-commerce server powered by cutting-edge technologies! Our server is designed to provide a seamless shopping experience for users interested in a wide variety of top-quality grass and plants. Whether you're a gardening enthusiast, a landscaping professional, or just looking to add some greenery to your space, GreenShop has got you covered.
+
+**Key Features:**
+- **GitHub Login:** Enjoy a streamlined login experience with your GitHub credentials.
+- **Email Login:** Not on GitHub? No problem! You can also log in using your email and password.
+- **Secure MongoDB Database:** Your data is stored safely and efficiently in our MongoDB database.
+- **Password Restoration:** Forgot your password? No worries! Easily restore your access through our email-based password restoration feature.
+
+**Shopping Made Easy:**
+- **Product Search:** Browse our extensive collection of grass and plants with ease.
+- **Shopping Cart:** Add your favorite products to your cart and breeze through the checkout process.
+- **User-Centric Views:** Experience personalized views and features tailored to non-users, logged-in users, and admin roles.
+
+GreenShop is your go-to destination for all things green, whether you're sprucing up your garden or adding a touch of nature to your surroundings. Explore our server today and embark on a botanical journey like never before!
 
 # New Features
 
+## Email Restoration with Link to Restore Password
+
+Experience the ultimate password recovery convenience! Our server sends you an email with a magic link to effortlessly restore your forgotten password.
+
+![Email Restoration with Link to Restore Password](./server/public/images/readme/misc/reset_password.png)
+
+### Introducing a Robust Forgot Password Feature
+
+Introduce an advanced "Forgot Password" feature that has been seamlessly integrated into our server. This feature not only enhances user convenience but also reinforces account security.
+
+![Introducing a Robust Forgot Password Feature](./server/public/images/readme/users/forgot_password.png)
+
+#### Email Verification for Added Security
+
+When a user initiates a password reset request, the server now performs a thorough email verification process. This involves sending a unique verification link to the user's registered email address. This step ensures that only authorized users can proceed with resetting their passwords.vv
+
+![Email Verification for Added Security](./server/public/images/readme/users/reset_password.png)
+
+# Previous Features
+
+### Enhanced Logging with Winston Logger Integration
+
+To improve performance monitoring and error tracking, the Winston logger was successfully integrated and configured within the server codebase. This implementation allows for effective logging across different levels of information: 'fatal,' 'error,' 'warn,' and 'info.' With this setup, the application gains a robust logging mechanism to facilitate debugging and troubleshooting.
+
+![Enhanced Logging with Winston Logger Integration](./server/public/images/readme/misc/logger_info.png)
+
 ### Mocking Products Router for Real-Time Product Mock
 
-A new products router was successfully implemented, integrating mock data to showcase a real-time list of randomized products. 
+A new products router was successfully implemented, integrating mock data to showcase a real-time list of randomized products.
 
 ![Mocking Products Router for Real-Time Product Mock](./server/public/images/readme/products/product_mocking_route.png)
 
 ### Custom Error Middleware for Enhanced Product Creation
 
-As part of improving error handling, a custom error middleware was introduced, specifically designed to handle errors during product creation processes. 
+As part of improving error handling, a custom error middleware was introduced, specifically designed to handle errors during product creation processes.
 
 ![Custom Error Middleware for Enhanced Product Creation](./server/public/images/readme/products/custom_product_error.png)
-
-# Previous Features
 
 ### Ticket Model for Streamlined Purchases
 

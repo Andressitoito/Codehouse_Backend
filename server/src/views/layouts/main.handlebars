@@ -153,6 +153,17 @@
    margin: 0 0 0 15px;
   }
 
+  #forgot-password {
+   border-radius: 4px;
+   background-color: rgba(79, 79, 79, 0.5);
+  }
+
+  #forgot-password:enabled {
+   border-radius: 5px;
+   background-color: rgba(27, 27, 27, 0.5);
+   color: #e0e0e0;
+  }
+
   .navbar ul.nav li.active a,
   .navbar ul.nav li.open>a {
    background: transparent !important;
@@ -283,19 +294,23 @@
           <form action="/examples/actions/confirmation.php" method="post" class="">
            <p class="hint-text">Welcome again!</p>
            <div class="form-group mb-3">
-            <input type="email" class="form-control" placeholder="Email" required="required" id="login_email"
-             value="">
+            <input type="email" class="form-control" placeholder="Email" required="required" id="login_email" value="">
            </div>
            <div class="form-group mb-3">
             <input type="password" class="form-control" placeholder="Password" required="required" id="login_password"
              value="">
+           </div>
+           <div class="form-group mb-3">
+            <button href="http://localhost:8080/sessions/forgot-password" class="hint-text" id="forgot-password">Forgot
+             password?</button>
            </div>
 
            <input type="submit" class="btn flex-1 btn-primary w-100 btn-block submit-btn" value="Login" id="login">
 
            <div class="or-seperator"><b>or</b></div>
 
-           <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-login">Continue with
+           <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-login">Continue
+            with
             Github<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
              class="bi bi-github" viewBox="0 0 16 16">
              <path
@@ -334,7 +349,8 @@
 
           </form>
 
-          <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-submit">Continue with
+          <button class="btn centered-btn w-100 btn-primary btn-block submit-btn" id="git-submit">Continue
+           with
            Github<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github"
             viewBox="0 0 16 16">
             <path
