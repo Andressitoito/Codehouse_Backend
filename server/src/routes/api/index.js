@@ -25,8 +25,6 @@ const cartMongoRouter = new CartMongoRouter()
 // router.use('/products_mongo', productsMongoRouter.init)
 // router.use('/carts_mongo', cartMongoRouter.init)
 
-
-
 router.use('/products_mongo', productsRouter)
 router.use('/carts_mongo', cartRouter)
 router.use('/cookies', cookies_router)
