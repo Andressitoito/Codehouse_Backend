@@ -19,7 +19,7 @@ const {
 /////////////////////////////
 // GET /api/carts
 /////////////////////////////
-router.get("/", handlePolicies(["PUBLIC", "USER", "ADMIN"]), getCarts);
+router.get("/", handlePolicies(["", "USER", "ADMIN"]), getCarts);
 
 /////////////////////////////
 // GET /api/carts/:cid

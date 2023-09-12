@@ -20,16 +20,12 @@ const {
 /////////////////////////////
 // GET /api/products
 /////////////////////////////
-router.get("/", handlePolicies(["PUBLIC", "USER", "ADMIN"]), getProducts);
+router.get("/", handlePolicies(["", "USER", "ADMIN"]), getProducts);
 
 /////////////////////////////
 // GET /api/products/:pid
 /////////////////////////////
-router.get(
-	"/:pid",
-	handlePolicies(["PUBLIC", "USER", "ADMIN"]),
-	getProductsById
-);
+router.get("/:pid", handlePolicies(["", "USER", "ADMIN"]), getProductsById);
 
 /////////////////////////////
 // POST /api/products

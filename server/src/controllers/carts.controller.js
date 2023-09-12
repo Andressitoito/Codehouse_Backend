@@ -15,12 +15,13 @@ class CartController {
 	getCarts = async (req, res, next) => {
 		try {
 			const carts = await this.cartsService.getCarts();
+			console.log('///////////////')
+			console.log(carts)
 
 			res.status(200).json({
 				status: 200,
 				success: true,
-				products: carts[0].products,
-				total: carts[0].sum,
+				carts
 			});
 		} catch (error) {
 			next(error);
