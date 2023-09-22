@@ -10,7 +10,6 @@
     "dev": "nodemon src/server.js --mode development",
     "prod": "nodemon src/server.js --mode production",
     "test": "mocha test/supertest/supertest.test.js"
-
   },
   "keywords": [],
   "author": "Andres Ledesma",
@@ -26,7 +25,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "express-compression": "^1.0.2",
-    "express-handlebars": "^7.0.7",
+    "express-handlebars": "^6.0.7",
     "express-session": "^1.17.3",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.0",
@@ -39,6 +38,7 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "socket.io": "^4.6.1",
+    "stripe": "^13.7.0",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",

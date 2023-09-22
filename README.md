@@ -19,13 +19,20 @@ GreenShop is your go-to destination for all things green, whether you're sprucin
 
 # New Features
 
+## User Experience with Premium Upgrade
+
+This functionality allows users to seamlessly upgrade to a premium account by uploading the necessary documents, including photo ID, profile photo, and billing address.
+
+![User Experience with Premium Upgrade](./server/public/images/readme/users/premium.png)
+
+# Previous Features
+
 ## Enhance Server Testing with Chai Supertest Integration
 
 Enhanced the server by integrating Chai Supertest, a testing framework, to facilitate comprehensive testing of server functionalities. This integration enables thorough testing of user, products, and cart routes, ensuring the server operates reliably and meets expected behavior.
 
 ![Enhance Server Testing with Chai Supertest Integration](./server/public/images/readme/misc/tests_examples.png)
 
-# Previous Features
 
 ## Integrate Swagger for Comprehensive API Documentation
 
