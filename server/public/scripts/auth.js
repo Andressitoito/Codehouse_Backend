@@ -22,8 +22,6 @@ const checkLog = async () => {
 
 	const token = tokenStr;
 
-	console.log({ user_authorize_token: token });
-
 	if (token) {
 		const [header, payload, signature] = token.split(".");
 
@@ -141,7 +139,6 @@ document.querySelector("#login").addEventListener("click", async (e) => {
 	});
 	const data_user = await res_user.json();
 
-	console.log(data_user);
 	if (data_user.success) {
 		checkLog();
 
@@ -179,7 +176,6 @@ document.querySelector("#login_email").addEventListener("change", (e) => {
 	}
 });
 
-console.log(document.querySelector("#login_email"));
 document.querySelector("#forgot-password").disabled = true;
 
 document.querySelector("#forgot-password").addEventListener("click", (e) => {
