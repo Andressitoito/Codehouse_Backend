@@ -19,10 +19,13 @@ import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
 
-import config from './config/config.js'
-import cors from 'cors'
+import config from "./config/config.js";
+import cors from "cors";
 import errorMiddleware from "./middlewares/error_middleware.js";
 import { addLogger } from "./config/logger.js";
+
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 /////////////////////////////
 // VARIABLES
@@ -55,7 +58,7 @@ server.use(passport.initialize());
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 // server.use(logger("dev"));
-server.use(addLogger)
+server.use(addLogger);
 
 server.use(
 	expressSession({
@@ -87,6 +90,23 @@ handlebars.registerHelper("sum", (a, b) => {
 });
 
 /////////////////////////////
+// SWAGGER
+/////////////////////////////
+const swaggerOptions = {
+	definition: {
+		openapi: "3.0.1",
+		info: {
+			title: "Grass and Plants documentation",
+			description: "API enpoints documented and tests",
+		},
+	},
+	apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJsDoc(swaggerOptions);
+server.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
+
+/////////////////////////////
 // ROUTER
 /////////////////////////////
 server.use("/", router);
@@ -94,12 +114,12 @@ server.use("/", router);
 /////////////////////////////
 // CORS
 /////////////////////////////
-server.use(cors())
+server.use(cors());
 
 /////////////////////////////
 // DATABASE
 /////////////////////////////
-config.connectDB()
+config.connectDB();
 
 // connect(process.env.MONGO_LINK)
 // 	.then(() => console.log("Connected to database"))
@@ -109,7 +129,7 @@ config.connectDB()
 // ERROR HANDLING
 /////////////////////////////
 server.use(errorHandler);
-server.use(errorMiddleware)
+server.use(errorMiddleware);
 server.use(not_found_handler);
 
 export default server;
