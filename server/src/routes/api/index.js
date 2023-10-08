@@ -7,13 +7,9 @@ import sessions_router from "./sessions/sessions.js";
 import auth_router from "./auth/auth.js";
 import ProductsMongoRouter from "./products/products.routerClass.js";
 import CartMongoRouter from "./carts/carts.routerClass.js";
-
 import productsRouter from "./products/products.mongo.js";
 import cartRouter from "./carts/carts.mongo.js";
-
 import payments from "../api/payments/payments.router.js"
-
-
 /////////////////////////////
 // VARIABLES
 /////////////////////////////

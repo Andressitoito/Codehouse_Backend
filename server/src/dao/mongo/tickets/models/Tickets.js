@@ -1,10 +1,6 @@
 import { Schema, model } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
 
-function generateTicketCode() {
-	return uuidv4().toUpperCase().replace(/-/g, "");
-}
-
 const collection = "tickets";
 
 const schema = new Schema({
@@ -12,7 +8,9 @@ const schema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
-		default: generateTicketCode(),
+		default: function () {
+			return uuidv4().toUpperCase().replace(/-/g, "");
+		},
 	},
 	purchase_datetime: {
 		type: Date,

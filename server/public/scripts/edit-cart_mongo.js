@@ -110,6 +110,16 @@ delete_buttons.forEach((button) => {
 	});
 });
 
+console.log("Data amount", document.querySelector('#btn-buy').getAttribute("data-amount"))
+
+console.log(document.querySelector('#btn-buy').getAttribute("data-amount") === document.querySelector('#btn-buy').getAttribute("data-amount"), document.querySelector('#btn-buy').getAttribute("data-amount")=== 0 )
+
+if (document.querySelector('#btn-buy').getAttribute("data-amount") === "0") {
+	document.querySelector('#btn-buy').setAttribute('disabled', '')
+} else {
+	document.querySelector('#btn-buy').removeAttribute('disabled', '')
+}
+
 document.querySelector('#btn-buy').addEventListener('click', async () => {
 	console.log('btn buy pressed')
 
@@ -132,7 +142,7 @@ document.querySelector('#btn-buy').addEventListener('click', async () => {
 			<p>Amount: $ ${data.amount}</p>
 			<p>Code: ${data.ticket}</p>`,
 			showConfirmButton: true,
-			timer: 3500,
+			// timer: 3500,
 			timerProgressBar: true,
 			willClose: () => {
 				window.location.reload();

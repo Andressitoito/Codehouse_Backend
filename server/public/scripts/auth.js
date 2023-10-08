@@ -39,7 +39,7 @@ const checkLog = async () => {
 
 		const { role } = decodedPayload;
 
-		if (role === "ADMIN") {
+		if (role === "ADMIN" || role === "PREMIUM") {
 			document.querySelector("#add_mongo_product").classList.remove("hide");
 			document.querySelector("#add_fs_product").classList.remove("hide");
 		} else {
@@ -188,9 +188,10 @@ document.querySelector("#forgot-password").addEventListener("click", (e) => {
 		body: JSON.stringify({ email: document.querySelector("#login_email").value }),
 		headers: {
 			"Content-type": "application/json",
-		}
-	}).then(res => res.json())
-		.then(data => console.log(data))
+		},
+	})
+		.then((res) => res.json())
+		.then((data) => console.log(data));
 });
 
 // ///////////////////////////
@@ -221,23 +222,6 @@ document.querySelector("#logout").addEventListener("click", async (e) => {
 	checkLog();
 });
 
-// ///////////////////////////
-// FORCE SIGN OUT JWT
-// ///////////////////////////
-// document.querySelector("#logout-force").addEventListener("click", async (e) => {
-// 	e.preventDefault();
-
-// 	const res = await fetch(`/api/auth/logout/jwt-force`, {
-// 		method: "POST",
-// 	});
-
-// 	const data = await res.json();
-
-// 	console.log(data)
-
-// 		checkLog();
-// });
-
 /////////////////////////////
 // GIT LOGIN
 /////////////////////////////
@@ -266,11 +250,6 @@ document.querySelector("#git-login").addEventListener("click", async (e) => {
 		willClose: () => {
 			clearInterval(timerInterval);
 		},
-	}).then((result) => {
-		/* Read more about handling dismissals below */
-		// if (result.dismiss === Swal.DismissReason.timer) {
-		// 	console.log('I was closed by the timer');
-		// }
 	});
 });
 
@@ -302,5 +281,5 @@ document.querySelector("#git-submit").addEventListener("click", async (e) => {
 		willClose: () => {
 			clearInterval(timerInterval);
 		},
-	}).then((result) => { });
+	});
 });
