@@ -1,6 +1,5 @@
-/server/node_modules
-/server/requests
-/Service Evaluation Server
+/node_modules
+/requests
 .env
 .env.production
 .env.development
