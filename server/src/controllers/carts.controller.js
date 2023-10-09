@@ -15,13 +15,11 @@ class CartController {
 	getCarts = async (req, res, next) => {
 		try {
 			const carts = await this.cartsService.getCarts();
-			console.log('///////////////')
-			console.log(carts)
 
 			res.status(200).json({
 				status: 200,
 				success: true,
-				carts
+				carts,
 			});
 		} catch (error) {
 			next(error);
@@ -134,32 +132,24 @@ class CartController {
 	/////////////////////////////
 	purchase = async (req, res, next) => {
 		try {
-			// console.log(cart)
-
-			console.log("req.user FROM PURCHASE CONTROLLER ", req.user);
-
 			const cid = req.params.cid;
-			console.log("cid form req.params", cid);
-
-			console.log("	llegamos aca");
-
 			const amount = await this.cartsService.purchase(cid);
-			console.log(amount);
+			let ticket;
 
 			if (amount !== 0) {
 				const ticketData = {
 					purchaser: req.user.email,
 					amount,
 				};
-				const ticket = await Ticket.create(ticketData);
-				console.log(ticket);
+				ticket = await Ticket.create(ticketData);
 			}
 
 			res.json({
 				status: 200,
 				success: true,
-				message: `The cart was updated and the ticket generated`,
+				message: `Your order of ${amount} has been successfully placed, and a ticket has been generated.`,
 				amount,
+				ticket: ticket.code,
 			});
 		} catch (error) {
 			next(error);
@@ -168,5 +158,3 @@ class CartController {
 }
 
 export default CartController;
-
-// "648276ab74476c69be6576b3"

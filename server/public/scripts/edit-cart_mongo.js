@@ -109,3 +109,56 @@ delete_buttons.forEach((button) => {
 		});
 	});
 });
+
+console.log("Data amount", document.querySelector('#btn-buy').getAttribute("data-amount"))
+
+console.log(document.querySelector('#btn-buy').getAttribute("data-amount") === document.querySelector('#btn-buy').getAttribute("data-amount"), document.querySelector('#btn-buy').getAttribute("data-amount")=== 0 )
+
+if (document.querySelector('#btn-buy').getAttribute("data-amount") === "0") {
+	document.querySelector('#btn-buy').setAttribute('disabled', '')
+} else {
+	document.querySelector('#btn-buy').removeAttribute('disabled', '')
+}
+
+document.querySelector('#btn-buy').addEventListener('click', async () => {
+	console.log('btn buy pressed')
+
+	const cid = document.querySelector('#btn-buy').getAttribute("data-cid")
+
+	console.log("button buy cid ", cid)
+
+	const response = await fetch(`/api/carts_mongo/${cid}/purchase`)
+	const data = await response.json()
+
+	console.log("data from ticket ", data)
+
+
+	if (response.ok) {
+		Swal.fire({
+			position: "top-end",
+			icon: "success",
+			title: "Saved!",
+			html: `<p>${data.message}</p>
+			<p>Amount: $ ${data.amount}</p>
+			<p>Code: ${data.ticket}</p>`,
+			showConfirmButton: true,
+			// timer: 3500,
+			timerProgressBar: true,
+			willClose: () => {
+				window.location.reload();
+			},
+		});
+	} else {
+		Swal.fire({
+			icon: "error",
+			title: "Something went wrong!",
+			text: `${data.response}`,
+			footer: '<a href="/chat/">Ask for a solution in our chat!</a>',
+		});
+	}
+
+
+
+
+
+})

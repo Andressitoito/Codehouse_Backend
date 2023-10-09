@@ -57,7 +57,7 @@ router.get("/bills/:cid", handlePolicies(["USER", "ADMIN"]), getBillCart);
 /////////////////////////////
 // PUT /api/carts/:cid/purchase
 /////////////////////////////
-router.put(
+router.get(
 	"/:cid/purchase",
 	handlePolicies(["USER", "ADMIN"]),
 	purchase

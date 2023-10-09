@@ -36,6 +36,7 @@ router.get("/", redirect_unauthorized, async (req, res, next) => {
 			script: "edit-cart_mongo.js",
 			products_data: products,
 			total,
+			cid: req.user.cart_id
 		});
 	} catch (error) {
 		next(error);
