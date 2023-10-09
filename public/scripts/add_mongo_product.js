@@ -16,7 +16,7 @@ productForm.addEventListener("submit", async (e) => {
 	});
 	const data = await response.json();
 
-	console.log(data)
+	console.log(data);
 	if (response.ok) {
 		console.log(data); // Show success modal
 
@@ -29,9 +29,9 @@ productForm.addEventListener("submit", async (e) => {
 			timer: 2500,
 			timerProgressBar: true,
 			willClose: () => {
-					window.location.href = "/";
+				window.location.href = "/";
 			},
-	});
+		});
 	} else {
 		Swal.fire({
 			icon: "error",

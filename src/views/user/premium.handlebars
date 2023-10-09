@@ -6,40 +6,23 @@
 				<h4>Upgrade to premium!</h4>
 				<h6>Please fill out this form to continue</h6>
 
-				<form id="product-form" class="text-start">
+				<form id="premium-form" class="text-start" enctype="multipart/form-data">
 
 					<div class="mb-3">
-						<label for="product-title" class="form-label">Profile Photo</label>
-						<input
-							type="file"
-							class="form-control"
-							id="photo_profile"
-							name="title"
-							required
-						/>
+						<label for="photo_profile" class="form-label">Profile Photo</label>
+						<input type="file" class="form-control" id="photo_profile" name="photo_profile" />
 					</div>
 
 					<div class="mb-3">
-						<label for="product-title" class="form-label">ID Photo</label>
-						<input
-							type="file"
-							class="form-control"
-							id="photo_ID"
-							name="title"
-							required
-						/>
+						<label for="photo_ID" class="form-label">ID Photo</label>
+						<input type="file" class="form-control" id="photo_ID" name="photo_ID" />
 					</div>
 
 					<div class="mb-3">
-						<label for="product-title" class="form-label">Address Bill</label>
-						<input
-							type="file"
-							class="form-control"
-							id="photo_profile"
-							name="title"
-							required
-						/>
+						<label for="address_bill" class="form-label">Address Bill</label>
+						<input type="file" class="form-control" id="address_bill" name="address_bill" />
 					</div>
+
 					<div class="d-flex justify-content-between pt-3">
 						<a href="/Home" class="btn btn-secondary">Cancel</a>
 						<input type="submit" class="btn btn-warning" value="Upgrade To Premium" />
@@ -48,4 +31,5 @@
 			</div>
 		</div>
 	</div>
+
 </section>
