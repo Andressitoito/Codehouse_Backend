@@ -14,42 +14,43 @@ class CartsDaoMongo {
 	/////////////////////////////
 	// GET /api/carts
 	/////////////////////////////
-	get = async (cid) => {
-		return await this.Cart.aggregate([
-			{
-				$match: { _id: new mongoose.Types.ObjectId(cid) },
-			},
-			{ $unwind: "$products" },
-			{
-				$lookup: {
-					from: "products",
-					localField: "products.product_id",
-					foreignField: "_id",
-					as: "product",
-				},
-			},
-			{ $unwind: "$product" },
-			{
-				$set: {
-					total: { $multiply: ["$products.quantity", "$product.price"] },
-				},
-			},
-			{
-				$group: {
-					_id: "$_id",
-					sum: { $sum: "$total" },
-					products: { $push: "$product" },
-				},
-			},
-			{
-				$project: {
-					_id: 0,
-					cart_id: "$_id",
-					sum: 1,
-					products: "$products",
-				},
-			},
-		]);
+	get = async () => {
+		return this.Cart.find()
+		// return await this.Cart.aggregate([
+		// 	{
+		// 		$match: { _id: new mongoose.Types.ObjectId(cid) },
+		// 	},
+		// 	{ $unwind: "$products" },
+		// 	{
+		// 		$lookup: {
+		// 			from: "products",
+		// 			localField: "products.product_id",
+		// 			foreignField: "_id",
+		// 			as: "product",
+		// 		},
+		// 	},
+		// 	{ $unwind: "$product" },
+		// 	{
+		// 		$set: {
+		// 			total: { $multiply: ["$products.quantity", "$product.price"] },
+		// 		},
+		// 	},
+		// 	{
+		// 		$group: {
+		// 			_id: "$_id",
+		// 			sum: { $sum: "$total" },
+		// 			products: { $push: "$product" },
+		// 		},
+		// 	},
+		// 	{
+		// 		$project: {
+		// 			_id: 0,
+		// 			cart_id: "$_id",
+		// 			sum: 1,
+		// 			products: "$products",
+		// 		},
+		// 	},
+		// ]);
 	};
 
 	/////////////////////////////

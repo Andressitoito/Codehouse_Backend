@@ -1,12 +1,11 @@
 const handlePolicies = (policies) => (req, res, next) => {
- if (policies[0] === "PUBLIC") return next();
+	if (policies[0] === "") return next();
 
- if (!policies.includes(req.user.role.toUpperCase())) {
-  return res.status(403).json({ status: "error", error: "not authorized" });
- }
+	if (!policies.includes(req.user.role.toUpperCase())) {
+		return res.status(403).json({ status: "error", error: "not authorized" });
+	}
 
- next();
+	next();
 };
 
 export default handlePolicies;
-

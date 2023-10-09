@@ -8,7 +8,9 @@
     "start": "node src/server.js",
     "develop": "nodemon src/server.js",
     "dev": "nodemon src/server.js --mode development",
-    "prod": "nodemon src/server.js --mode production"
+    "prod": "nodemon src/server.js --mode production",
+    "test": "mocha test/supertest/supertest.test.js"
+
   },
   "keywords": [],
   "author": "Andres Ledesma",
@@ -37,8 +39,15 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "socket.io": "^4.6.1",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "twilio": "^4.14.1",
     "uuid": "^9.0.0",
     "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0"
   }
 }

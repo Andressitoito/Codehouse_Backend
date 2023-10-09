@@ -19,13 +19,19 @@ GreenShop is your go-to destination for all things green, whether you're sprucin
 
 # New Features
 
+## Enhance Server Testing with Chai Supertest Integration
+
+Enhanced the server by integrating Chai Supertest, a testing framework, to facilitate comprehensive testing of server functionalities. This integration enables thorough testing of user, products, and cart routes, ensuring the server operates reliably and meets expected behavior.
+
+![Enhance Server Testing with Chai Supertest Integration](./server/public/images/readme/misc/tests_examples.png)
+
+# Previous Features
+
 ## Integrate Swagger for Comprehensive API Documentation
 
 Implemented Swagger to generate detailed documentation for the API, providing comprehensive information about its functionalities. Specifically, documented endpoints related to 'Products' and 'Carts.' This addition improves developer and user understanding of the API, making it easier to work with and integrate into various applications.
 
 ![Email Restoration with Link to Restore Password](./server/public/images/readme/misc/api_documentation.png)
-
-# Previous Features
 
 ## Email Restoration with Link to Restore Password
 
