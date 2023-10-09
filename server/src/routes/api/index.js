@@ -11,6 +11,9 @@ import CartMongoRouter from "./carts/carts.routerClass.js";
 import productsRouter from "./products/products.mongo.js";
 import cartRouter from "./carts/carts.mongo.js";
 
+import payments from "../api/payments/payments.router.js"
+
+
 /////////////////////////////
 // VARIABLES
 /////////////////////////////
@@ -30,6 +33,7 @@ router.use("/carts_mongo", cartRouter);
 router.use("/cookies", cookies_router);
 router.use("/sessions", sessions_router);
 router.use("/auth", auth_router);
+router.use('/payments', payments)
 
 /////////////////////////////
 // EXPORT ROUTER

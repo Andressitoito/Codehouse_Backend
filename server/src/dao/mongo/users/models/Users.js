@@ -36,6 +36,20 @@ const schema = new Schema({
 		ref: "carts",
 		index: true,
 	},
+	documents: {
+		photo_id: {
+			type: String,
+			default: "",
+		},
+		photo_profile: {
+			type: String,
+			default: "",
+		},
+		address_bill: {
+			type: String,
+			default: "",
+		},
+	},
 });
 
 schema.pre("save", async function (next) {
@@ -55,4 +69,3 @@ schema.pre("save", async function (next) {
 const User = model(collection, schema);
 
 export default User;
-
