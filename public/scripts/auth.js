@@ -28,8 +28,6 @@ const checkLog = async () => {
 		const decodedHeader = JSON.parse(atob(header));
 		const decodedPayload = JSON.parse(atob(payload));
 
-		console.log(decodedPayload);
-
 		main_username = decodedPayload.name;
 
 		document.querySelector("#logout").classList.remove("hide");
@@ -42,7 +40,9 @@ const checkLog = async () => {
 		if (role === "ADMIN" || role === "PREMIUM") {
 			document.querySelector("#add_mongo_product").classList.remove("hide");
 			document.querySelector("#add_fs_product").classList.remove("hide");
+			document.querySelector("#premium").classList.remove("hide");
 		} else {
+			document.querySelector("#premium").classList.add("hide");
 			document.querySelector("#add_mongo_product").classList.add("hide");
 			document.querySelector("#add_fs_product").classList.add("hide");
 			document.querySelector("#fs_cart").classList.remove("hide");

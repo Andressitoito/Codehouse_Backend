@@ -43,10 +43,10 @@ router.get("/cards", async (req, res, next) => {
 /////////////////////////////
 // ADD PRODUCT FORM
 /////////////////////////////
-router.get("/add-product",  async (req, res, next) => {
+router.get("/add-product", async (req, res, next) => {
 	try {
 
-				if (req.user?.role === 'ADMIN') {
+		if (req.user?.role === 'ADMIN' || req.user?.role === 'PREMIUM') {
 			return res.render("products/mongo/add-product", {
 				title: "Add product to cart",
 				script: "add_mongo_product.js",

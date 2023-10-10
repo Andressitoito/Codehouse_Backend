@@ -16,6 +16,8 @@ import generateUserFaker from "../../../utils/mocks/generateUserFaker.js";
 import compression from "express-compression";
 import generateProductFaker from "../../../utils/mocks/generateProductFaker.js";
 import { faker } from "@faker-js/faker";
+import multer from "multer";
+import { uploader } from "../../../utils/uploader.js";
 
 /////////////////////////////
 // VARIABLES
@@ -35,7 +37,7 @@ auth_router.use(
 /////////////////////////////
 auth_router.get(
 	"/github",
-	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => { })
+	passport.authenticate("github", { scope: ["user:email"] }, (req, res) => {})
 );
 
 auth_router.get(
@@ -151,15 +153,92 @@ auth_router.post(
 	}
 );
 
-/////////////////////////////
-// DEV-TOOL USER SIGNOUT FORCE
-/////////////////////////////
-auth_router.post("/logout/jwt-force", async (req, res, next) => {
-	delete req.user;
+// const storage = multer.diskStorage({
+// 	destination: async (req, file, cb) => {
+// 				try {
 
-	return res.status(200).clearCookie("token").json({
-		success: true,
-		message: "User logged out successfully",
+// 					console.log('proeri aca')
+// 			const user_id = req.user._id;
+// 			const destinationFolder = `uploads/${user_id}/documents`;
+// 			await fs.mkdir(destinationFolder, { recursive: true });
+// 			cb(null, destinationFolder);
+// 		} catch (error) {
+// 			cb(error, null);
+// 		}
+// 	},
+// 	filename: (req, file, cb) => {
+// 		const uniqueFileName = `${req.params.uid}_${file.fieldname}_${Date.now()}_${file.originalname}`;
+// 		cb(null, uniqueFileName);
+// 	},
+// });
+
+// const uploader = multer({ storage: storage });
+
+/////////////////////////////
+// USER PREMIUM
+/////////////////////////////
+auth_router.post(
+	"/:uid/documents",
+	passport_call("jwt", { session: false }),
+	// uploader.array(["photo_profile", "photo_ID", "address_bill"], 3),
+	async (req, res) => {
+
+		console.log("FILES PROCESSED CORRECTLY IN UPLOADER");
+
+		return res.status(200).json({
+			success: true,
+			message: "User logged out successfully",
+		});
+	}
+);
+
+// auth_router.post(
+// 	"/:uid/documents",
+// 	uploader.array(["photo_profile", "photo_ID", "address_bill"], 3),
+// 	async (req, res) => {
+
+// 		console.log('gets here')
+// 		try {
+// 			// Access uploaded files via req.files
+// 			const uploadedFiles = req.files;
+
+// 			// Check if files were uploaded successfully
+// 			if (uploadedFiles && uploadedFiles.length > 0) {
+// 				// Files were uploaded successfully
+// 				console.log("FILES PROCESSED CORRECTLY IN ROUTE HANDLER");
+
+// 				// Additional processing or handling of the uploaded files can be done here
+
+// 				return res.status(200).json({
+// 					success: true,
+// 					message: "Files uploaded successfully",
+// 				});
+// 			} else {
+// 				// No files were uploaded or an error occurred
+// 				console.log("FILES NOT UPLOADED OR ERROR OCCURRED");
+
+// 				return res.status(400).json({
+// 					success: false,
+// 					message: "No files uploaded or an error occurred during upload.",
+// 				});
+// 			}
+// 		} catch (error) {
+// 			console.error("Error processing uploaded files:", error);
+// 			return res.status(500).json({
+// 				success: false,
+// 				message: "Error processing uploaded files",
+// 			});
+// 		}
+// 	}
+// );
+
+/////////////////////////////
+// SEND USER CURRENT ID
+/////////////////////////////
+auth_router.get("/user_id", passport_call("jwt"), (req, res) => {
+	const id = req.user._id;
+	res.status(200).json({
+		uid: id,
 	});
 });
 
