@@ -4,9 +4,11 @@ import MongoSingleton from './MongoSingleton.js';
 
 const { mode } = Commander.opts();
 
+console.log(mode)
 dotenv.config({
   path: mode === 'development' ? './.env.development' : './.env.production'
 });
+
 
 const config = {
   gmail_user_app: process.env.GMAIL_USER_APP,
