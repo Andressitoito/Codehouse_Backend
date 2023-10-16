@@ -3,8 +3,7 @@
 /////////////////////////////
 import server from "./app.js";
 import { Server } from "socket.io";
-import "dotenv/config.js";
-import http from "http";
+import "dotenv/config";
 /////////////////////////////
 // VARIABLES
 /////////////////////////////

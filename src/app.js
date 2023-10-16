@@ -1,29 +1,25 @@
 /////////////////////////////
 // IMPORTS
 /////////////////////////////
-// import { engine } from "express-handlebars";
+// import logger from "morgan";
 import express from "express";
 import __dirname from "./utils/utils.js";
 import router from "./routes/index.js";
 import errorHandler from "./middlewares/error_handler.js";
 import not_found_handler from "./middlewares/not_found_handler.js";
-// import logger from "morgan";
-
 import send_navbar_data from "./middlewares/send_navbar_data.js";
 import handlebars from "handlebars";
 import exphbs from "express-handlebars";
-import "dotenv/config.js";
+import "dotenv/config";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import passport from "passport";
 import passport_local from "./config/passport_local.js";
-
 import config from "./config/config.js";
 import cors from "cors";
 import errorMiddleware from "./middlewares/error_middleware.js";
 import { addLogger } from "./config/logger.js";
-
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 
