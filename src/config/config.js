@@ -1,10 +1,17 @@
 import dotenv from "dotenv";
 import Commander from "../utils/commander.js";
 import MongoSingleton from "./MongoSingleton.js";
+import __dirname from "../utils/utils.js";
+import { join } from "path";
 const { mode } = Commander.opts();
 
+const upOneFolder = join(__dirname, "..");
+
 dotenv.config({
-	path: mode === "development" ? "../.env.development" : "../.env.production",
+	path:
+		mode === "development"
+			? join(upOneFolder, ".env.development")
+			: join(upOneFolder, ".env.production"),
 });
 
 const config = {
