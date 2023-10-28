@@ -1,23 +1,18 @@
-import cart_manager from "../dao/memory/carts/models/Cart_manager.js";
 import Cart from "../dao/mongo/carts/models/Cart.js";
 
 const send_navbar_data = async (req, res, next) => {
-	// FILE SISTEM CART DATA	
-	const cart = await cart_manager.getCartById(1);
-	const products_quantity = cart.products.reduce((acc, product) => {
-		return (acc += product.quantity);
-	}, 0);
+	if (req.user === undefined) {
+		res.locals.mongo_products_quantity = 0;
+	} else {
+		const cart_id = req.user.cart_id;
+		const mongo_cart = await Cart.find({ _id: cart_id });
 
-	res.locals.products_quantity = products_quantity;
+		const quantity = mongo_cart[0].products.reduce((acc, product) => {
+			return (acc += product.quantity);
+		}, 0);
 
-	// MONGO CART DATA
-	const mongo_cart = await Cart.find({ _id: '648276ab74476c69be6576b3' })
-
-	const quantity = mongo_cart[0].products.reduce((acc, product) => {
-		return acc+= product.quantity
-	}, 0)
-
-	res.locals.mongo_products_quantity = quantity;
+		res.locals.mongo_products_quantity = quantity;
+	}
 
 	next();
 };
