@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node server.js",
     "develop": "nodemon src/server.js",
     "dev": "nodemon src/server.js --mode development",
     "prod": "nodemon src/server.js --mode production",

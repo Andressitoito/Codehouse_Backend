@@ -66,7 +66,7 @@ class CartController {
 	/////////////////////////////
 	updateCart = async (req, res, next) => {
 		try {
-			const cid = req.params.cid;
+			const cid = req.user.cart_id;
 			const pid = req.params.pid;
 			const dataToUpdate = req.params.units;
 
@@ -133,6 +133,7 @@ class CartController {
 	purchase = async (req, res, next) => {
 		try {
 			const cid = req.params.cid;
+
 			const amount = await this.cartsService.purchase(cid);
 			let ticket;
 

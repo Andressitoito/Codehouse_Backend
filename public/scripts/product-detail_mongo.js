@@ -21,14 +21,12 @@ document
 			`#edit-cart-${product_id}`
 		).value;
 
-		const cart_id = "648276ab74476c69be6576b3";
-
 		console.log({
 			product_id: product_id,
 			quantity: quantity_value,
 		});
 		const response = await fetch(
-			`/api/carts_mongo/${cart_id}/product/${product_id}/${quantity_value}`,
+			`/api/carts_mongo/cart_id/product/${product_id}/${quantity_value}`,
 			{
 				method: "PUT",
 			}
